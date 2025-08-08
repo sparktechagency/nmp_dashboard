@@ -1,0 +1,133 @@
+import React from "react";
+import { Table, ConfigProvider, Pagination } from "antd";
+import ChangeStatusModal from "../modal/auth/ChangeStatusModal";
+import type { IMeta } from "../../types/global.type";
+import type { IUser, IUserDataSource, TBlockStatus } from "../../types/user.type";
+
+
+interface UserTableProps {
+  users: IUser[];
+  meta: IMeta;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  pageSize: number;
+  setPageSize: React.Dispatch<React.SetStateAction<number>>;
+}
+
+
+const UserTable: React.FC<UserTableProps> = ({
+  users,
+  meta,
+  currentPage,
+  setCurrentPage,
+  pageSize,
+  setPageSize,
+}) => {
+
+  const dataSource: IUserDataSource[] = users?.map((user, index) => ({
+    key: index,
+    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    _id: user?._id,
+    fullName: user?.fullName,
+    email: user?.email,
+    phone: user?.phone,
+    status: user?.status
+  }));
+
+
+  const columns = [
+    {
+      title: "Serial",
+      dataIndex: "serial",
+      key: "serial",
+      width: "10%",
+    },
+    {
+      title: "Name",
+      dataIndex: "fullName",
+      key: "fullName",
+      width: "22.5%",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: "22.5%",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+      width: "22.5%",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: "15%",
+      render: (status: TBlockStatus, record: IUser) => {
+        const statusStyles = {
+          blocked: "bg-red-100 text-red-700 border border-red-300",
+          unblocked: "bg-green-100 text-green-700 border border-green-300",
+        };
+
+        const bgColor = status=== "blocked" ? statusStyles.blocked : statusStyles.unblocked;
+
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              className={`${bgColor} w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {status === "blocked" ?  "Blocked" : "Active"}
+            </button>
+            <ChangeStatusModal userId={record?._id} status={status}/>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const handlePagination = (page: number, PageSize: number) => {
+    setCurrentPage(page);
+    setPageSize(PageSize);
+  };
+
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Table: {
+            headerBg: "#FEF3C7",
+            headerColor: "#000000",
+            rowHoverBg: "#F3F4F6",
+            borderColor: "#E5E7EB",
+          },
+        },
+      }}
+    >
+      <div className="w-full overflow-auto px-4">
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+          rowKey="_id"
+          sticky
+          scroll={{ y: "calc(100vh - 324px)" }}
+          className="employer-table"
+        />
+      </div>
+      {meta?.totalPages > 1 && (
+        <div className="p-8 bg-white shadow-md flex justify-center">
+          <Pagination
+            onChange={handlePagination}
+            current={currentPage}
+            pageSize={pageSize}
+            total={meta?.total}
+          />
+        </div>
+      )}
+    </ConfigProvider>
+  );
+};
+
+export default UserTable;

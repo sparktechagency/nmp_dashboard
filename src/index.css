@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.employer-table .ant-table-thead>tr>th {
+    background-color: #fef3c7;
+    color: #000;
+    font-weight: 500;
+}
+
+@media (max-width: 640px) {
+    .employer-table .ant-table {
+        font-size: 0.875rem;
+    }
+
+    .employer-table .ant-table-thead>tr>th,
+    .employer-table .ant-table-tbody>tr>td {
+        padding: 8px 4px;
+    }
+}
