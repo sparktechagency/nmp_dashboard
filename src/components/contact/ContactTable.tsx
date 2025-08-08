@@ -8,7 +8,7 @@ import ViewContactModal from "../modal/contact/ViewContactModal";
 import getColorClassForDate from "../../utils/getColorClassForDate";
 
 
-interface CandidateTableProps {
+interface ContactTableProps {
   contacts: TContact[];
   meta: IMeta;
   currentPage: number;
@@ -22,7 +22,7 @@ type TDataSource = TContact & {
   serial: number;
 }
 
-const ContactTable : React.FC<CandidateTableProps> = ({
+const ContactTable : React.FC<ContactTableProps> = ({
   contacts,
   meta,
   currentPage,
@@ -35,7 +35,6 @@ const ContactTable : React.FC<CandidateTableProps> = ({
     key: index,
     serial: Number(index + 1) + (currentPage - 1) * pageSize,
     _id: contact?._id,
-    name: contact?.name,
     email: contact?.email,
     message: contact?.message,
     phone: contact?.phone,

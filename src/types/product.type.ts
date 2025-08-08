@@ -5,16 +5,17 @@ export type TStockStatus = 'in_stock' | 'stock_out' | 'up_coming';
 export type IProduct = {
   _id: string;
   name: string;
-  categoryId: string;
-  categoryName: string;
+  category: string;
+  brand: string;
+  flavor: string;
   currentPrice: number;
   originalPrice: number;
   discount: string;
   ratings: number;
   totalReview: number;
-  images: string[];
-  status: TProductStatus;
-  stockStatus: TStockStatus;
+  image: string;
+  status: string;
+  stockStatus: string;
 };
 
 
@@ -23,16 +24,16 @@ export type TProductDataSource = {
   serial: number;
    _id: string;
   name: string;
- // categoryId: string;
-  categoryName: string;
+  category: string;
+  brand: string;
   currentPrice: number;
   originalPrice: number;
   //discount: string;
   ratings: number;
   //totalReview: number;
   image: string;
-  status: TProductStatus,
-  stockStatus: TStockStatus;
+  status: string,
+  stockStatus: string;
 }
 
 export type ISingleProduct = {

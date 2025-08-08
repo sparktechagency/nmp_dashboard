@@ -1,10 +1,9 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
-import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type TFormValues = z.infer<typeof policySchema>;
 
@@ -13,7 +12,8 @@ type TProps = {
 }
 
 const UpdateAboutForm = ( {description} : TProps) => {
-  const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
+  const isLoading = false;
+  // const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(policySchema),
     defaultValues: {
@@ -22,11 +22,11 @@ const UpdateAboutForm = ( {description} : TProps) => {
   });
 
 
-  const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    createUpdatePolicy({
-      type: "about-us",
-      content: data.description
-    });
+  const onSubmit: SubmitHandler<TFormValues> = () => {
+    // createUpdatePolicy({
+    //   type: "about-us",
+    //   content: data.description
+    // });
   };
 
   return (

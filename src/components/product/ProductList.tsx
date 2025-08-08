@@ -1,58 +1,70 @@
-import { useEffect, useState } from "react";
-import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProductTable from "./ProductTable";
-import { useGetProductsQuery } from "../../redux/features/product/productApi";
+import { productsData } from "../../data/product.data";
 
 const ProductList = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  //const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetProductsQuery([
-    { name: "page", value: currentPage },
-    { name: "limit", value: pageSize },
-    { name: "searchTerm", value: searchTerm },
-  ]);
+  // const { data, isLoading, isError } = useGetProductsQuery([
+  //   { name: "page", value: currentPage },
+  //   { name: "limit", value: pageSize },
+  //   { name: "searchTerm", value: searchTerm },
+  // ]);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSearchTerm(searchQuery);
-      setCurrentPage(1)
-    }, 600);
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(() => {
+  //     setSearchTerm(searchQuery);
+  //     setCurrentPage(1)
+  //   }, 600);
 
-    return () => clearTimeout(timeoutId); // cleanup for debounce
-  }, [searchQuery]);
+  //   return () => clearTimeout(timeoutId); // cleanup for debounce
+  // }, [searchQuery]);
 
 
-  const products = data?.data || [];
-  const meta = data?.meta || {};
-
-  let content: React.ReactNode;
-
-  if (isLoading) {
-    content = <ListLoading />;
+  //const products = data?.data || [];
+  //const meta = data?.meta || {};
+    const meta = {
+    "page": 1,
+    "limit": 10,
+    "totalPages": 4,
+    "total": 10
   }
 
-  if (!isLoading && !isError) {
-    content = (
-      <ProductTable
-        products={products}
-        meta={meta}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-      />
-    );
-  }
+  //let content: React.ReactNode;
+  const content: React.ReactNode = <ProductTable
+    products={productsData}
+    meta={meta}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+    pageSize={pageSize}
+    setPageSize={setPageSize}
+  />
 
-  if (!isLoading && isError) {
-    content = <ServerErrorCard />;
-  }
+  // if (isLoading) {
+  //   content = <ListLoading />;
+  // }
+
+  // if (!isLoading && !isError) {
+  //   content = (
+  //     <ProductTable
+  //       products={products}
+  //       meta={meta}
+  //       currentPage={currentPage}
+  //       setCurrentPage={setCurrentPage}
+  //       pageSize={pageSize}
+  //       setPageSize={setPageSize}
+  //     />
+  //   );
+  // }
+
+  // if (!isLoading && isError) {
+  //   content = <ServerErrorCard />;
+  // }
 
    return (
      <>

@@ -32,6 +32,7 @@ const UserTable: React.FC<UserTableProps> = ({
     fullName: user?.fullName,
     email: user?.email,
     phone: user?.phone,
+    profileImg: user?.profileImg,
     status: user?.status
   }));
 

@@ -24,8 +24,8 @@ const UserList = () => {
 //   return () => clearTimeout(timeoutId); // cleanup for debounce
 // }, [searchQuery]);
 
-  //const users = data?.data || [];
-  //const meta = data?.meta || {};
+  // const users = data?.data || [];
+  // const meta = data?.meta || {};
   const meta = {
     "page": 1,
     "limit": 10,

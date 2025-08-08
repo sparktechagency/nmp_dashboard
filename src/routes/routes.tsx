@@ -19,7 +19,6 @@ import AdminsPage from "../pages/dashboard/AdminsPage";
 import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
 import UsersPage from "../pages/dashboard/UsersPage";
-import ColorsPage from "../pages/dashboard/ColorsPage";
 import SizesPage from "../pages/dashboard/SizesPage";
 import InformationPage from "../pages/dashboard/InformationPage";
 import ProductsPage from "../pages/product/ProductsPage";
@@ -31,6 +30,7 @@ import OrderDetailsPage from "../pages/order/OrderDetailsPage";
 import NotFoundRoute from "./NotFoundRoute";
 import SubscriptionsPage from "../pages/dashboard/SubscribersPage";
 import BrandsPage from "../pages/dashboard/BrandsPage";
+import FlavorPage from "../pages/dashboard/FlavorPage";
 
 const router = createBrowserRouter([
   {
@@ -70,8 +70,8 @@ const router = createBrowserRouter([
         element: <BrandsPage />,
       },
       {
-        path: "colors",
-        element: <ColorsPage />,
+        path: "flavors",
+        element: <FlavorPage />,
       },
       {
         path: "sizes",

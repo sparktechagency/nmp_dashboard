@@ -27,10 +27,11 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     serial: Number(index + 1) + ((currentPage - 1) * pageSize),
     _id: product?._id,
     name: product?.name,
-    categoryName: product?.categoryName,
+    category: product?.category,
+    brand: product?.brand,
     currentPrice: product?.currentPrice,
     originalPrice: product?.originalPrice,
-    image: product?.images?.length > 0 ? product?.images[0] : product_placeholder,
+    image: product?.image,
     ratings: product?.ratings,
     status: product?.status,
     stockStatus: product?.stockStatus
@@ -49,7 +50,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Name",
       dataIndex: "name",
       key: "title",
-      width: "12.5%",
+      width: "8.5%",
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -78,9 +79,25 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     },
     {
       title: "Category",
-      dataIndex: "categoryName",
-      key: "categoryName",
+      dataIndex: "category",
+      key: "category",
       width: "7%",
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
+    },
+    {
+      title: "Brand",
+      dataIndex: "brand",
+      key: "brand",
+      width: "7%",
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Price",

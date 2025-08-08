@@ -4,7 +4,6 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
-import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
 
 type TFormValues = z.infer<typeof policySchema>;
 
@@ -13,7 +12,8 @@ type TProps = {
 }
 
 const UpdateHelpForm = ( {description} : TProps) => {
-  const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
+  const isLoading = false;
+  //const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(policySchema),
     defaultValues: {
@@ -24,11 +24,11 @@ const UpdateHelpForm = ( {description} : TProps) => {
 
 
 
-  const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    createUpdatePolicy({
-      type: "help",
-      content: data.description
-    });
+  const onSubmit: SubmitHandler<TFormValues> = () => {
+    // createUpdatePolicy({
+    //   type: "help",
+    //   content: data.description
+    // });
   };
 
   return (

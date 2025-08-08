@@ -1,27 +1,27 @@
 "use client"
 
 import { FileText } from "lucide-react"
-import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
 import type { ReactNode } from "react";
-import PolicyLoading from "../../components/loader/PolicyLoading";
 import UpdateHelpForm from "../../components/help/UpdateHelpForm";
 
 const HelpPage = () => {
-  const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("help");
-  const about = data?.data;
+  // const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("help");
+  // const about = data?.data;
 
-  let content: ReactNode;
+  //let content: ReactNode;
+  const content: ReactNode = <UpdateHelpForm description={"<p><em><strong>This is Help & Support For Testing Purpose!</strong></em></p>"} />
 
-  if (isLoading) {
-    return <PolicyLoading />
-  }
-  if (!isLoading && isError) {
-    content = <h1>Server Error Occured</h1>
-  }
 
-  if (!isLoading && isSuccess && about?.type) {
-    content = <UpdateHelpForm description={about?.content} />
-  }
+  // if (isLoading) {
+  //   return <PolicyLoading />
+  // }
+  // if (!isLoading && isError) {
+  //   content = <h1>Server Error Occured</h1>
+  // }
+
+  // if (!isLoading && isSuccess && about?.type) {
+  //   content = <UpdateHelpForm description={about?.content} />
+  // }
 
 
 

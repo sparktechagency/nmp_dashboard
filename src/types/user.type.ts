@@ -17,6 +17,7 @@ export type IUserDataSource = {
   fullName: string;
   email: string;
   phone: string;
+  profileImg: string;
   status: TBlockStatus;
 }
 

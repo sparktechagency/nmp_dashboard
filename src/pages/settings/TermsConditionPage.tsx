@@ -1,27 +1,27 @@
 "use client"
 
 import { FileText } from "lucide-react"
-import PolicyLoading from "../../components/loader/PolicyLoading"
 import UpdateTermsForm from "../../components/TermsCondition/UpdateTermsForm"
-import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi"
 import type { ReactNode } from "react"
 
 const TermsConditionPage = () => {
-  const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("terms-condition");
-  const terms = data?.data;
+  // const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("terms-condition");
+  // const terms = data?.data;
 
-  let content: ReactNode;
+  //let content: ReactNode;
+  const content: ReactNode = <UpdateTermsForm description={"<p><em><strong>This is Terms & Condition!</strong></em></p>"} />
 
-  if (isLoading) {
-    return <PolicyLoading />
-  }
-  if (!isLoading && isError) {
-    content = <h1>Server Error Occured</h1>
-  }
 
-  if (!isLoading && isSuccess && terms?.type) {
-    content = <UpdateTermsForm description={terms?.content} />
-  }
+  // if (isLoading) {
+  //   return <PolicyLoading />
+  // }
+  // if (!isLoading && isError) {
+  //   content = <h1>Server Error Occured</h1>
+  // }
+
+  // if (!isLoading && isSuccess && terms?.type) {
+  //   content = <UpdateTermsForm description={terms?.content} />
+  // }
 
   return (
     <div className="min-h-full bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">

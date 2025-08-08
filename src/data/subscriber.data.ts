@@ -1,130 +1,62 @@
-
-
-  export const subscriberData = [
-    {
-      key: "1",
-      serialNo: "01",
-      companyName: "Apple",
-      package: "Basic",
-      packagePrice: "$20",
-      dateForm: "Dec 30, 2024 5:18",
-      status: "Active",
-    },
-    {
-      key: "2",
-      serialNo: "02",
-      companyName: "BHP",
-      package: "Essential",
-      packagePrice: "$50",
-      dateForm: "Dec 05, 2024 7:52",
-      status: "Active",
-    },
-    {
-      key: "3",
-      serialNo: "03",
-      companyName: "Broadcom",
-      package: "Essential Pro",
-      packagePrice: "$100",
-      dateForm: "Dec 7, 2024 3:26",
-      status: "Active",
-    },
-    {
-      key: "4",
-      serialNo: "04",
-      companyName: "AbbVie",
-      package: "Essential Pro",
-      packagePrice: "$100",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "5",
-      serialNo: "05",
-      companyName: "AB-InBev",
-      package: "Essential Pro",
-      packagePrice: "$100",
-      dateForm: "Dec 30, 2024 5:18",
-      status: "Active",
-    },
-    {
-      key: "6",
-      serialNo: "07",
-      companyName: "Adobe",
-      package: "Essential Pro",
-      packagePrice: "$100",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "7",
-      serialNo: "08",
-      companyName: "AIA",
-      package: "Essential Pro",
-      packagePrice: "$100",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "8",
-      serialNo: "09",
-      companyName: "Tesla",
-      package: "Essential Pro",
-      packagePrice: "$100",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "9",
-      serialNo: "10",
-      companyName: "Alphabet",
-      package: "Essential",
-      packagePrice: "$50",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "10",
-      serialNo: "11",
-      companyName: "Amazon",
-      package: "Essential",
-      packagePrice: "$50",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "11",
-      serialNo: "12",
-      companyName: "Amgen",
-      package: "Essential",
-      packagePrice: "$50",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "12",
-      serialNo: "13",
-      companyName: "ASML",
-      package: "Essential",
-      packagePrice: "$50",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "13",
-      serialNo: "14",
-      companyName: "Astrazeneca",
-      package: "Essential",
-      packagePrice: "$50",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Active",
-    },
-    {
-      key: "14",
-      serialNo: "15",
-      companyName: "ATT",
-      package: "Essential",
-      packagePrice: "$50",
-      dateForm: "Mar 20, 2024 3:14",
-      status: "Expired",
-    },
-  ]
+export const subscriberData = [
+  {
+    "_id": "6891f3bbe42143c4cc8bb5ca",
+    "email": "afrin4axiz@gmail.com",
+    "subscribedAt": "2025-08-06T05:01:40.556Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6890a333646b16def0740ddc",
+    "email": "geviy14281@kloudis.com",
+    "subscribedAt": "2025-08-04T11:12:23.712Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6890a12c646b16def0740d3d",
+    "email": "golaphasan379@gmail.com",
+    "subscribedAt": "2025-08-04T11:12:23.712Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6892b4f1e42143c4cc8bb6a1",
+    "email": "lisa.morgan@example.com",
+    "subscribedAt": "2025-08-07T09:15:12.001Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6892b502e42143c4cc8bb6a2",
+    "email": "tom.hughes@example.com",
+    "subscribedAt": "2025-08-07T10:21:45.329Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6892b51ae42143c4cc8bb6a3",
+    "email": "emma.greenfield@example.com",
+    "subscribedAt": "2025-08-07T11:45:27.678Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6892b529e42143c4cc8bb6a4",
+    "email": "liam.carter@example.com",
+    "subscribedAt": "2025-08-07T12:33:09.452Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6892b53ce42143c4cc8bb6a5",
+    "email": "noah.jackson@example.com",
+    "subscribedAt": "2025-08-07T14:02:55.932Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6892b54fe42143c4cc8bb6a6",
+    "email": "mia.harrison@example.com",
+    "subscribedAt": "2025-08-07T15:18:44.214Z",
+    "status": "subscribed"
+  },
+  {
+    "_id": "6892b562e42143c4cc8bb6a7",
+    "email": "ethan.morris@example.com",
+    "subscribedAt": "2025-08-07T16:29:30.785Z",
+    "status": "subscribed"
+  }
+]
