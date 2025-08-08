@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import CreateCategoryModal from "../modal/category/CreateCategoryModal";
-import { brandData } from "../../data/brand.data";
 import FlavorTable from "./FlavorTable";
+import { flavorsData } from "../../data/flavor.data";
 
 const FlavorList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,7 +37,7 @@ const FlavorList = () => {
   }
   //let content: React.ReactNode;
   const content: React.ReactNode = <FlavorTable
-      brands={brandData}
+      brands={flavorsData}
       meta={meta}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}

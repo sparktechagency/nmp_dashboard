@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { createProductValidationSchema } from "../../schemas/product.schema";
 import { useCreateProductMutation } from "../../redux/features/product/productApi";
 import { useGetCategoryDropDownQuery } from "../../redux/features/category/categoryApi";
-import CustomMultiSelect from "../form/CustomMultiSelect";
 import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
 import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 import ProductImageField from "./ProductImageField";
@@ -28,8 +27,6 @@ const CreateProductForm = () => {
   useGetColorDropDownQuery(undefined);
   useGetSizesQuery(undefined);
   const { categoryOptions } = useAppSelector((state) => state.category);
-  const { colorOptions } = useAppSelector((state) => state.color);
-  const { sizeOptions } = useAppSelector((state) => state.size);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
   const { handleSubmit, control, watch, trigger, } = useForm({
@@ -57,7 +54,7 @@ const CreateProductForm = () => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    const { colors, sizes, ...rest } = data;
+    const { ...rest } = data;
 
     if (selectedFiles?.length === 0) {
       ErrorToast("Select minimum one image")
@@ -70,13 +67,6 @@ const CreateProductForm = () => {
           formData.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
         }
       });
-
-      if (colors) {
-        colors?.forEach((colorId) => formData.append("colors", colorId))
-      }
-      if (sizes) {
-        sizes?.forEach((sizeId) => formData.append("sizes", sizeId))
-      }
       selectedFiles.forEach((file) => formData.append("image", file));
       createProduct(formData);
     }
@@ -123,10 +113,6 @@ const CreateProductForm = () => {
         </div>
 
         <ProductImageField selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}/>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <CustomMultiSelect name="colors" label="Colors (Optional)" control={control} options={colorOptions} disabled={colorOptions?.length === 0} />
-          <CustomMultiSelect name="sizes" label="Sizes (Optional)" control={control} options={sizeOptions} disabled={sizeOptions?.length === 0} />
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CustomSelect
             label="Status (Optional)"
@@ -157,15 +143,6 @@ const CreateProductForm = () => {
             placeholder="Enter discount"
           />
         </div>
-     
-
-        <CustomQuilEditor
-          label="Short Introduction"
-          name="introduction"
-          control={control}
-          height={40}
-          placeholder="Write a short intro..."
-        />
         <CustomQuilEditor
           label="Description"
           name="description"
