@@ -5,7 +5,6 @@ import {
 import { MdCategory, MdContactPhone, MdSubscriptions, MdUnsubscribe } from "react-icons/md";
 import { PiResize, PiStudentBold } from "react-icons/pi";
 import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
-import { IoIosColorFilter } from "react-icons/io";
 import { RiProductHuntLine } from "react-icons/ri";
 import { PiInvoiceBold } from "react-icons/pi";
 
@@ -14,7 +13,7 @@ export const adminMenuItems = [
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/users", label: "Users", icon: PiStudentBold },
   { path: "/category", label: "Category", icon: MdCategory },
-  { path: "/colors", label: "Colors", icon: IoIosColorFilter },
+  { path: "/brands", label: "Brand", icon: MdCategory },
   { path: "/sizes", label: "Sizes", icon: PiResize },
   { path: "/products", label: "Products", icon: RiProductHuntLine },
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },
@@ -49,7 +48,6 @@ export const superAdminMenuItems = [
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/users", label: "Users", icon: PiStudentBold },
   { path: "/category", label: "Category", icon: MdCategory },
-  { path: "/colors", label: "Colors", icon: IoIosColorFilter },
   { path: "/sizes", label: "Sizes", icon: PiResize },
   { path: "/products", label: "Products", icon: RiProductHuntLine },
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },

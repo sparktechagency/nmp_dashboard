@@ -5,6 +5,7 @@ export type IUser = {
   fullName: string;
   email: string;
   phone: string;
+  profileImg: string;
   status: TBlockStatus;
 };
 

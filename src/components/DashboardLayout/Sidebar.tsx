@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, closeSidebar }) => {
     
         <div className="flex items-center justify-center h-24 px-4 border-slate-700 relative">
           <div className="flex items-center justify-center space-x-2 bg-white">
-            <img src={logo} alt="logo" className="h-18 w-32"/>
+            <img src={logo} alt="logo" className="h-20 w-18"/>
             </div>
           <button 
             onClick={closeSidebar}
@@ -72,7 +72,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, closeSidebar }) => {
             <X size={20} />
           </button>
         </div> 
-
 
         {/* Sidebar Links */}
         <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">

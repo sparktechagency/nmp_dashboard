@@ -3,6 +3,7 @@ import { Table, ConfigProvider, Pagination } from "antd";
 import ChangeStatusModal from "../modal/auth/ChangeStatusModal";
 import type { IMeta } from "../../types/global.type";
 import type { IUser, IUserDataSource, TBlockStatus } from "../../types/user.type";
+import profile_placeholder from "../../assets/images/profile_placeholder.png";
 
 
 interface UserTableProps {
@@ -47,6 +48,25 @@ const UserTable: React.FC<UserTableProps> = ({
       dataIndex: "fullName",
       key: "fullName",
       width: "22.5%",
+    },
+    {
+      title: "Image",
+      dataIndex: "profile_image",
+      key: "profile_image",
+      width: "10%",
+      render: (val?: string) => (
+        <div className="flex items-center gap-2">
+          <img
+            src={val || profile_placeholder}
+            alt="profile"
+            className="w-[45px] h-[45px] rounded-lg"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = profile_placeholder;
+            }}
+          />
+        </div>
+      ),
     },
     {
       title: "Email",

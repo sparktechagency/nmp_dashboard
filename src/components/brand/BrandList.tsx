@@ -1,10 +1,10 @@
 import { useState } from "react";
-import CategoryTable from "./CategoryTable";
 import { FaSearch } from "react-icons/fa";
 import CreateCategoryModal from "../modal/category/CreateCategoryModal";
-import { categoryData } from "../../data/category.data";
+import BrandTable from "./BrandTable";
+import { brandData } from "../../data/brand.data";
 
-const CategoryList = () => {
+const BrandList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   //const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,8 +36,8 @@ const CategoryList = () => {
     "total": 10
   }
   //let content: React.ReactNode;
-  const content: React.ReactNode = <CategoryTable
-      categories={categoryData}
+  const content: React.ReactNode = <BrandTable
+      brands={brandData}
       meta={meta}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
@@ -71,7 +71,7 @@ const CategoryList = () => {
     return (
       <>
         <div className="p-4 flex justify-between">
-          <h1 className="text-xl font-medium text-gray-800">Category List</h1>
+          <h1 className="text-xl font-medium text-gray-800">Brand List</h1>
           <div className="flex items-center gap-12">
             <h1 className="text-lg">
               Total: <span className="font-bold"> {meta?.total} </span>
@@ -96,4 +96,4 @@ const CategoryList = () => {
     );
 };
 
-export default CategoryList;
+export default BrandList;

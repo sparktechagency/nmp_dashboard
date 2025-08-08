@@ -30,6 +30,7 @@ import OrdersPage from "../pages/order/OrdersPage";
 import OrderDetailsPage from "../pages/order/OrderDetailsPage";
 import NotFoundRoute from "./NotFoundRoute";
 import SubscriptionsPage from "../pages/dashboard/SubscribersPage";
+import BrandsPage from "../pages/dashboard/BrandsPage";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "category",
         element: <CategoryPage />,
+      },
+      {
+        path: "brands",
+        element: <BrandsPage />,
       },
       {
         path: "colors",
