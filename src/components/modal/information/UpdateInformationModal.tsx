@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
@@ -8,7 +8,6 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { Edit } from "lucide-react";
 import { informationSchema } from "../../../schemas/information.schema";
 import type { IInformation } from "../../../types/information.type";
-import { useUpdateInformationMutation } from "../../../redux/features/information/informationApi";
 import CustomTextArea from "../../form/CustomTextArea";
 
 
@@ -19,8 +18,9 @@ type TProps = {
 }
 
 const UpdateInformationModal = ({ information }: TProps) => {
+  const isLoading = false;
   const [modalOpen, setModalOpen] = useState(false);
-  const [ updateInformation, { isLoading, isSuccess }] = useUpdateInformationMutation();
+  //const [ updateInformation, { isLoading, isSuccess }] = useUpdateInformationMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(informationSchema),
     defaultValues: information
@@ -29,15 +29,16 @@ const UpdateInformationModal = ({ information }: TProps) => {
 
 
     //if success
-   useEffect(() => {
-    if (!isLoading && isSuccess) {
-      setModalOpen(false);
-    }
-  }, [isLoading, isSuccess]);
+  //  useEffect(() => {
+  //   if (!isLoading && isSuccess) {
+  //     setModalOpen(false);
+  //   }
+  // }, [isLoading, isSuccess]);
 
 
-  const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    updateInformation(data);
+  const onSubmit: SubmitHandler<TFormValues> = () => {
+    //updateInformation(data);
+    setModalOpen(false)
   };
 
   return (
@@ -78,8 +79,8 @@ const UpdateInformationModal = ({ information }: TProps) => {
                     className={`px-4 py-2 w-full rounded-lg text-white font-medium 
                   ${
                     isLoading
-                      ? "bg-disabled cursor-not-allowed"
-                      : "bg-primary hover:bg-disabled"
+                      ? "bg-primary/80 cursor-not-allowed"
+                      : "bg-primary hover:bg-primary/80"
                   } transition-colors duration-200 flex items-center justify-center gap-x-2 focus:outline-none focus:ring-blue-500`}
                   >
                     {isLoading ? (

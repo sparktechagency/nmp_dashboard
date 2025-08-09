@@ -25,22 +25,6 @@ const OrderProductItem = ({ product }: TProps) => {
               </div>
               <div className="flex-1 min-w-0">
                   <h3 className="text-lg font-medium text-gray-900 truncate">{product?.name}</h3>
-                  {product?.colorName && (
-                      <div className="flex items-center mt-1">
-                          <span className="text-sm text-gray-600 mr-2">Color:</span>
-                          <div
-                              className="w-4 h-4 rounded-full border border-gray-300 mr-2"
-                              style={{ backgroundColor: product.colorHexCode }}
-                          ></div>
-                          <span className="text-sm text-gray-600">{product.colorName}</span>
-                      </div>
-                  )}
-                  {product?.size && (
-                      <div className="flex items-center mt-1">
-                          <span className="text-sm text-gray-600 mr-2">Size:</span>
-                          <span className="text-sm text-gray-600">{product?.size}</span>
-                      </div>
-                  )}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2">
                       <div className="flex items-center space-x-4">
                           <span className="text-sm text-gray-600">Qty: {product?.quantity}</span>

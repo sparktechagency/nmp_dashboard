@@ -8,8 +8,8 @@ export type IOrder = {
   fullName: string;
   email: string;
   phone: string;
-  status: TDeliveryStatus; 
-  paymentStatus: TPaymentStatus; 
+  status: string; 
+  paymentStatus: string; 
   totalPrice: number;
   createdAt: string; 
 };
@@ -24,8 +24,8 @@ export type TOrderDataSource = {
   fullName: string;
   email: string;
   phone: string;
-  status: TDeliveryStatus; 
-  paymentStatus: TPaymentStatus; 
+  status: string; 
+  paymentStatus: string; 
   totalPrice: number;
   createdAt: string; 
 }
@@ -55,8 +55,8 @@ export type ISingleOrder = {
   _id: string;
   token: string;
   totalPrice: number;
-  paymentStatus: TPaymentStatus;
-  status: TDeliveryStatus;
+  paymentStatus: string;
+  status: string;
   deliveryAt: string | null;
   createdAt: string;
   shipping: IShipping;

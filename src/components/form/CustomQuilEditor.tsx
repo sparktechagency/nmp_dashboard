@@ -41,49 +41,6 @@ const CustomQuilEditor = ({ label, name, control, height = 200, placeholder= "Wr
       "fullsize",
     ],
     toolbarAdaptive: false,
-       enter: "P",
-    defaultActionOnPaste: "insert_as_html",
-    askBeforePasteHTML: false,
-    askBeforePasteFromWord: false,
-    defaultActionOnPasteFromWord: "insert_as_html",
-    processPasteHTML: true,
-    // Add custom CSS for lists
-    extraCSS: `
-      .jodit-wysiwyg ol {
-        list-style-type: decimal;
-        margin-left: 20px;
-        padding-left: 20px;
-      }
-      .jodit-wysiwyg ul {
-        list-style-type: disc;
-        margin-left: 20px;
-        padding-left: 20px;
-      }
-      .jodit-wysiwyg ol li,
-      .jodit-wysiwyg ul li {
-        margin-bottom: 5px;
-        display: list-item;
-      }
-      .jodit-wysiwyg ol ol {
-        list-style-type: lower-alpha;
-      }
-      .jodit-wysiwyg ol ol ol {
-        list-style-type: lower-roman;
-      }
-    `,
-    // Enable list formatting
-    controls: {
-      ol: {
-        command: 'insertOrderedList',
-        tags: ['ol'],
-        tooltip: 'Insert Ordered List'
-      },
-      ul: {
-        command: 'insertUnorderedList', 
-        tags: ['ul'],
-        tooltip: 'Insert Unordered List'
-      }
-    }
   };
 
   return (
@@ -100,7 +57,7 @@ const CustomQuilEditor = ({ label, name, control, height = 200, placeholder= "Wr
             <>
               <JoditEditor
                 value={value || ""}
-                config={config as any}
+                config={config}
                 onBlur={() => {}}
                 onChange={(newContent) => onChange(newContent)}
               />
@@ -110,35 +67,6 @@ const CustomQuilEditor = ({ label, name, control, height = 200, placeholder= "Wr
             </>
           )}
         />
-
-            {/* Additional CSS to ensure list styles are applied */}
-      <style>{`
-        .jodit-container .jodit-wysiwyg ol {
-          list-style-type: decimal !important;
-          margin-left: 20px !important;
-          padding-left: 20px !important;
-        }
-        
-        .jodit-container .jodit-wysiwyg ul {
-          list-style-type: disc !important;
-          margin-left: 20px !important;
-          padding-left: 20px !important;
-        }
-        
-        .jodit-container .jodit-wysiwyg ol li,
-        .jodit-container .jodit-wysiwyg ul li {
-          display: list-item !important;
-          margin-bottom: 5px !important;
-        }
-        
-        .jodit-container .jodit-wysiwyg ol ol {
-          list-style-type: lower-alpha !important;
-        }
-        
-        .jodit-container .jodit-wysiwyg ol ol ol {
-          list-style-type: lower-roman !important;
-        }
-      `}</style>
       </div>
     </>
   );

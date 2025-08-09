@@ -208,7 +208,8 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       render: (productId: string) => (
         <div className="flex items-center gap-2">
           <Link
-            to={`/update-product/${productId}`}
+           // to={`/update-product/${productId}`}
+            to={`/add-product?id=${productId}`}
             className="bg-green-600 hover:bg-green-700 p-2 text-white rounded-full"
           >
             <Edit size={18} />

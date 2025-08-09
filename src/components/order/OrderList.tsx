@@ -1,47 +1,45 @@
-import { useEffect, useState } from "react";
-import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import OrderTable from "./OrderTable";
-import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
+import { ordersData } from "../../data/order.data";
 
 const OrderList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  //const [searchTerm, setSearchTerm] = useState("");
   const [status, setStatus] = useState("")
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetOrdersQuery([
-    { name: "page", value: currentPage },
-    { name: "limit", value: pageSize },
-    { name: "searchTerm", value: searchTerm },
-    { name: "status", value: status },
-  ]);
+  // const { data, isLoading, isError } = useGetOrdersQuery([
+  //   { name: "page", value: currentPage },
+  //   { name: "limit", value: pageSize },
+  //   { name: "searchTerm", value: searchTerm },
+  //   { name: "status", value: status },
+  // ]);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSearchTerm(searchQuery);
-      setCurrentPage(1)
-    }, 600);
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(() => {
+  //     setSearchTerm(searchQuery);
+  //     setCurrentPage(1)
+  //   }, 600);
 
-    return () => clearTimeout(timeoutId); // cleanup for debounce
-  }, [searchQuery]);
+  //   return () => clearTimeout(timeoutId); // cleanup for debounce
+  // }, [searchQuery]);
 
 
 
-  const orders = data?.data || [];
-  const meta = data?.meta || {};
-
-  let content: React.ReactNode;
-
-  if (isLoading) {
-    content = <ListLoading />;
+  //const orders = data?.data || [];
+  //const meta = data?.meta || {};
+   const meta = {
+    "page": 1,
+    "limit": 10,
+    "totalPages": 4,
+    "total": 20
   }
 
-  if (!isLoading && !isError) {
-    content = (
+  //let content: React.ReactNode;
+  const content: React.ReactNode = (
       <OrderTable
-        orders={orders}
+        orders={ordersData}
         meta={meta}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -49,11 +47,27 @@ const OrderList = () => {
         setPageSize={setPageSize}
       />
     );
-  }
 
-  if (!isLoading && isError) {
-    content = <ServerErrorCard />;
-  }
+  // if (isLoading) {
+  //   content = <ListLoading />;
+  // }
+
+  // if (!isLoading && !isError) {
+  //   content = (
+  //     <OrderTable
+  //       orders={orders}
+  //       meta={meta}
+  //       currentPage={currentPage}
+  //       setCurrentPage={setCurrentPage}
+  //       pageSize={pageSize}
+  //       setPageSize={setPageSize}
+  //     />
+  //   );
+  // }
+
+  // if (!isLoading && isError) {
+  //   content = <ServerErrorCard />;
+  // }
 
    return (
      <>

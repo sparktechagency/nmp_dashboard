@@ -1,36 +1,42 @@
-import ServerErrorCard from "../card/ServerErrorCard";
-import ListLoading from "../loader/ListLoading";
-import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
-import RecentOrderTable from "./RecentOrderTable";
 import { useNavigate } from "react-router-dom";
+import RecentOrderTable from "./RecentOrderTable";
+import { recentOrdersData } from "../../data/order.data";
 
 const RecentOrderList = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetOrdersQuery([
-    { name: "page", value: 1 },
-    { name: "limit", value: 5 },
-  ]);
+  // const { data, isLoading, isError } = useGetOrdersQuery([
+  //   { name: "page", value: 1 },
+  //   { name: "limit", value: 5 },
+  // ]);
 
 
-  const orders = data?.data || [];
+  // const orders = data?.data || [];
 
-  let content: React.ReactNode;
+  // let content: React.ReactNode;
 
-  if (isLoading) {
-    content = <ListLoading />;
-  }
 
-  if (!isLoading && !isError) {
-    content = (
+  //let content: React.ReactNode;
+  const content: React.ReactNode = (
       <RecentOrderTable
-        orders={orders}
+        orders={recentOrdersData}
       />
     );
-  }
 
-  if (!isLoading && isError) {
-    content = <ServerErrorCard />;
-  }
+  // if (isLoading) {
+  //   content = <ListLoading />;
+  // }
+
+  // if (!isLoading && !isError) {
+  //   content = (
+  //     <RecentOrderTable
+  //       orders={orders}
+  //     />
+  //   );
+  // }
+
+  // if (!isLoading && isError) {
+  //   content = <ServerErrorCard />;
+  // }
 
    return (
     <div className="w-full mx-auto bg-white p-4 rounded-md">

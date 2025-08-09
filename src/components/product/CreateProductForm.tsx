@@ -7,12 +7,7 @@ import type { z } from "zod";
 import CustomSelect from "../form/CustomSelect";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { createProductValidationSchema } from "../../schemas/product.schema";
-import { useCreateProductMutation } from "../../redux/features/product/productApi";
-import { useGetCategoryDropDownQuery } from "../../redux/features/category/categoryApi";
-import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
-import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 import ProductImageField from "./ProductImageField";
 import { stockStatusOptions } from "../../data/product.data";
 import { ErrorToast } from "../../helper/ValidationHelper";
@@ -24,13 +19,12 @@ type TFormValues = z.infer<typeof createProductValidationSchema>;
 
 
 const CreateProductForm = () => {
-  const navigate = useNavigate();
-  useGetCategoryDropDownQuery(undefined);
-  useGetColorDropDownQuery(undefined);
-  useGetSizesQuery(undefined);
+  //const navigate = useNavigate();
+  const isLoading = false;
+  //useGetCategoryDropDownQuery(undefined);
   //const { categoryOptions } = useAppSelector((state) => state.category);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
-  const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
+  const [selectedFile, setSelectedFile] = useState<File|null>(null)
+  //const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
   const { handleSubmit, control, watch, trigger, } = useForm({
     resolver: zodResolver(createProductValidationSchema),
   });
@@ -48,18 +42,18 @@ const CreateProductForm = () => {
   }, [currentPrice, originalPrice, watch, trigger]);
   
 
-  useEffect(() => {
-    if (!isLoading && isSuccess) {
-      navigate("/products")
-    }
-  }, [isLoading, isSuccess, navigate])
+  // useEffect(() => {
+  //   if (!isLoading && isSuccess) {
+  //     navigate("/products")
+  //   }
+  // }, [isLoading, isSuccess, navigate])
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     const { ...rest } = data;
 
-    if (selectedFiles?.length === 0) {
-      ErrorToast("Select minimum one image")
+    if (!selectedFile) {
+      ErrorToast("Upload image")
     } else {
 
       const formData = new FormData();
@@ -69,8 +63,9 @@ const CreateProductForm = () => {
           formData.append(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
         }
       });
-      selectedFiles.forEach((file) => formData.append("image", file));
-      createProduct(formData);
+
+      formData.append("image", selectedFile);
+      //createProduct(formData);
     }
   };
 
@@ -128,7 +123,7 @@ const CreateProductForm = () => {
           />
         </div>
 
-        <ProductImageField selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles}/>
+        <ProductImageField selectedFile={selectedFile} setSelectedFile={setSelectedFile}/>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CustomSelect
             label="Status (Optional)"

@@ -5,33 +5,22 @@ import { useRef } from "react"
 import { X, Plus } from "lucide-react";
 
 type TProps = {
-    selectedFiles: File[],
-    setSelectedFiles: React.Dispatch<React.SetStateAction<File[]>>
+    selectedFile: File | null,
+    setSelectedFile: React.Dispatch<React.SetStateAction<File|null>>
 }
 
-const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
+const ProductImageField = ({selectedFile, setSelectedFile}: TProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files[0]
-        if (files) {
-            const newFiles = Array.from(files)
-            const remainingSlots = 5 - selectedFiles.length
-            const filesToAdd = newFiles.slice(0, remainingSlots)
-
-            if (filesToAdd.length > 0) {
-                setSelectedFiles((prev) => [...prev, ...filesToAdd])
-            }
-
-            // Reset the input value to allow selecting the same files again
-            if (fileInputRef.current) {
-                fileInputRef.current.value = ""
-            }
+        const files = event.target.files;
+        if(files){
+          setSelectedFile(files[0])
         }
     }
 
-  const removeFile = (indexToRemove: number) => {
-    setSelectedFiles((prev) => prev.filter((_, index) => index !== indexToRemove))
+  const removeFile = () => {
+    setSelectedFile(null)
   }
 
   const triggerFileInput = () => {
@@ -44,7 +33,7 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
 
   return (
     <div className="max-w-xl">
-      <h2 className="text-xl font-bold mb-6">Upload Images</h2>
+      <h2 className="text-xl font-bold mb-4">Upload Image</h2>
 
       {/* Hidden file input */}
       <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
@@ -53,9 +42,9 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
       <button
         onClick={triggerFileInput}
         type="button"
-         disabled={selectedFiles.length >= 5}
+        disabled={selectedFile ? true : false}
         className={`mb-6 px-6 py-3 rounded-lg transition-colors flex items-center gap-2 ${
-          selectedFiles.length >= 5
+          selectedFile
             ? "bg-gray-400 text-gray-600 cursor-not-allowed"
             : "bg-blue-600 text-white hover:bg-blue-700"
         }`}
@@ -65,32 +54,32 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
       </button>
 
       {/* Image previews */}
-      {selectedFiles.length > 0 && (
+      {selectedFile && ( 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {selectedFiles.map((file, index) => (
-            <div key={index} className="relative group">
+          {/* {selectedFiles.map((file, index) => ( */}
+            <div className="relative group">
               <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                 <img
-                  src={getImageUrl(file) || "/placeholder.svg"}
-                  alt={`Preview ${index + 1}`}
+                  src={getImageUrl(selectedFile) || "/placeholder.svg"}
+                  alt={`Preview`}
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* Remove button */}
               <button
-                onClick={() => removeFile(index)}
+                onClick={removeFile}
                 className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
-          ))}
+          {/* ))} */}
         </div>
-      )}
+      )} 
 
       {/* Empty state */}
-      {selectedFiles.length === 0 && (
+      {!selectedFile && (
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
           <div className="text-gray-400 mb-4">
             <Plus className="w-12 h-12 mx-auto mb-4" />
