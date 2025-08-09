@@ -34,7 +34,7 @@ const SidebarLink = ({ menuItem }: TProps) => {
         <div onClick={toggleOpen} className={`flex w-full justify-between items-center cursor-pointer rounded-md ${
               active
                 ? "bg-primary text-white"
-                : "text-black hover:bg-[#f5c542] hover:text-[#1a1a1a]"
+                : "text-black hover:bg-primary/40 hover:text-[#1a1a1a]"
             }`}>
           <div
             className={`flex items-center px-4 py-2.5 text-md rounded-md transition-colors group `}

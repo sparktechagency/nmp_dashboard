@@ -13,7 +13,7 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files
+        const files = event.target.files[0]
         if (files) {
             const newFiles = Array.from(files)
             const remainingSlots = 5 - selectedFiles.length
@@ -47,7 +47,7 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
       <h2 className="text-xl font-bold mb-6">Upload Images</h2>
 
       {/* Hidden file input */}
-      <input ref={fileInputRef} type="file" multiple accept="image/*" onChange={handleFileSelect} className="hidden" />
+      <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
 
       {/* Upload button */}
       <button
@@ -61,7 +61,7 @@ const ProductImageField = ({selectedFiles, setSelectedFiles}: TProps) => {
         }`}
       >
         <Plus className="w-5 h-5" />
-        Add Images
+        Add Image
       </button>
 
       {/* Image previews */}

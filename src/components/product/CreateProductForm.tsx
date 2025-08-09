@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useAppSelector } from "../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
@@ -17,6 +16,9 @@ import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
 import ProductImageField from "./ProductImageField";
 import { stockStatusOptions } from "../../data/product.data";
 import { ErrorToast } from "../../helper/ValidationHelper";
+import { categoryOptions } from "../../data/category.data";
+import { brandOptions } from "../../data/brand.data";
+import { flavorOptions } from "../../data/flavor.data";
 
 type TFormValues = z.infer<typeof createProductValidationSchema>;
 
@@ -26,7 +28,7 @@ const CreateProductForm = () => {
   useGetCategoryDropDownQuery(undefined);
   useGetColorDropDownQuery(undefined);
   useGetSizesQuery(undefined);
-  const { categoryOptions } = useAppSelector((state) => state.category);
+  //const { categoryOptions } = useAppSelector((state) => state.category);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
   const { handleSubmit, control, watch, trigger, } = useForm({
@@ -75,7 +77,7 @@ const CreateProductForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <CustomInput
             label="Name"
             name="name"
@@ -89,6 +91,20 @@ const CreateProductForm = () => {
             control={control}
             options={categoryOptions}
             disabled={categoryOptions.length === 0}
+          />
+          <CustomSelect
+            label="Brand"
+            name="brandId"
+            control={control}
+            options={brandOptions}
+            disabled={brandOptions.length === 0}
+          />
+          <CustomSelect
+            label="Flavor"
+            name="flavorId"
+            control={control}
+            options={flavorOptions}
+            disabled={flavorOptions.length === 0}
           />
           <CustomInput
             label="Current Price"

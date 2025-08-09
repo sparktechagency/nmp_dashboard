@@ -40,3 +40,46 @@ export const categoryData = [
     "name": "Accessories & Coils"
   }
 ]
+
+export const categoryOptions = [
+  {
+    value: "64f1b9e3a1c4b2d9f0a12301",
+    label: "Disposable Vapes"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12302",
+    label: "Pod Systems"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12303",
+    label: "Vape Mods"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12304",
+    label: "Vape Pens"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12305",
+    label: "Nicotine Salts (Salt Nic)"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12306",
+    label: "E-Liquids / Vape Juice"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12307",
+    label: "Rebuildable Atomizers (RDA/RTA/RDTA)"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12308",
+    label: "Sub-Ohm Tanks"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a12309",
+    label: "Herbal Vaporizers"
+  },
+  {
+    value: "64f1b9e3a1c4b2d9f0a1230a",
+    label: "Accessories & Coils"
+  }
+];

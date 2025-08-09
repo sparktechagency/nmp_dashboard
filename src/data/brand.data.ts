@@ -21,3 +21,27 @@ export const brandData = [
     "name": "Lost Vape"
   }
 ]
+
+
+export const brandOptions = [
+  {
+    value: "64f1c1a5a1c4b2d9f0a12401",
+    label: "SMOK"
+  },
+  {
+    value: "64f1c1a5a1c4b2d9f0a12402",
+    label: "Vaporesso"
+  },
+  {
+    value: "64f1c1a5a1c4b2d9f0a12403",
+    label: "GeekVape"
+  },
+  {
+    value: "64f1c1a5a1c4b2d9f0a12404",
+    label: "Voopoo"
+  },
+  {
+    value: "64f1c1a5a1c4b2d9f0a12405",
+    label: "Lost Vape"
+  }
+];
