@@ -1,8 +1,7 @@
 import { Modal } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { useCreateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { categorySchema } from "../../../schemas/category.schema";
@@ -15,27 +14,29 @@ import Error from "../../validation/Error";
 type TFormValues = z.infer<typeof categorySchema>;
 
 const CreateCategoryModal = () => {
+  const isLoading = false;
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const { CategoryCreateError } = useAppSelector((state) => state.category);
-  const [createCategory, { isLoading, isSuccess, reset }] = useCreateCategoryMutation();
-  const { handleSubmit, control, setValue } = useForm<TFormValues>({
+  //const [createCategory, { isLoading, isSuccess, reset }] = useCreateCategoryMutation();
+  const { handleSubmit, control } = useForm<TFormValues>({
     resolver: zodResolver(categorySchema),
   });
 
   
   //if success
-   useEffect(() => {
-    if (!isLoading && isSuccess) {
-      setValue("name", "");
-      setModalOpen(false);
-    }
-  }, [isLoading, isSuccess, reset, setValue]);
+  //  useEffect(() => {
+  //   if (!isLoading && isSuccess) {
+  //     setValue("name", "");
+  //     setModalOpen(false);
+  //   }
+  // }, [isLoading, isSuccess, reset, setValue]);
 
 
-  const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    dispatch(SetCategoryCreateError(""));
-    createCategory(data);
+  const onSubmit: SubmitHandler<TFormValues> = () => {
+    //dispatch(SetCategoryCreateError(""));
+    //createCategory(data);
+    setModalOpen(false)
   };
 
   return (

@@ -26,7 +26,6 @@ type TProps = {
 
 const UpdateProductForm = ({ product }: TProps) => {
   const navigate = useNavigate();
-  const defaultColors = product?.colors?.length > 0 ? product?.colors?.map((cv) => cv._id) : []
   useGetCategoryDropDownQuery(undefined);
   const {isLoading: isColorLoading} = useGetColorDropDownQuery(undefined);
   useGetSizesQuery(undefined);
@@ -42,11 +41,8 @@ const UpdateProductForm = ({ product }: TProps) => {
           currentPrice: String(product.currentPrice),
           originalPrice: String(product.originalPrice),
           discount: product?.discount,
-          colors: defaultColors,
-          sizes: product?.sizes?.length > 0 ? product?.sizes?.map((cv) => cv._id) : [],
           status: product?.status,
           stockStatus: product?.stockStatus,
-          introduction: product?.introduction,
           description: product?.description
       }
   });
@@ -76,11 +72,8 @@ const UpdateProductForm = ({ product }: TProps) => {
       name: data.name,
       categoryId: data.categoryId,
       currentPrice: data.currentPrice,
-      colors: data.colors,
-      sizes: data.sizes,
       status: data?.status,
       stockStatus: data?.stockStatus,
-      introduction: data?.introduction,
       description: data?.description
     }
 

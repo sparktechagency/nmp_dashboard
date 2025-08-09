@@ -33,7 +33,8 @@ const AdminTable: React.FC<UserTableProps> = ({
     fullName: user?.fullName,
     email: user?.email,
     phone: user?.phone,
-    status: user?.status
+    status: user?.status,
+     profileImg: user?.profileImg,
   }));
 
 

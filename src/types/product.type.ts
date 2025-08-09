@@ -47,17 +47,7 @@ export type ISingleProduct = {
   ratings: number;
   totalReview: number;
   images: string[];
-  colors: {
-    _id: string;
-    name: string;
-    hexCode: string;
-  }[];
-  sizes: {
-    _id: string;
-    size: string;
-  }[];
-  introduction: string;
   description: string;
-  status: "visible" | "hidden";
-  stockStatus: "in_stock" | "out_of_stock";
+  status: string;
+  stockStatus: string;
 };

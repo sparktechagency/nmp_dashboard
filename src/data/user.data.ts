@@ -162,3 +162,39 @@ export const userData: IUser[] = [
     status: "unblocked"
   }
 ];
+
+
+export const adminData = [
+  {
+    "_id": "6891e415ec8780734662dbe6",
+    "fullName": "Afrin",
+    "email": "afrinbintaamzadtoru@gmail.com",
+    "phone": "01711010266",
+     "profileImg": "https://randomuser.me/api/portraits/men/20.jpg",
+    "status": "unblocked"
+  },
+  {
+    "_id": "68908fa0e5451d915b03850f",
+    "fullName": "Rahat Ali",
+    "email": "rahat@gmail.com",
+    "phone": "017963846467",
+    "status": "unblocked",
+    "profileImg": "https://randomuser.me/api/portraits/men/20.jpg",
+  },
+  {
+    "_id": "688b039985e36cb4ed91526f",
+    "fullName": "Administrator Two",
+    "email": "administrator@gmail.com",
+    "phone": "01793837035",
+    "status": "unblocked",
+    "profileImg": "https://randomuser.me/api/portraits/men/20.jpg",
+  },
+  {
+    "_id": "687f7b479d66deb46e82f15e",
+    "fullName": "Admin",
+    "email": "admin@gmail.com",
+    "phone": "+8801711010233",
+    "status": "unblocked",
+    "profileImg": "https://randomuser.me/api/portraits/men/20.jpg",
+  }
+]

@@ -1,9 +1,9 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import EditCategoryModal from "../modal/category/EditCategoryModal";
 import type { ICategory } from "../../types/category.type";
-import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
 import type { IMeta } from "../../types/global.type";
 import type { IBrand } from "../../types/brand.type";
+import DeleteFlavorModal from "../modal/flavor/DeleteFlavorModal";
+import EditFlavorModal from "../modal/flavor/EditFlavorModal";
 
 
 
@@ -59,8 +59,8 @@ const FlavorTable = ({
       width: "15%",
       render: (val: string, record: ICategory) => (
         <div className="flex items-center gap-3">
-          <EditCategoryModal category={record} />
-          <DeleteCategoryModal categoryId={val} />
+          <EditFlavorModal category={record} />
+          <DeleteFlavorModal flavorId={val} />
         </div>
       ),
     },

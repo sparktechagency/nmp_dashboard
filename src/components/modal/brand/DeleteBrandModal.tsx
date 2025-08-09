@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Modal } from "antd";
 import { useState } from "react";
@@ -7,14 +6,14 @@ import { useDeleteCategoryMutation } from "../../../redux/features/category/cate
 import { CgSpinnerTwo } from "react-icons/cg";
 
 type TProps = {
-  categoryId: string;
+  brandId: string;
 };
 
-const DeleteCategoryModal = ({categoryId}: TProps) => {
+const DeleteBrandModal = ({ brandId}: TProps) => {
   const isLoading = false;
   const [modalOpen, setModalOpen] = useState(false);
 
- // const [deleteCategory, { isLoading, isSuccess }] =
+  //const [deleteCategory, { isLoading, isSuccess }] =
     useDeleteCategoryMutation();
 
   // useEffect(() => {
@@ -26,7 +25,7 @@ const DeleteCategoryModal = ({categoryId}: TProps) => {
 
   const handleDelete = () => {
     setModalOpen(false);
-    console.log(categoryId)
+    console.log(brandId)
     //deleteCategory(categoryId);
   };
 
@@ -82,4 +81,4 @@ const DeleteCategoryModal = ({categoryId}: TProps) => {
   );
 };
 
-export default DeleteCategoryModal;
+export default DeleteBrandModal;

@@ -18,12 +18,12 @@ type TProps = {
   category: ICategory
 }
 
-const EditCategoryModal = ({ category }: TProps) => {
+const EditBrandModal = ({ category }: TProps) => {
   const isLoading = false;
-  //const dispatch = useAppDispatch();
+ // const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const { CategoryUpdateError } = useAppSelector((state) => state.category);
-  //const [ updateCategory, { isLoading, isSuccess }] = useUpdateCategoryMutation();
+//  const [ updateCategory, { isLoading, isSuccess }] = useUpdateCategoryMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
@@ -42,12 +42,12 @@ const EditCategoryModal = ({ category }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = () => {
+    setModalOpen(false);
     // dispatch(SetCategoryUpdateError(""));
     // updateCategory({
     //   id: category?._id,
     //   data
     // });
-    setModalOpen(false)
   };
 
   return (
@@ -72,7 +72,7 @@ const EditCategoryModal = ({ category }: TProps) => {
           <div className="bg-white rounded-xl overflow-hidden transition-all duration-300">
             <div className="p-2">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Update Category
+                Update Brand
               </h2>
                {CategoryUpdateError && <Error message={CategoryUpdateError} />}
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -113,4 +113,4 @@ const EditCategoryModal = ({ category }: TProps) => {
   );
 };
 
-export default EditCategoryModal;
+export default EditBrandModal;

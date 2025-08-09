@@ -6,9 +6,16 @@ export type IUser = {
   email: string;
   phone: string;
   profileImg: string;
-  status: TBlockStatus;
+  status: string;
 };
 
+
+export type TProfile = {
+  fullName: string;
+  email: string;
+  phone: string;
+  profileImg: string;
+}
 
 export type IUserDataSource = {
   key: number;
@@ -18,6 +25,6 @@ export type IUserDataSource = {
   email: string;
   phone: string;
   profileImg: string;
-  status: TBlockStatus;
+  status: string;
 }
 

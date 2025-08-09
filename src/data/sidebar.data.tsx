@@ -12,6 +12,7 @@ import { SiBrandfolder } from "react-icons/si";
 export const adminMenuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
+  { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/users", label: "Users", icon: UsersRound },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/brands", label: "Brand", icon: SiBrandfolder },

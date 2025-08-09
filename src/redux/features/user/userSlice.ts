@@ -1,15 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { IUser } from "../../../types/user.type";
+import type { TProfile } from "../../../types/user.type";
 
 
 type TInitialState = {
   CreateError: string;
-  user: IUser | null;
+  user: TProfile | null;
 }
 
 const initialState: TInitialState = {
   CreateError: "",
-  user: null
+  user: {
+    "fullName": "Admin Admin",
+    "email": "admin@gmail.com",
+    "phone": "01793837035",
+    "profileImg": ""
+  }
 };
 
 const userSlice = createSlice({

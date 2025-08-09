@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import CreateCategoryModal from "../modal/category/CreateCategoryModal";
 import FlavorTable from "./FlavorTable";
 import { flavorsData } from "../../data/flavor.data";
+import CreateFlavorModal from "../modal/flavor/CreateFlavorModal";
 
 const FlavorList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -88,7 +88,7 @@ const FlavorList = () => {
                 className="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
-            <CreateCategoryModal />
+            <CreateFlavorModal />
           </div>
         </div>
         {content}

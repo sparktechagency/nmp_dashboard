@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import CreateCategoryModal from "../modal/category/CreateCategoryModal";
 import BrandTable from "./BrandTable";
 import { brandData } from "../../data/brand.data";
+import CreateBrandModal from "../modal/brand/CreateBrandModal";
 
 const BrandList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -88,7 +88,7 @@ const BrandList = () => {
                 className="w-full pl-10 pr-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
-            <CreateCategoryModal />
+            <CreateBrandModal />
           </div>
         </div>
         {content}

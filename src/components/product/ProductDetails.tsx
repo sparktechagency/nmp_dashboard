@@ -12,7 +12,6 @@ type TProps = {
 
 const ProductDetails = ({ product}: TProps) =>{
   const [selectedImage, setSelectedImage] = useState(0)
-  const [selectedSize, setSelectedSize] = useState("")
 
 
   return (
@@ -100,54 +99,7 @@ const ProductDetails = ({ product}: TProps) =>{
             >
               {product.stockStatus === "in_stock" ? "In Stock" : "Out of Stock"}
             </span>
-          </div>
-
-          {/* Introduction */}
-          <div className="text-gray-600 leading-relaxed"  dangerouslySetInnerHTML={{ __html: product.introduction as string }}></div>
-
-          {/* Color */}
-          {
-            product?.colors?.length > 0 && (
-              <div className="space-y-3">
-                <h3 className="text-sm font-medium text-gray-900">Color</h3>
-                <div className="flex space-x-3">
-                  {product.colors.map((color) => (
-                    <button
-                      key={color._id}
-                      className={`w-8 h-8 rounded-full border-2 transition-all border-gray-300 hover:border-gray-400`}
-                      style={{ backgroundColor: color.hexCode }}
-                      title={color.name}
-                    >
-                      <span className="sr-only">{color.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )
-          }
-
-          {/* Size part */}
-          {
-            product?.sizes?.length > 0 && (
-              <div className="space-y-3">
-                <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                <div className="grid grid-cols-5 gap-2">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size._id}
-                      onClick={() => setSelectedSize(size._id)}
-                      className={`py-2 px-3 text-sm font-medium rounded-md border transition-colors ${selectedSize === size._id
-                          ? "bg-gray-900 text-white border-gray-900"
-                          : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
-                        }`}
-                    >
-                      {size.size}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )
-          }
+          </div>   
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import LoginPage from "../pages/auth/LoginPage";
 import DashboardLayout from "../components/DashboardLayout/DashboardLayout";
@@ -13,8 +13,6 @@ import PrivacyPolicyPage from "../pages/settings/PrivacyPolicyPage";
 import TermsConditionPage from "../pages/settings/TermsConditionPage";
 import ProfilePage from "../pages/settings/ProfilePage";
 import ChangePasswordPage from "../pages/settings/ChangePasswordPage";
-import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
 import AdminsPage from "../pages/dashboard/AdminsPage";
 import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
@@ -27,18 +25,21 @@ import UpdateProductPage from "../pages/product/UpdateProductPage";
 import ProductDetailsPage from "../pages/product/ProductDetailsPage";
 import OrdersPage from "../pages/order/OrdersPage";
 import OrderDetailsPage from "../pages/order/OrderDetailsPage";
-import NotFoundRoute from "./NotFoundRoute";
 import SubscriptionsPage from "../pages/dashboard/SubscribersPage";
 import BrandsPage from "../pages/dashboard/BrandsPage";
 import FlavorPage from "../pages/dashboard/FlavorPage";
+import NotFoundRoute from "./NotFoundRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    // element: (
+    //   <PrivateRoute>
+    //     <DashboardLayout />
+    //   </PrivateRoute>
+    // ),
     element: (
-      <PrivateRoute>
         <DashboardLayout />
-      </PrivateRoute>
     ),
     children: [
       {
@@ -138,15 +139,18 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: (
-      <PublicRoute>
         <AuthLayout />
-      </PublicRoute>
     ),
+    // element: (
+    //   <PublicRoute>
+    //     <AuthLayout />
+    //   </PublicRoute>
+    // ),
     children: [
-      {
-        index: true,
-        element: <Navigate to="/auth/signin" replace />,
-      },
+      // {
+      //   index: true,
+      //   element: <Navigate to="/auth/signin" replace />,
+      // },
       {
         path: "signin",
         element: <LoginPage />,

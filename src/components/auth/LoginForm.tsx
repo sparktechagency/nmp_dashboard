@@ -1,11 +1,9 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { useAppSelector } from "../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/auth.schema";
-import { SetLoginError } from "../../redux/features/auth/authSlice";
 import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
 import Error from "../validation/Error";
@@ -14,18 +12,25 @@ import { CgSpinnerTwo } from "react-icons/cg";
 type TFormValues = z.infer<typeof loginSchema>
 
 const LoginForm = () => {
-  const dispatch = useAppDispatch();
+  const isLoading = false;
+  //const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { LoginError } = useAppSelector((state) => state.auth);
-  const [login, { isLoading }] = useLoginMutation();
+  //const [login, { isLoading }] = useLoginMutation();
   const { handleSubmit, control } = useForm({
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "admin@gmail.com",
+      password: "123456"
+    }
   });
 
 
 
-    const onSubmit: SubmitHandler<TFormValues> = (data) => {
-      dispatch(SetLoginError(""))
-      login(data)
+    const onSubmit: SubmitHandler<TFormValues> = () => {
+      //dispatch(SetLoginError(""))
+      //login(data)
+      navigate("/")
     };
  
 

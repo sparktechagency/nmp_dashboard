@@ -1,12 +1,10 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { useChangePasswordMutation } from "../../redux/features/auth/authApi";
+import { useAppSelector } from "../../redux/hooks/hooks";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { changePasswordSchema } from "../../schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { SetChangePasswordError } from "../../redux/features/auth/authSlice";
 import type { z } from "zod";
 import Error from "../validation/Error";
 import CustomInput from "../form/CustomInput";
@@ -16,9 +14,10 @@ import { CgSpinnerTwo } from "react-icons/cg";
 type TFormValues = z.infer<typeof changePasswordSchema>;
 
 const ChangePasswordForm = () => {
-  const dispatch = useAppDispatch();
+  const isLoading = false;
+  //const dispatch = useAppDispatch();
   const { ChangePasswordError } = useAppSelector((state) => state.auth);
-  const [changePassword, { isLoading }] = useChangePasswordMutation();
+  //const [changePassword, { isLoading }] = useChangePasswordMutation();
   const { handleSubmit, control, watch, trigger } = useForm({
     resolver: zodResolver(changePasswordSchema),
   });
@@ -35,12 +34,12 @@ const ChangePasswordForm = () => {
   }, [newPassword, watch, trigger]);
 
  
-  const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    dispatch(SetChangePasswordError(""));
-    changePassword({
-      currentPassword: data.currentPassword,
-      newPassword: data.newPassword
-    });
+  const onSubmit: SubmitHandler<TFormValues> = () => {
+    // dispatch(SetChangePasswordError(""));
+    // changePassword({
+    //   currentPassword: data.currentPassword,
+    //   newPassword: data.newPassword
+    // });
   };
 
 

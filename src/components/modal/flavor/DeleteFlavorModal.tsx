@@ -7,10 +7,10 @@ import { useDeleteCategoryMutation } from "../../../redux/features/category/cate
 import { CgSpinnerTwo } from "react-icons/cg";
 
 type TProps = {
-  categoryId: string;
+  flavorId: string;
 };
 
-const DeleteCategoryModal = ({categoryId}: TProps) => {
+const DeleteFlavorModal = ({ flavorId} : TProps) => {
   const isLoading = false;
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -26,7 +26,7 @@ const DeleteCategoryModal = ({categoryId}: TProps) => {
 
   const handleDelete = () => {
     setModalOpen(false);
-    console.log(categoryId)
+    console.log(flavorId)
     //deleteCategory(categoryId);
   };
 
@@ -82,4 +82,4 @@ const DeleteCategoryModal = ({categoryId}: TProps) => {
   );
 };
 
-export default DeleteCategoryModal;
+export default DeleteFlavorModal;

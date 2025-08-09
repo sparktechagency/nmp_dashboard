@@ -5,28 +5,37 @@ import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { updateAdminSchema } from "../../schemas/admin.schema";
-import type { IUser } from "../../types/user.type";
+import type { TProfile } from "../../types/user.type";
 import { useUpdateProfileMutation } from "../../redux/features/user/userApi";
 
 type TFormValues = z.infer<typeof updateAdminSchema>;
 
 type TProps = {
-  admin: IUser | null;
+  file: File | null;
+  user: TProfile | null;
 }
 
-const ProfileForm = ({ admin }: TProps) => {
+const ProfileForm = ({ user, file }: TProps) => {
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(updateAdminSchema),
     defaultValues: {
-      fullName: admin?.fullName || "",
-      phone: admin?.phone || "" 
+      fullName: user?.fullName || "",
+      phone: user?.phone || ""
     }
   });
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    updateProfile(data)
+    //changePassword(data);
+    const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("phone", data.phone);
+
+    if (file !== null) {
+      formData.append("file", file);
+    }
+    updateProfile(formData)
   };
 
 
@@ -49,7 +58,7 @@ const ProfileForm = ({ admin }: TProps) => {
           </label>
           <input
             type="email"
-            value={admin?.email}
+            value={user?.email}
             disabled
             placeholder="Enter Email Address"
             className="w-full mt-1 border disabled:bg-gray-200 focus:outline-none rounded-md px-4 py-2 pr-10 
