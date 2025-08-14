@@ -8,6 +8,7 @@ import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
 import Error from "../validation/Error";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { SuccessToast } from "../../helper/ValidationHelper";
 
 type TFormValues = z.infer<typeof loginSchema>
 
@@ -26,6 +27,7 @@ const LoginForm = () => {
     const onSubmit: SubmitHandler<TFormValues> = () => {
       //dispatch(SetLoginError(""))
       //login(data)
+      SuccessToast("Login Success");
       navigate("/")
     };
  
