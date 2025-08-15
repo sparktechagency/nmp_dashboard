@@ -22,7 +22,9 @@ const TagTypes = {
     orders: "Orders",
     order: "Order",
     incomeGrowth: "incomeGrowth",
-    subsbscribers: "Subscribers"
+    subsbscribers: "Subscribers",
+    brands: "Brands",
+    brandDropDown: "BrandDropDown"
 }
 
 export default TagTypes;

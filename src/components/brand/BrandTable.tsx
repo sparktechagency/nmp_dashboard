@@ -1,5 +1,4 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import type { ICategory } from "../../types/category.type";
 import type { IMeta } from "../../types/global.type";
 import type { IBrand } from "../../types/brand.type";
 import EditBrandModal from "../modal/brand/EditBrandModal";
@@ -57,9 +56,9 @@ const BrandTable = ({
       dataIndex: "_id",
       key: "action",
       width: "15%",
-      render: (val: string, record: ICategory) => (
+      render: (val: string, record: IBrand) => (
         <div className="flex items-center gap-3">
-          <EditBrandModal category={record} />
+          <EditBrandModal brand={record} />
           <DeleteBrandModal brandId={val} />
         </div>
       ),

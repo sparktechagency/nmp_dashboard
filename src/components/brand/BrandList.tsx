@@ -1,71 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import BrandTable from "./BrandTable";
-import { brandData } from "../../data/brand.data";
 import CreateBrandModal from "../modal/brand/CreateBrandModal";
+import { useGetBrandsQuery } from "../../redux/features/brand/brandApi";
+import ListLoading from "../loader/ListLoading";
+import ServerErrorCard from "../card/ServerErrorCard";
 
 const BrandList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  //const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  // const { data, isLoading, isError } = useGetCategoriesQuery([
-  //   { name: "page", value: currentPage },
-  //   { name: "limit", value: pageSize },
-  //   { name: "searchTerm", value: searchTerm }
-  // ]);
+  const { data, isLoading, isError } = useGetBrandsQuery([
+    { name: "page", value: currentPage },
+    { name: "limit", value: pageSize },
+    { name: "searchTerm", value: searchTerm }
+  ]);
 
   
   //debounced handle
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     setSearchTerm(searchQuery);
-  //     setCurrentPage(1)
-  //   }, 600);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearchTerm(searchQuery);
+      setCurrentPage(1)
+    }, 600);
 
-  //   return () => clearTimeout(timeoutId); // cleanup for debounce
-  // }, [searchQuery]);
+    return () => clearTimeout(timeoutId); // cleanup for debounce
+  }, [searchQuery]);
 
 
-  //const categories = data?.data || [];
-  //const meta = data?.meta || {};
-   const meta = {
-    "page": 1,
-    "limit": 10,
-    "totalPages": 4,
-    "total": 10
+  const brands = data?.data || [];
+  const meta = data?.meta || {};
+
+  let content: React.ReactNode;
+
+
+  
+
+  if (isLoading) {
+    content = <ListLoading />;
   }
-  //let content: React.ReactNode;
-  const content: React.ReactNode = <BrandTable
-      brands={brandData}
+
+  if (!isLoading && !isError) {
+    content = <BrandTable
+      brands={brands}
       meta={meta}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       pageSize={pageSize}
       setPageSize={setPageSize}
     />;
+  }
 
-
-  
-
-  // if (isLoading) {
-  //   content = <ListLoading />;
-  // }
-
-  // if (!isLoading && !isError) {
-  //   content = <CategoryTable
-  //     categories={categories}
-  //     meta={meta}
-  //     currentPage={currentPage}
-  //     setCurrentPage={setCurrentPage}
-  //     pageSize={pageSize}
-  //     setPageSize={setPageSize}
-  //   />;
-  // }
-
-  // if (!isLoading && isError) {
-  //   content = <ServerErrorCard />;
-  // }
+  if (!isLoading && isError) {
+    content = <ServerErrorCard />;
+  }
 
 
     return (
