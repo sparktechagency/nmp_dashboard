@@ -1,14 +1,13 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import type { ICategory } from "../../types/category.type";
 import type { IMeta } from "../../types/global.type";
-import type { IBrand } from "../../types/brand.type";
 import DeleteFlavorModal from "../modal/flavor/DeleteFlavorModal";
 import EditFlavorModal from "../modal/flavor/EditFlavorModal";
+import type { IFlavor } from "../../types/flavor.type";
 
 
 
 type TProps = {
-  brands: IBrand[];
+  flavors: IFlavor[];
   meta: IMeta;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -25,14 +24,14 @@ type TDataSource = {
 
 
 const FlavorTable = ({
-  brands, meta,
+  flavors, meta,
   currentPage,
   setCurrentPage,
   pageSize,
   setPageSize
 }: TProps) => {
 
-  const dataSource: TDataSource[] = brands?.map((category, index) => ({
+  const dataSource: TDataSource[] = flavors?.map((category, index) => ({
     key: index,
     serial: Number(index + 1) + (currentPage - 1) * pageSize,
     _id: category?._id,
@@ -57,9 +56,9 @@ const FlavorTable = ({
       dataIndex: "_id",
       key: "action",
       width: "15%",
-      render: (val: string, record: ICategory) => (
+      render: (val: string, record: IFlavor) => (
         <div className="flex items-center gap-3">
-          <EditFlavorModal category={record} />
+          <EditFlavorModal flavor={record} />
           <DeleteFlavorModal flavorId={val} />
         </div>
       ),

@@ -12,9 +12,9 @@ import ProductImageField from "./ProductImageField";
 import { stockStatusOptions } from "../../data/product.data";
 import { ErrorToast } from "../../helper/ValidationHelper";
 import { categoryOptions } from "../../data/category.data";
-import { flavorOptions } from "../../data/flavor.data";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useGetBrandDropDownQuery } from "../../redux/features/brand/brandApi";
+import { useGetFlavorDropDownQuery } from "../../redux/features/flavor/flavorApi";
 
 type TFormValues = z.infer<typeof createProductValidationSchema>;
 
@@ -23,9 +23,11 @@ const CreateProductForm = () => {
   //const navigate = useNavigate();
   const isLoading = false;
   useGetBrandDropDownQuery(undefined);
+  useGetFlavorDropDownQuery(undefined);
   //useGetCategoryDropDownQuery(undefined);
   //const { categoryOptions } = useAppSelector((state) => state.category);
   const { brandOptions } = useAppSelector((state) => state.brand);
+  const { flavorOptions } = useAppSelector((state) => state.flavor);
   const [selectedFile, setSelectedFile] = useState<File|null>(null)
   //const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
   const { handleSubmit, control, watch, trigger, } = useForm({

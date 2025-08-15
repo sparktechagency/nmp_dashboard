@@ -24,7 +24,9 @@ const TagTypes = {
     incomeGrowth: "incomeGrowth",
     subsbscribers: "Subscribers",
     brands: "Brands",
-    brandDropDown: "BrandDropDown"
+    brandDropDown: "BrandDropDown",
+    flavors: "Flavors",
+    flavorDropDown: "FlavorDropDown"
 }
 
 export default TagTypes;

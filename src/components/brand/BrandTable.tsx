@@ -1,8 +1,8 @@
-import { Table, ConfigProvider, Pagination } from "antd";
-import type { IMeta } from "../../types/global.type";
 import type { IBrand } from "../../types/brand.type";
 import EditBrandModal from "../modal/brand/EditBrandModal";
 import DeleteBrandModal from "../modal/brand/DeleteBrandModal";
+import type { IMeta } from "../../types/global.type";
+import { ConfigProvider, Pagination, Table } from "antd";
 
 
 
@@ -31,11 +31,11 @@ const BrandTable = ({
   setPageSize
 }: TProps) => {
 
-  const dataSource: TDataSource[] = brands?.map((category, index) => ({
+  const dataSource: TDataSource[] = brands?.map((brand, index) => ({
     key: index,
     serial: Number(index + 1) + (currentPage - 1) * pageSize,
-    _id: category?._id,
-    name: category?.name
+    _id: brand?._id,
+    name: brand?.name
   }))
 
   const columns = [

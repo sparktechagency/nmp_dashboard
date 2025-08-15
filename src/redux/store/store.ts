@@ -8,6 +8,7 @@ import colorSliceSliceReducer from "../features/color/colorSlice";
 import sizeSliceReducer from "../features/size/sizeSlice";
 import faqSliceReducer from "../features/faq/faqSlice";
 import brandSliceReducer from "../features/brand/brandSlice";
+import flavorSliceReducer from "../features/flavor/flavorSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     color: colorSliceSliceReducer,
     size: sizeSliceReducer,
     faq: faqSliceReducer,
-    brand: brandSliceReducer
+    brand: brandSliceReducer,
+    flavor: flavorSliceReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
