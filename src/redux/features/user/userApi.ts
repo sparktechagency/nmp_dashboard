@@ -27,13 +27,13 @@ export const userApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.users],
     }),
-    getMe: builder.query({
+    getMyProfile: builder.query({
       query: () => ({
-        url: "/user/get-me",
+        url: "/user/get-my-profile",
         method: "GET",
       }),
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.me],
+      providesTags: [TagTypes.profile],
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
@@ -59,7 +59,7 @@ export const userApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.me];
+          return [TagTypes.profile];
         }
         return [];
       },
@@ -82,4 +82,4 @@ export const userApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetUsersQuery, useGetMeQuery, useUpdateProfileMutation } = userApi;
+export const { useGetUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation } = userApi;

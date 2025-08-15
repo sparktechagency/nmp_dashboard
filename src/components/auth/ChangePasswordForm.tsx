@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { changePasswordSchema } from "../../schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,37 +9,41 @@ import type { z } from "zod";
 import Error from "../validation/Error";
 import CustomInput from "../form/CustomInput";
 import PasswordStrength from "../validation/PasswordStrength";
-import { CgSpinnerTwo } from "react-icons/cg";
+import { useChangePasswordMutation } from "../../redux/features/auth/authApi";
+import { SetChangePasswordError } from "../../redux/features/auth/authSlice";
+import CustomButton from "../form/CustomButton";
 
 type TFormValues = z.infer<typeof changePasswordSchema>;
 
 const ChangePasswordForm = () => {
-  const isLoading = false;
-  //const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { ChangePasswordError } = useAppSelector((state) => state.auth);
-  //const [changePassword, { isLoading }] = useChangePasswordMutation();
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
   const { handleSubmit, control, watch, trigger } = useForm({
     resolver: zodResolver(changePasswordSchema),
   });
 
   const newPassword = watch("newPassword");
+  const currentPassword = watch("currentPassword");
 
   useEffect(() => {
-    if (newPassword) {
-      const confirmPassword = watch("confirmPassword");
-      if (confirmPassword === newPassword) {
-        trigger("confirmPassword");
-      }
+    const confirmPassword = watch("confirmPassword");
+    if (newPassword?.length >=6 && confirmPassword?.length >=6) {
+      trigger("confirmPassword");
     }
-  }, [newPassword, watch, trigger]);
+    if (currentPassword?.length >= 6 && newPassword?.length >= 6) {
+      trigger("newPassword");
+    }
+  }, [newPassword, currentPassword, trigger, watch]);
+
 
  
-  const onSubmit: SubmitHandler<TFormValues> = () => {
-    // dispatch(SetChangePasswordError(""));
-    // changePassword({
-    //   currentPassword: data.currentPassword,
-    //   newPassword: data.newPassword
-    // });
+  const onSubmit: SubmitHandler<TFormValues> = (data) => {
+    dispatch(SetChangePasswordError(""));
+    changePassword({
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword
+    });
   };
 
 
@@ -70,7 +74,7 @@ const ChangePasswordForm = () => {
           placeholder="Enter new password"
         />
 
-        <button
+        {/* <button
           type="submit"
           disabled={isLoading}
           className="w-full flex items-center cursor-pointer justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-dis transition disabled:bg-gray-800 disabled:cursor-not-allowed"
@@ -83,7 +87,9 @@ const ChangePasswordForm = () => {
           ) : (
             "Save Changes"
           )}
-        </button>
+        </button> */}
+        <CustomButton isLoading={isLoading}>Save Changes</CustomButton>
+
       </form>
     </>
   );

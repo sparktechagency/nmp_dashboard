@@ -4,19 +4,23 @@ import { useState } from "react";
 import ProfileForm from "../../components/Profile/ProfileForm"
 import ProfilePic from "../../components/Profile/ProfilePic";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import ProfileLoading from "../../components/loader/ProfileLoading";
+import { useGetMyProfileQuery } from "../../redux/features/user/userApi";
 
 const ProfilePage = () => {
   const [file, setFile] = useState<File | null>(null)
-  //const { isLoading, isError } = useGetMeQuery(undefined);
+  const { isLoading, isError } = useGetMyProfileQuery(undefined);
   const { user } = useAppSelector((state) => state.user);
 
-  // if (isLoading) {
-  //   return <ProfileLoading />
-  // }
+  if (isLoading) {
+    return <ProfileLoading />
+  }
 
-  //if (!isLoading && !isError) {
+  if (!isLoading && isError) {
+    return <h1>Server Error Occured</h1>
+  }
 
-
+  if (!isLoading && !isError && user) {
     return (
       <div className="min-h-full bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
@@ -33,7 +37,7 @@ const ProfilePage = () => {
         </div>
       </div>
     )
-  //}
+  }
 }
 
 export default ProfilePage;

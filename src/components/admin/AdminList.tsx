@@ -1,75 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import AdminTable from "./AdminTable";
 import CreateAdminModal from "../modal/admin/CreateAdminModal";
-import { adminData } from "../../data/user.data";
+import { useGetAdminsQuery } from "../../redux/features/admin/adminApi";
+import ListLoading from "../loader/ListLoading";
+import ServerErrorCard from "../card/ServerErrorCard";
 
 const AdminList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  //const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  // const { data, isLoading, isError } = useGetAdminsQuery([
-  //   { name: "page", value: currentPage },
-  //   { name: "limit", value: pageSize },
-  //   { name: "searchTerm", value: searchTerm },
-  // ]);
+  const { data, isLoading, isError } = useGetAdminsQuery([
+    { name: "page", value: currentPage },
+    { name: "limit", value: pageSize },
+    { name: "searchTerm", value: searchTerm },
+  ]);
 
   //debounced handle
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     setSearchTerm(searchQuery);
-  //     setCurrentPage(1)
-  //   }, 600);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearchTerm(searchQuery);
+      setCurrentPage(1)
+    }, 600);
 
-  //   return () => clearTimeout(timeoutId); // cleanup for debounce
-  // }, [searchQuery]);
+    return () => clearTimeout(timeoutId); // cleanup for debounce
+  }, [searchQuery]);
 
-  //const users = data?.data || [];
-  //const meta = data?.meta || {};
-   const meta = {
-    "page": 1,
-    "limit": 10,
-    "totalPages": 1,
-    "total": 20
+  const users = data?.data || [];
+  const meta = data?.meta || {};
+
+
+  let content: React.ReactNode;
+
+
+  if (isLoading) {
+    content = <ListLoading />;
   }
 
-  //let content: React.ReactNode;
-  const content: React.ReactNode = (
-    <div className="flex-1 overflow-hidden">
-      <AdminTable
-        users={adminData}
-        meta={meta}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-      />
-    </div>
-  );
+  if (!isLoading && !isError) {
+    content = (
+      <div className="flex-1 overflow-hidden">
+        <AdminTable
+          users={users}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
+      </div>
+    );
+  }
 
-  // if (isLoading) {
-  //   content = <ListLoading />;
-  // }
-
-  // if (!isLoading && !isError) {
-  //   content = (
-  //     <div className="flex-1 overflow-hidden">
-  //       <AdminTable
-  //         users={users}
-  //         meta={meta}
-  //         currentPage={currentPage}
-  //         setCurrentPage={setCurrentPage}
-  //         pageSize={pageSize}
-  //         setPageSize={setPageSize}
-  //       />
-  //     </div>
-  //   );
-  // }
-
-  // if (!isLoading && isError) {
-  //   content = <ServerErrorCard />;
-  // }
+  if (!isLoading && isError) {
+    content = <ServerErrorCard />;
+  }
 
   return (
     <>

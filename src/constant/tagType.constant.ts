@@ -3,7 +3,7 @@ const TagTypes = {
     users: "Users",
     categories: "Categories",
     categoryDropDown: "CategoryDropDown",
-    me: "Me",
+    profile: "Profile",
     faqs: "Faqs",
     total: "Total",
     userGrowth: "UserGrowth",

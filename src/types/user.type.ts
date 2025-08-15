@@ -5,16 +5,17 @@ export type IUser = {
   fullName: string;
   email: string;
   phone: string;
-  profileImg: string;
+  profile_img: string;
   status: string;
 };
 
 
 export type TProfile = {
+  _id: string;
   fullName: string;
   email: string;
   phone: string;
-  profileImg: string;
+  profile_img: string;
 }
 
 export type IUserDataSource = {
@@ -24,7 +25,7 @@ export type IUserDataSource = {
   fullName: string;
   email: string;
   phone: string;
-  profileImg: string;
+  profile_img: string;
   status: string;
 }
 

@@ -32,7 +32,7 @@ const UserTable: React.FC<UserTableProps> = ({
     fullName: user?.fullName,
     email: user?.email,
     phone: user?.phone,
-    profileImg: user?.profileImg,
+    profile_img: user?.profile_img,
     status: user?.status
   }));
 
@@ -52,8 +52,8 @@ const UserTable: React.FC<UserTableProps> = ({
     },
     {
       title: "Image",
-      dataIndex: "profile_image",
-      key: "profile_image",
+      dataIndex: "profile_img",
+      key: "profile_img",
       width: "10%",
       render: (val?: string) => (
         <div className="flex items-center gap-2">

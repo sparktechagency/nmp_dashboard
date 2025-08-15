@@ -3,24 +3,25 @@
 import { FileText } from "lucide-react"
 import type { ReactNode } from "react";
 import UpdatePrivacyForm from "../../components/PrivacyPolicy/UpdatePrivacyForm";
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
+import PolicyLoading from "../../components/loader/PolicyLoading";
 
 const PrivacyPolicyPage = () =>{
-  // const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("privacy-policy");
-  // const about = data?.data;
+  const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("privacy-policy");
+  const privacy = data?.data;
   
-    //let content: ReactNode;
-    const content: ReactNode = <UpdatePrivacyForm description={"<p><em><strong>This is Privacy Policy!</strong></em></p>"} />
-  
-    // if (isLoading) {
-    //   return <PolicyLoading />
-    // }
-    // if (!isLoading && isError) {
-    //   content = <h1>Server Error occured</h1>
-    // }
-  
-    // if (!isLoading && isSuccess && about?.type) {
-    //   content = <UpdatePrivacyForm description={about?.content} />
-    // }
+  let content: ReactNode;
+
+  if (isLoading) {
+    return <PolicyLoading />
+  }
+  if (!isLoading && isError) {
+    content = <h1>Server Error occured</h1>
+  }
+
+  if (!isLoading && isSuccess && privacy?.type) {
+    content = <UpdatePrivacyForm description={privacy?.content} />
+  }
 
   return (
     <div className="min-h-full bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">

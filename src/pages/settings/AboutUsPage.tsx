@@ -3,24 +3,25 @@
 import { FileText } from "lucide-react"
 import type { ReactNode } from "react";
 import UpdateAboutForm from "../../components/AboutUs/UpdateAboutForm";
+import { useGetPolicyByTypeQuery } from "../../redux/features/policy/policyApi";
+import PolicyLoading from "../../components/loader/PolicyLoading";
 
 const AboutUsPage = () => {
-  // const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("about-us");
-  // const about = data?.data;
+  const { data, isLoading, isSuccess, isError } = useGetPolicyByTypeQuery("about-us");
+  const about = data?.data;
 
-  //let content: ReactNode;
-  const content: ReactNode = <UpdateAboutForm description={"<p><em><strong>This is About Us!</strong></em></p>"} />
+  let content: ReactNode;
 
-  // if (isLoading) {
-  //   return <PolicyLoading />
-  // }
-  // if (!isLoading && isError) {
-  //   content = <h1>Server Error Occured</h1>
-  // }
+  if (isLoading) {
+    return <PolicyLoading />
+  }
+  if (!isLoading && isError) {
+    content = <h1>Server Error Occured</h1>
+  }
 
-  // if (!isLoading && isSuccess && about?.type) {
-  //   content = <UpdateAboutForm description={about?.content} />
-  // }
+  if (!isLoading && isSuccess && about?.type) {
+    content = <UpdateAboutForm description={about?.content} />
+  }
 
 
 

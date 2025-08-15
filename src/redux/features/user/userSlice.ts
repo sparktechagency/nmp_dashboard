@@ -9,12 +9,7 @@ type TInitialState = {
 
 const initialState: TInitialState = {
   CreateError: "",
-  user: {
-    "fullName": "Admin Admin",
-    "email": "admin@gmail.com",
-    "phone": "01793837035",
-    "profileImg": ""
-  }
+  user: null
 };
 
 const userSlice = createSlice({

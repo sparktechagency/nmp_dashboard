@@ -4,6 +4,7 @@ import type { z } from "zod";
 import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
 
 type TFormValues = z.infer<typeof policySchema>;
 
@@ -12,8 +13,7 @@ type TProps = {
 }
 
 const UpdateAboutForm = ( {description} : TProps) => {
-  const isLoading = false;
-  // const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
+  const [createUpdatePolicy, { isLoading }] = useCreateUpdatePolicyMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(policySchema),
     defaultValues: {
@@ -22,11 +22,11 @@ const UpdateAboutForm = ( {description} : TProps) => {
   });
 
 
-  const onSubmit: SubmitHandler<TFormValues> = () => {
-    // createUpdatePolicy({
-    //   type: "about-us",
-    //   content: data.description
-    // });
+  const onSubmit: SubmitHandler<TFormValues> = (data) => {
+    createUpdatePolicy({
+      type: "about-us",
+      content: data.description
+    });
   };
 
   return (

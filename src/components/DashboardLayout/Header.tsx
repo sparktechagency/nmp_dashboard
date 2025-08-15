@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks/hooks';
 import UserLoading from '../loader/UserLoading';
 import profile_placeholder from "../../assets/images/profile_placeholder.png";
+import { useGetMyProfileQuery } from '../../redux/features/user/userApi';
 
 interface HeaderProps {
   children?: React.ReactNode;
@@ -10,8 +11,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children }) => {
   const navigate = useNavigate();
-  const isLoading = false;
-//  const { isLoading } = useGetMeQuery(undefined);
+  const { isLoading } = useGetMyProfileQuery(undefined);
   const { user } = useAppSelector((state) => state.user);
 
 
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
             className="flex items-center gap-2 cursor-pointer"
           >
             <img
-              src={user?.profileImg ? user?.profileImg  : profile_placeholder}
+              src={user?.profile_img ? user?.profile_img  : profile_placeholder}
               alt="Profile"
               onError={(e) => {
                 e.currentTarget.onerror = null;

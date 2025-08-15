@@ -9,7 +9,7 @@ type TProps = {
 
 const ProfilePic = ({ setFile }: TProps) => {
   const { user } = useAppSelector((state) => state.user);
-  const [imageSrc, setImageSrc] = useState(user?.profileImg ? user?.profileImg : profile_placeholder); // Default image
+  const [imageSrc, setImageSrc] = useState(user?.profile_img ? user?.profile_img : profile_placeholder); // Default image
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +52,6 @@ const ProfilePic = ({ setFile }: TProps) => {
             <FaCamera size={16} />
           </div>
       </div>
-      {/* <h2 className="mt-4 text-xl font-semibold">Edit Profile</h2> */}
     </>
   );
 };

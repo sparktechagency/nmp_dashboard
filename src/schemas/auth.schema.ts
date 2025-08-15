@@ -74,4 +74,11 @@ export const changePasswordSchema = z
         code: z.ZodIssueCode.custom,
       });
     }
+    if (data.newPassword === data.currentPassword) {
+      ctx.addIssue({
+        path: ["newPassword"],
+        message: "New password must be different from the current password.",
+        code: z.ZodIssueCode.custom,
+      });
+    }
   });

@@ -56,7 +56,7 @@ export const updateAdminSchema = z
         required_error: "Phone number is required",
       })
       .min(1, "Phone number is required")
-      .regex(/^\+?[1-9]\d{1,14}$/, {
-        message: "Invalid phone number format",
-      })
+      .regex(/^\+?\d+$/, {
+        message: "Phone number can contain only numbers and +",
+      }),
   })
