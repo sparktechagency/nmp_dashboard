@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import LoginPage from "../pages/auth/LoginPage";
 import DashboardLayout from "../components/DashboardLayout/DashboardLayout";
@@ -29,17 +29,16 @@ import SubscriptionsPage from "../pages/dashboard/SubscribersPage";
 import BrandsPage from "../pages/dashboard/BrandsPage";
 import FlavorPage from "../pages/dashboard/FlavorPage";
 import NotFoundRoute from "./NotFoundRoute";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: (
-    //   <PrivateRoute>
-    //     <DashboardLayout />
-    //   </PrivateRoute>
-    // ),
     element: (
+      <PrivateRoute>
         <DashboardLayout />
+      </PrivateRoute>
     ),
     children: [
       {
@@ -139,18 +138,15 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: (
+      <PublicRoute>
         <AuthLayout />
+      </PublicRoute>
     ),
-    // element: (
-    //   <PublicRoute>
-    //     <AuthLayout />
-    //   </PublicRoute>
-    // ),
     children: [
-      // {
-      //   index: true,
-      //   element: <Navigate to="/auth/signin" replace />,
-      // },
+      {
+        index: true,
+        element: <Navigate to="/auth/signin" replace />,
+      },
       {
         path: "signin",
         element: <LoginPage />,

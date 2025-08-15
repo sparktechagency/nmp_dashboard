@@ -1,35 +1,32 @@
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/auth.schema";
 import type { z } from "zod";
 import CustomInput from "../form/CustomInput";
 import Error from "../validation/Error";
-import { CgSpinnerTwo } from "react-icons/cg";
-import { SuccessToast } from "../../helper/ValidationHelper";
+import { SetLoginError } from "../../redux/features/auth/authSlice";
+import { useLoginMutation } from "../../redux/features/auth/authApi";
+import CustomButton from "../form/CustomButton";
 
 type TFormValues = z.infer<typeof loginSchema>
 
 const LoginForm = () => {
-  const isLoading = false;
-  //const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { LoginError } = useAppSelector((state) => state.auth);
-  //const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(loginSchema),
   });
 
 
 
-    const onSubmit: SubmitHandler<TFormValues> = () => {
-      //dispatch(SetLoginError(""))
-      //login(data)
-      SuccessToast("Login Success");
-      navigate("/")
-    };
+  const onSubmit: SubmitHandler<TFormValues> = (data) => {
+    dispatch(SetLoginError(""))
+    login(data)
+  };
  
 
   return (
@@ -51,16 +48,7 @@ const LoginForm = () => {
           </Link>
         </div>
 
-        <button type="submit" className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-primary/80 cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100">
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Sign In"
-          )}
-        </button>
+        <CustomButton isLoading={isLoading}>Sign In</CustomButton>
       </form>
     </>
   );
