@@ -1,33 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { useDeleteCategoryMutation } from "../../../redux/features/category/categoryApi";
-import { CgSpinnerTwo } from "react-icons/cg";
+import DeleteButton from "../../form/DeleteButton";
 
 type TProps = {
   categoryId: string;
 };
 
 const DeleteCategoryModal = ({categoryId}: TProps) => {
-  const isLoading = false;
   const [modalOpen, setModalOpen] = useState(false);
-
- // const [deleteCategory, { isLoading, isSuccess }] =
+  const [deleteCategory, { isLoading, isSuccess }] =
     useDeleteCategoryMutation();
 
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     setModalOpen(false);
-  //   }
-  // }, [isLoading, isSuccess]);
+  useEffect(() => {
+    if (!isLoading) {
+      setModalOpen(false);
+    }
+  }, [isLoading, isSuccess]);
 
 
   const handleDelete = () => {
-    setModalOpen(false);
-    console.log(categoryId)
-    //deleteCategory(categoryId);
+    deleteCategory(categoryId);
   };
 
   return (
@@ -62,18 +58,7 @@ const DeleteCategoryModal = ({categoryId}: TProps) => {
               >
                 No
               </button>
-              <button
-                onClick={handleDelete}
-                className="px-4 cursor-pointer py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none"
-              >
-                {isLoading? (
-                  <>
-                    <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                  </>
-                ) : (
-                  "Yes"
-                )}
-              </button>
+             <DeleteButton isLoading={isLoading} onClick={handleDelete}/>
             </div>
           </div>
         </div>
