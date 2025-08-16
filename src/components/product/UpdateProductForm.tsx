@@ -3,7 +3,6 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../form/CustomInput";
-import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomSelect from "../form/CustomSelect";
 import CustomQuilEditor from "../form/CustomQuilEditor";
@@ -12,11 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { updateProductValidationSchema } from "../../schemas/product.schema";
 import { useUpdateProductMutation } from "../../redux/features/product/productApi";
 import { useGetCategoryDropDownQuery } from "../../redux/features/category/categoryApi";
-import CustomMultiSelect from "../form/CustomMultiSelect";
-import { useGetColorDropDownQuery } from "../../redux/features/color/colorApi";
-import { useGetSizesQuery } from "../../redux/features/size/sizeApi";
+
 import { stockStatusOptions } from "../../data/product.data";
 import type { ISingleProduct } from "../../types/product.type";
+import { useGetBrandDropDownQuery } from "../../redux/features/brand/brandApi";
+import { useGetFlavorDropDownQuery } from "../../redux/features/flavor/flavorApi";
+import FormButton from "../form/FormButton";
 
 type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
@@ -26,18 +26,20 @@ type TProps = {
 
 const UpdateProductForm = ({ product }: TProps) => {
   const navigate = useNavigate();
+  useGetBrandDropDownQuery(undefined);
+  useGetFlavorDropDownQuery(undefined);
   useGetCategoryDropDownQuery(undefined);
-  const {isLoading: isColorLoading} = useGetColorDropDownQuery(undefined);
-  useGetSizesQuery(undefined);
   const { categoryOptions } = useAppSelector((state) => state.category);
-  const { colorOptions } = useAppSelector((state) => state.color);
-  const { sizeOptions } = useAppSelector((state) => state.size);
+  const { brandOptions } = useAppSelector((state) => state.brand);
+  const { flavorOptions } = useAppSelector((state) => state.flavor);
   const [ updateProduct, { isLoading, isSuccess }] = useUpdateProductMutation();
   const { handleSubmit, control, watch, trigger } = useForm({
     resolver: zodResolver(updateProductValidationSchema),
       defaultValues: {
           name: product?.name,
           categoryId: product?.categoryId,
+          brandId: product?.brandId,
+          flavorId: product?.flavorId,
           currentPrice: String(product.currentPrice),
           originalPrice: String(product.originalPrice),
           discount: product?.discount,
@@ -71,6 +73,8 @@ const UpdateProductForm = ({ product }: TProps) => {
     const finalValues: Record<string, unknown> = {
       name: data.name,
       categoryId: data.categoryId,
+      brandId: data.brandId,
+      flavorId: data.flavorId,
       currentPrice: data.currentPrice,
       status: data?.status,
       stockStatus: data?.stockStatus,
@@ -99,7 +103,7 @@ const UpdateProductForm = ({ product }: TProps) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <CustomInput
             label="Name"
             name="name"
@@ -113,6 +117,23 @@ const UpdateProductForm = ({ product }: TProps) => {
             control={control}
             options={categoryOptions}
             disabled={categoryOptions.length === 0}
+            blankOption={false}
+          />
+          <CustomSelect
+            label="Brand"
+            name="brandId"
+            control={control}
+            options={brandOptions}
+            disabled={brandOptions.length === 0}
+            blankOption={false}
+          />
+          <CustomSelect
+            label="Flavor"
+            name="flavorId"
+            control={control}
+            options={flavorOptions}
+            disabled={flavorOptions.length === 0}
+            blankOption={false}
           />
           <CustomInput
             label="Current Price"
@@ -134,10 +155,6 @@ const UpdateProductForm = ({ product }: TProps) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <CustomMultiSelect name="colors" label="Colors (Optional)" control={control} options={colorOptions} disabled={isColorLoading || colorOptions?.length === 0} />
-          <CustomMultiSelect name="sizes" label="Sizes (Optional)" control={control} options={sizeOptions} disabled={sizeOptions?.length === 0} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CustomSelect
@@ -171,15 +188,6 @@ const UpdateProductForm = ({ product }: TProps) => {
             placeholder="Enter discount"
           />
         </div>
-     
-
-        <CustomQuilEditor
-          label="Short Introduction"
-          name="introduction"
-          control={control}
-          height={40}
-          placeholder="Write a short intro..."
-        />
         <CustomQuilEditor
           label="Description"
           name="description"
@@ -187,20 +195,7 @@ const UpdateProductForm = ({ product }: TProps) => {
           height={250}
           placeholder="Write a description..."
         />
-                  
-        <button
-          type="submit"
-          className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Save Changes"
-          )}
-        </button>
+        <FormButton isLoading={isLoading}>Save Changes</FormButton>
       </form>
     </>
   );

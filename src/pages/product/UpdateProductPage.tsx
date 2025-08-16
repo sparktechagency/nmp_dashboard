@@ -8,7 +8,7 @@ import ServerErrorCard from "../../components/card/ServerErrorCard";
 const UpdateProductPage = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetSingleProductQuery(id);
-  const product = data?.data?.product|| {};
+  const product = data?.data|| {};
 
   if (isLoading) {
     return <UpdateProductLoading />

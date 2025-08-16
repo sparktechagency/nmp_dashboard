@@ -10,8 +10,8 @@ import { Edit } from "lucide-react";
 import type { IFlavor } from "../../../types/flavor.type";
 import { useUpdateFlavorMutation } from "../../../redux/features/flavor/flavorApi";
 import { SetFlavorUpdateError } from "../../../redux/features/flavor/flavorSlice";
-import CustomButton from "../../form/CustomButton";
 import { flavorSchema } from "../../../schemas/flavor.schema";
+import FormButton from "../../form/FormButton";
 
 
 type TFormValues = z.infer<typeof flavorSchema>;
@@ -84,10 +84,10 @@ const EditFlavorModal = ({ flavor }: TProps) => {
                   control={control}
                   placeholder="Enter title"
                 />
-                <div className="flex justify-end mt-4">
-                  <CustomButton isLoading={isLoading}>
+                <div className="mt-4">
+                  <FormButton isLoading={isLoading}>
                     Save Change
-                  </CustomButton>
+                  </FormButton>
                 </div>
               </form>
             </div>

@@ -11,7 +11,7 @@ import CustomInput from "../form/CustomInput";
 import PasswordStrength from "../validation/PasswordStrength";
 import { useChangePasswordMutation } from "../../redux/features/auth/authApi";
 import { SetChangePasswordError } from "../../redux/features/auth/authSlice";
-import CustomButton from "../form/CustomButton";
+import FormButton from "../form/FormButton";
 
 type TFormValues = z.infer<typeof changePasswordSchema>;
 
@@ -73,23 +73,7 @@ const ChangePasswordForm = () => {
           control={control}
           placeholder="Enter new password"
         />
-
-        {/* <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full flex items-center cursor-pointer justify-center gap-2 bg-primary text-white py-2 rounded-md hover:bg-dis transition disabled:bg-gray-800 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Save Changes"
-          )}
-        </button> */}
-        <CustomButton isLoading={isLoading}>Save Changes</CustomButton>
-
+        <FormButton isLoading={isLoading}>Save Changes</FormButton>
       </form>
     </>
   );

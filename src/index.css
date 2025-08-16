@@ -18,4 +18,10 @@
     .employer-table .ant-table-tbody>tr>td {
         padding: 8px 4px;
     }
+
+    /* global.css */
+    .ant-table-body {
+        min-height: calc(100vh - 324px);
+    }
+
 }

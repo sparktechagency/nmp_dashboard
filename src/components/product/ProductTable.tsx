@@ -29,6 +29,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     name: product?.name,
     category: product?.category,
     brand: product?.brand,
+    flavor: product?.flavor,
     currentPrice: product?.currentPrice,
     originalPrice: product?.originalPrice,
     image: product?.image,
@@ -44,13 +45,13 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "3%",
+      width: 60,
     },
     {
       title: "Name",
       dataIndex: "name",
       key: "title",
-      width: "8.5%",
+      width: 160,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -61,7 +62,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Image",
       dataIndex: "image",
       key: "image",
-      width: "7.5%",
+      width: 100,
       render: (val: string) => (
         <>
           {/* <img src={val} alt="icon" className="w-12 h-12 rounded-md" /> */}
@@ -81,7 +82,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Category",
       dataIndex: "category",
       key: "category",
-      width: "7%",
+      width: 100,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -92,7 +93,18 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Brand",
       dataIndex: "brand",
       key: "brand",
-      width: "7%",
+      width: 80,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
+    },
+    {
+      title: "Flavor",
+      dataIndex: "flavor",
+      key: "flavor",
+      width: 90,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -103,7 +115,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Price",
       dataIndex: "currentPrice",
       key: "currentPrice",
-      width: "5%",
+      width: 85,
       align: 'center' as const,
       render: (val: number) => (
         <span>${val}</span>
@@ -113,7 +125,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Original Price",
       dataIndex: "originalPrice",
       key: "originalPrice",
-      width: "7%",
+      width: 120,
       align: 'center' as const,
        render: (val: number) => (
         <span>${val}</span>
@@ -123,7 +135,8 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Ratings",
       dataIndex: "ratings",
       key: "ratings",
-      width: "5%",
+      width: 80,
+      align: 'center' as const,
       render: (value: number) => (
         <>
           <div className="flex items-center gap-1 justify-center">
@@ -137,7 +150,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "10%",
+      width: 145,
       render: (status: TProductStatus, record: TProductDataSource) => {
         const statusStyles = {
           hidden: "bg-red-100 text-red-700 border border-red-300",
@@ -162,7 +175,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Stock Status",
       dataIndex: "stockStatus",
       key: "stockStatus",
-      width: "10%",
+      width: 150,
       render: (status: TStockStatus, record: TProductDataSource) => {
         const statusStyles = {
           in_stock: "bg-blue-100 text-blue-800 border border-blue-300",
@@ -188,7 +201,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "View",
       dataIndex: "_id",
       key: "_id",
-      width: "5%",
+      width: 80,
       render: (productId: string) => (
         <div className="flex items-center gap-2">
           <Link
@@ -204,12 +217,11 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: "7%",
+      width: 115,
       render: (productId: string) => (
         <div className="flex items-center gap-2">
           <Link
-           // to={`/update-product/${productId}`}
-            to={`/add-product?id=${productId}`}
+            to={`/update-product/${productId}`}
             className="bg-green-600 hover:bg-green-700 p-2 text-white rounded-full"
           >
             <Edit size={18} />
@@ -242,7 +254,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
         },
       }}
     >
-      <div className="w-full overflow-auto px-4">
+      <div className="w-full overflow-auto px-4 overflow-x-auto sm:overflow-x-visible">
         <Table
           columns={columns}
           dataSource={dataSource}
@@ -250,10 +262,46 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table"
+          // locale={{
+          //   emptyText: (
+          //     <div
+          //       className="flex items-center justify-center text-gray-500"
+          //       style={{ minHeight: "calc(100vh - 324px)" }}
+          //     >
+          //       No Products Found
+          //     </div>
+          //   ),
+          // }}
+          locale={{
+            emptyText: (
+              <div
+                className="flex flex-col items-center justify-center text-gray-500 space-y-4"
+                style={{ minHeight: "calc(100vh - 324px)" }}
+              >
+                {/* Illustration / Placeholder image */}
+                <img
+                  src={product_placeholder}
+                  alt="No products"
+                  className="w-24 h-24 opacity-70"
+                />
+
+                {/* Message */}
+                <p className="text-lg font-medium">No Products Found</p>
+
+                {/* Action Button */}
+                {/* <Link
+          to="/add-product"
+          className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md shadow"
+        >
+          Add Product
+        </Link> */}
+      </div>
+    ),
+  }}
+          className="employer-table min-h-[calc(100vh-324px)]"
         />
       </div>
-      {meta?.totalPages > 1 && (
+      {meta?.total > 0 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

@@ -6,7 +6,7 @@ import CustomInput from "../form/CustomInput";
 import { updateAdminSchema } from "../../schemas/admin.schema";
 import type { TProfile } from "../../types/user.type";
 import { useUpdateProfileMutation } from "../../redux/features/user/userApi";
-import CustomButton from "../form/CustomButton";
+import FormButton from "../form/FormButton";
 
 type TFormValues = z.infer<typeof updateAdminSchema>;
 
@@ -75,9 +75,9 @@ const ProfileForm = ({ user, file }: TProps) => {
           placeholder="e.g., +44 20 1234 5678 or 020 1234 5678"
         />
         <div className="flex justify-end">
-          <CustomButton isLoading={isLoading}>
+          <FormButton isLoading={isLoading}>
             Save Changes
-          </CustomButton>
+          </FormButton>
         </div>
       </form>
     </>

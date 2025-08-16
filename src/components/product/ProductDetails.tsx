@@ -1,6 +1,4 @@
-"use client"
 
-import { useState } from "react";
 import product_placeholder from "../../assets/images/product_placeholder.png";
 import { FaStar } from "react-icons/fa";
 import type { ISingleProduct } from "../../types/product.type";
@@ -11,17 +9,15 @@ type TProps = {
 }
 
 const ProductDetails = ({ product}: TProps) =>{
-  const [selectedImage, setSelectedImage] = useState(0)
 
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="bg-white rounded-lg mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-        {/* Product Images */}
-        <div className="space-y-4">
+        <div>
           <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
             <img
-              src={product?.images[selectedImage] || product_placeholder}
+              src={product?.image || product_placeholder}
               alt={product.name}
               className="w-full h-full object-cover object-center"
               onError={(e) => {
@@ -30,33 +26,13 @@ const ProductDetails = ({ product}: TProps) =>{
               }}
             />
           </div>
-          <div className="grid grid-cols-4 gap-4">
-            {product?.images.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(index)}
-                className={`aspect-square overflow-hidden rounded-lg bg-gray-100 border-2 transition-colors ${
-                  selectedImage === index ? "border-blue-500" : "border-transparent hover:border-gray-300"
-                }`}
-              >
-                <img
-                  src={image || product_placeholder}
-                  alt={`${product.name} view ${index + 1}`}
-                  className="w-full h-full object-cover object-center"
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = product_placeholder;
-                  }}
-                />
-              </button>
-            ))}
-          </div>
         </div>
-
         {/* Product Info */}
         <div className="space-y-6">
           {/* Category */}
-          <div className="text-sm text-gray-500 uppercase tracking-wide">Category: <span className="text-green-500">{product?.categoryName}</span></div>
+          <div className="text-sm text-gray-500 uppercase tracking-wide">Category: <span className="text-green-500">{product?.category}</span></div>
+          <div className="text-sm text-gray-500 uppercase tracking-wide">Brand: <span className="text-pink-500">{product?.brand}</span></div>
+          <div className="text-sm text-gray-500 uppercase tracking-wide">Flavor: <span className="text-yellow-500">{product?.flavor}</span></div>
 
           {/* Product Name */}
           <h1 className="text-3xl font-bold text-gray-900">{product?.name}</h1>

@@ -12,12 +12,12 @@ type TProps = {
 const ProductImageField = ({selectedFile, setSelectedFile}: TProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
-        if(files){
-          setSelectedFile(files[0])
-        }
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      setSelectedFile(files[0])
     }
+  }
 
   const removeFile = () => {
     setSelectedFile(null)
@@ -56,7 +56,6 @@ const ProductImageField = ({selectedFile, setSelectedFile}: TProps) => {
       {/* Image previews */}
       {selectedFile && ( 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {/* {selectedFiles.map((file, index) => ( */}
             <div className="relative group">
               <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                 <img
@@ -65,7 +64,6 @@ const ProductImageField = ({selectedFile, setSelectedFile}: TProps) => {
                   className="w-full h-full object-cover"
                 />
               </div>
-
               {/* Remove button */}
               <button
                 onClick={removeFile}

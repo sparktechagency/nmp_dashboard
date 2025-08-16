@@ -2,7 +2,6 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../form/CustomInput";
-import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
 import CustomSelect from "../form/CustomSelect";
 import CustomQuilEditor from "../form/CustomQuilEditor";
@@ -15,13 +14,15 @@ import { useAppSelector } from "../../redux/hooks/hooks";
 import { useGetBrandDropDownQuery } from "../../redux/features/brand/brandApi";
 import { useGetFlavorDropDownQuery } from "../../redux/features/flavor/flavorApi";
 import { useGetCategoryDropDownQuery } from "../../redux/features/category/categoryApi";
+import { useCreateProductMutation } from "../../redux/features/product/productApi";
+import { useNavigate } from "react-router-dom";
+import FormButton from "../form/FormButton";
 
 type TFormValues = z.infer<typeof createProductValidationSchema>;
 
 
 const CreateProductForm = () => {
-  //const navigate = useNavigate();
-  const isLoading = false;
+  const navigate = useNavigate();
   useGetBrandDropDownQuery(undefined);
   useGetFlavorDropDownQuery(undefined);
   useGetCategoryDropDownQuery(undefined);
@@ -29,7 +30,7 @@ const CreateProductForm = () => {
   const { brandOptions } = useAppSelector((state) => state.brand);
   const { flavorOptions } = useAppSelector((state) => state.flavor);
   const [selectedFile, setSelectedFile] = useState<File|null>(null)
-  //const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
+  const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
   const { handleSubmit, control, watch, trigger, } = useForm({
     resolver: zodResolver(createProductValidationSchema),
   });
@@ -47,11 +48,11 @@ const CreateProductForm = () => {
   }, [currentPrice, originalPrice, watch, trigger]);
   
 
-  // useEffect(() => {
-  //   if (!isLoading && isSuccess) {
-  //     navigate("/products")
-  //   }
-  // }, [isLoading, isSuccess, navigate])
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      navigate("/products")
+    }
+  }, [isLoading, isSuccess, navigate])
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
@@ -70,7 +71,7 @@ const CreateProductForm = () => {
       });
 
       formData.append("image", selectedFile);
-      //createProduct(formData);
+      createProduct(formData);
     }
   };
 
@@ -166,20 +167,7 @@ const CreateProductForm = () => {
           height={250}
           placeholder="Write a description..."
         />
-
-        <button
-          type="submit"
-          className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100"
-        >
-          {isLoading ? (
-            <>
-              <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              Processing...
-            </>
-          ) : (
-            "Add Product"
-          )}
-        </button>
+        <FormButton isLoading={isLoading}>Add Product</FormButton>
       </form>
     </>
   );

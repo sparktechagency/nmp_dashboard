@@ -125,6 +125,18 @@ export const updateProductValidationSchema = z.object({
       required_error: "Select category",
     })
     .min(1, "Select category"),
+  brandId: z
+    .string({
+      invalid_type_error: "brand must be a string",
+      required_error: "Select Brand",
+    })
+    .min(1, "Select Brand"),
+  flavorId: z
+    .string({
+      invalid_type_error: "brand must be a string",
+      required_error: "Select Flavor",
+    })
+    .min(1, "Select Flavor"),
   currentPrice: z
     .preprocess(
       (val) => (val === '' || val === undefined || val === null ? undefined : Number(val)),
@@ -161,34 +173,6 @@ export const updateProductValidationSchema = z.object({
   discount: z.string({
     invalid_type_error: "discount must be string"
   }).optional(),
-  colors: z.array(
-    z.string(),
-    {
-      invalid_type_error: "colors must be an array",
-      required_error: "colors must be at least one value"
-    }
-  ).default([]),
-  sizes: z.array(
-    z.string(),
-    {
-      invalid_type_error: "sizes must be an array",
-      required_error: "sizes must be at least one value"
-    }
-  ).default([]),
-  introduction: z.preprocess(
-    (val) => {
-      if (typeof val === "string" && isEditorContentEmpty(val)) {
-        return ""; // force fail if visually empty
-      }
-      return val;
-    },
-    z
-      .string({
-        invalid_type_error: "Introduction must be string",
-        required_error: "Introduction is required"
-      })
-      .min(1, "Introduction is required")
-  ),
   description: z.preprocess(
     (val) => {
       if (typeof val === "string" && isEditorContentEmpty(val)) {

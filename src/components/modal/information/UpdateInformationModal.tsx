@@ -9,7 +9,7 @@ import { informationSchema } from "../../../schemas/information.schema";
 import type { IInformation } from "../../../types/information.type";
 import CustomTextArea from "../../form/CustomTextArea";
 import { useUpdateInformationMutation } from "../../../redux/features/information/informationApi";
-import CustomButton from "../../form/CustomButton";
+import FormButton from "../../form/FormButton";
 
 
 type TFormValues = z.infer<typeof informationSchema>;
@@ -72,7 +72,7 @@ const UpdateInformationModal = ({ information }: TProps) => {
                 <CustomTextArea label="Instagram Link" name="instagram" control={control} placeholder="Enter instagram link"/>
                 <CustomTextArea label="Telegram Link" name="telegram" control={control} placeholder="Enter teligram link"/>
                 <div className="mt-4">
-                  <CustomButton isLoading={isLoading}> Save Changes</CustomButton>
+                  <FormButton isLoading={isLoading}> Save Changes</FormButton>
                 </div>
               </form>
             </div>

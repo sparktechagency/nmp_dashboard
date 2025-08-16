@@ -10,7 +10,7 @@ import CustomInput from "../../form/CustomInput";
 import { SetCategoryCreateError } from "../../../redux/features/category/categorySlice";
 import Error from "../../validation/Error";
 import { useCreateCategoryMutation } from "../../../redux/features/category/categoryApi";
-import CustomButton from "../../form/CustomButton";
+import FormButton from "../../form/FormButton";
 
 type TFormValues = z.infer<typeof categorySchema>;
 
@@ -71,10 +71,10 @@ const CreateCategoryModal = () => {
                   control={control}
                   placeholder="Enter title"
                 />
-                <div className="flex justify-end mt-4">
-                   <CustomButton isLoading={isLoading}>
+                <div className="mt-4">
+                  <FormButton isLoading={isLoading}>
                     Add
-                  </CustomButton>
+                  </FormButton>
                 </div>
               </form>
             </div>

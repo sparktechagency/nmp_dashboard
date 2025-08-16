@@ -11,7 +11,7 @@ import { brandSchema } from "../../../schemas/brand.schema";
 import { useUpdateBrandMutation } from "../../../redux/features/brand/brandApi";
 import { SetBrandUpdateError } from "../../../redux/features/brand/brandSlice";
 import type { IBrand } from "../../../types/brand.type";
-import CustomButton from "../../form/CustomButton";
+import FormButton from "../../form/FormButton";
 
 
 type TFormValues = z.infer<typeof brandSchema>;
@@ -85,9 +85,9 @@ const EditBrandModal = ({ brand }: TProps) => {
                   placeholder="Enter title"
                 />
                 <div className="flex justify-end mt-4">
-                  <CustomButton isLoading={isLoading}>
+                  <FormButton isLoading={isLoading}>
                     Save Change
-                  </CustomButton>
+                  </FormButton>
                 </div>
               </form>
             </div>

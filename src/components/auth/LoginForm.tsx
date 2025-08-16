@@ -9,7 +9,7 @@ import CustomInput from "../form/CustomInput";
 import Error from "../validation/Error";
 import { SetLoginError } from "../../redux/features/auth/authSlice";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
-import CustomButton from "../form/CustomButton";
+import FormButton from "../form/FormButton";
 
 type TFormValues = z.infer<typeof loginSchema>
 
@@ -47,8 +47,7 @@ const LoginForm = () => {
             Forgot password?
           </Link>
         </div>
-
-        <CustomButton isLoading={isLoading}>Sign In</CustomButton>
+        <FormButton isLoading={isLoading}>Sign In</FormButton>
       </form>
     </>
   );

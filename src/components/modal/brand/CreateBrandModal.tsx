@@ -7,10 +7,10 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import Error from "../../validation/Error";
-import CustomButton from "../../form/CustomButton";
 import { useCreateBrandMutation } from "../../../redux/features/brand/brandApi";
 import { brandSchema } from "../../../schemas/brand.schema";
 import { SetBrandCreateError } from "../../../redux/features/brand/brandSlice";
+import FormButton from "../../form/FormButton";
 
 type TFormValues = z.infer<typeof brandSchema>;
 
@@ -71,10 +71,10 @@ const CreateBrandModal = () => {
                   control={control}
                   placeholder="Enter title"
                 />
-                <div className="flex justify-end mt-4">
-                  <CustomButton isLoading={isLoading}>
+                <div className="mt-4">
+                  <FormButton isLoading={isLoading}>
                     Add
-                  </CustomButton>
+                  </FormButton>
                 </div>
               </form>
             </div>

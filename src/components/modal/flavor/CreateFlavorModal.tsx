@@ -7,10 +7,10 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import Error from "../../validation/Error";
-import CustomButton from "../../form/CustomButton";
 import { useCreateFlavorMutation } from "../../../redux/features/flavor/flavorApi";
 import { SetFlavorCreateError } from "../../../redux/features/flavor/flavorSlice";
 import { flavorSchema } from "../../../schemas/flavor.schema";
+import FormButton from "../../form/FormButton";
 
 type TFormValues = z.infer<typeof flavorSchema>;
 
@@ -71,9 +71,9 @@ const CreateFlavorModal = () => {
                   placeholder="Enter title"
                 />
                 <div className="flex justify-end mt-4">
-                  <CustomButton isLoading={isLoading}>
+                  <FormButton isLoading={isLoading}>
                     Add
-                  </CustomButton>
+                  </FormButton>
                 </div>
               </form>
             </div>

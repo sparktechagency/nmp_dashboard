@@ -56,7 +56,7 @@ export const productApi = apiSlice.injectEndpoints({
     }),
     getSingleProduct: builder.query({
       query: (id) => ({
-        url: `/product/get-single-product/${id}`,
+        url: `/product/get-product/${id}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,

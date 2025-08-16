@@ -11,7 +11,7 @@ import { Edit } from "lucide-react";
 import type { ICategory } from "../../../types/category.type";
 import { useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import { SetCategoryUpdateError } from "../../../redux/features/category/categorySlice";
-import CustomButton from "../../form/CustomButton";
+import FormButton from "../../form/FormButton";
 
 
 type TFormValues = z.infer<typeof categorySchema>;
@@ -83,10 +83,10 @@ const EditCategoryModal = ({ category }: TProps) => {
                   control={control}
                   placeholder="Enter title"
                 />
-                <div className="flex justify-end mt-4">
-                  <CustomButton isLoading={isLoading}>
+                <div className="mt-4">
+                  <FormButton isLoading={isLoading}>
                     Save Change
-                  </CustomButton>
+                  </FormButton>
                 </div>
               </form>
             </div>
