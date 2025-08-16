@@ -7,7 +7,7 @@ import DeleteSubscriberModal from "../modal/subscriber/DeleteSubscriberModal";
 
 
 interface SubscribeTableProps {
-  subscriptions: ISubscriber[];
+  subscribers: ISubscriber[];
   meta: IMeta;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -17,7 +17,7 @@ interface SubscribeTableProps {
 
 
 const SubscribeTable : React.FC<SubscribeTableProps> = ({
-  subscriptions,
+  subscribers,
   meta,
   currentPage,
   setCurrentPage,
@@ -25,12 +25,12 @@ const SubscribeTable : React.FC<SubscribeTableProps> = ({
   setPageSize,
 }) => {
 
-  const dataSource: TSubscriberDataSource[] = subscriptions?.map((subscription, index) => ({
+  const dataSource: TSubscriberDataSource[] = subscribers?.map((subscriber, index) => ({
     key: index,
     serial: Number(index + 1) + (currentPage - 1) * pageSize,
-    _id: subscription?._id,
-    email: subscription?.email,
-    subscribedAt: subscription?.subscribedAt,
+    _id: subscriber?._id,
+    email: subscriber?.email,
+    subscribedAt: subscriber?.subscribedAt,
   }));
 
   const columns = [

@@ -9,7 +9,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { yearOptions } from '../../data/options.data';
-import { userBarData } from '../../data/dashboard.data';
+import { useGetUserGrowthQuery } from '../../redux/features/dashboard/dashboardApi';
+import UserOverviewLoading from '../loader/UserOverviewLoading';
 
 
 
@@ -18,17 +19,17 @@ const UserOverviewChart = () => {
   const date = new Date();
   const currentYear = date.getFullYear().toString();
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  //const {data, isLoading, isError} = useGetUserGrowthQuery(selectedYear);
-  //const barData = data?.data || [];
+  const {data, isLoading, isError} = useGetUserGrowthQuery(selectedYear);
+  const barData = data?.data || [];
 
 
-  // if(isLoading){
-  //   return <JobOverviewLoading/>
-  // }
+  if(isLoading){
+    return <UserOverviewLoading/>
+  }
 
-  // if (!isLoading && isError) {
-  //   return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
-  // }
+  if (!isLoading && isError) {
+    return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
+  }
 
 
 
@@ -52,18 +53,12 @@ const UserOverviewChart = () => {
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={userBarData}
+            data={barData}
             margin={{ top: 5, right: 30, left: 20, bottom: 30 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-            <YAxis
-              // domain={domain}
-              // ticks={ticks}
-              // tickFormatter={(value) =>
-              //   new Intl.NumberFormat('en').format(value)
-              // }
-            />
+            <YAxis/>
             <Tooltip
               formatter={(value) => [
                 new Intl.NumberFormat('en').format(value as number),

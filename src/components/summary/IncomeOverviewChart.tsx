@@ -8,7 +8,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { yearOptions } from '../../data/options.data';
-import { incomeBarData } from '../../data/dashboard.data';
+import { useGetIncomeGrowthQuery } from '../../redux/features/dashboard/dashboardApi';
+import IncomeOverviewLoading from '../loader/IncomeOverviewLoading';
 
 
 
@@ -18,17 +19,17 @@ const IncomeOverviewChart = () => {
   const date = new Date();
   const currentYear = date.getFullYear().toString();
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  //const {data, isLoading, isError} = useGetIncomeGrowthQuery(selectedYear);
-  //const barData = data?.data;
+  const {data, isLoading, isError} = useGetIncomeGrowthQuery(selectedYear);
+  const barData = data?.data;
 
 
-  // if(isLoading){
-  //     return <IncomeOverviewLoading/>
-  //   }
+  if(isLoading){
+      return <IncomeOverviewLoading/>
+    }
   
-  //   if (!isLoading && isError) {
-  //     return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
-  //   }
+    if (!isLoading && isError) {
+      return <h1 className="text-lg text-red-500">Server Error Occured</h1>;
+    }
 
 
 
@@ -51,7 +52,7 @@ const IncomeOverviewChart = () => {
 
       <div className="h-80">
         <ResponsiveContainer width="100%" height={300}>
-          <AreaChart data={incomeBarData}>
+          <AreaChart data={barData}>
             <defs>
               <linearGradient id="colorBookings" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#007bff" stopOpacity={0.8} />

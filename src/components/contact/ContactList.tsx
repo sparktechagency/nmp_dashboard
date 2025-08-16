@@ -1,75 +1,61 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import ContactTable from "./ContactTable";
-import { contactData } from "../../data/contact.data";
+import { useGetContactListQuery } from "../../redux/features/contact/contactApi";
+import ListLoading from "../loader/ListLoading";
+import ServerErrorCard from "../card/ServerErrorCard";
 
 const ContactList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  //const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  // const { data, isLoading, isError } = useGetContactListQuery([
-  //   { name: "page", value: currentPage },
-  //   { name: "limit", value: pageSize },
-  //   { name: "searchTerm", value: searchTerm },
-  // ]);
+  const { data, isLoading, isError } = useGetContactListQuery([
+    { name: "page", value: currentPage },
+    { name: "limit", value: pageSize },
+    { name: "searchTerm", value: searchTerm },
+  ]);
 
   // //debounced handle
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     setSearchTerm(searchQuery);
-  //     setCurrentPage(1)
-  //   }, 600);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearchTerm(searchQuery);
+      setCurrentPage(1)
+    }, 600);
 
-  //   return () => clearTimeout(timeoutId); // cleanup for debounce
-  // }, [searchQuery]);
+    return () => clearTimeout(timeoutId); // cleanup for debounce
+  }, [searchQuery]);
 
 
-  //const contacts = data?.data || [];
-  //const meta = data?.meta || {};
-   const meta = {
-    "page": 1,
-    "limit": 10,
-    "totalPages": 4,
-    "total": 20
+  const contacts = data?.data || [];
+  const meta = data?.meta || {};
+ 
+
+  let content: React.ReactNode;
+ 
+
+  if (isLoading) {
+    content = <ListLoading />;
   }
 
-  //let content: React.ReactNode;
-  const content = (
-    <div className="flex-1 overflow-hidden">
-      <ContactTable
-        contacts={contactData}
-        meta={meta}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-      />
-    </div>
-  );
+  if (!isLoading && !isError) {
+    content = (
+      <div className="flex-1 overflow-hidden">
+        <ContactTable
+          contacts={contacts}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+        />
+      </div>
+    );
+  }
 
-  // if (isLoading) {
-  //   content = <ListLoading />;
-  // }
-
-  // if (!isLoading && !isError) {
-  //   content = (
-  //     <div className="flex-1 overflow-hidden">
-  //       <ContactTable
-  //         contacts={contacts}
-  //         meta={meta}
-  //         currentPage={currentPage}
-  //         setCurrentPage={setCurrentPage}
-  //         pageSize={pageSize}
-  //         setPageSize={setPageSize}
-  //       />
-  //     </div>
-  //   );
-  // }
-
-  // if (!isLoading && isError) {
-  //   content = <ServerErrorCard />;
-  // }
+  if (!isLoading && isError) {
+    content = <ServerErrorCard />;
+  }
 
   return (
     <>

@@ -6,7 +6,7 @@ export const dashboardApi = apiSlice.injectEndpoints({
     getStats: builder.query({
       query: () => {
         return {
-          url: `/user/get-stats`,
+          url: `/dashboard/get-stats`,
           method: "GET",
         };
       },
@@ -16,7 +16,7 @@ export const dashboardApi = apiSlice.injectEndpoints({
     getUserGrowth: builder.query({
       query: (year) => {
         return {
-          url: `/user/get-user-overview/${year}`,
+          url: `/dashboard/get-user-overview/${year}`,
           method: "GET",
         };
       },
@@ -26,7 +26,7 @@ export const dashboardApi = apiSlice.injectEndpoints({
     getIncomeGrowth: builder.query({
       query: (year) => {
         return {
-          url: `/order/get-income-overview/${year}`,
+          url: `/dashboard/get-income-overview/${year}`,
           method: "GET",
         };
       },

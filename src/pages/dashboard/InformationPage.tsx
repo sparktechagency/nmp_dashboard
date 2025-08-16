@@ -1,27 +1,23 @@
 import { Mail, Phone, MapPin } from "lucide-react"
 import UpdateInformationModal from "../../components/modal/information/UpdateInformationModal";
 import { FaInstagram, FaTelegram } from "react-icons/fa";
+import { useGetInformationQuery } from "../../redux/features/information/informationApi";
+import InformationLoading from "../../components/loader/InformationLoading";
 
 const InformationPage = () => {
-  //const { data, isLoading, isError } = useGetInformationQuery(undefined);
-  //const information = data?.data || {};
-  const information = {
-    "email": "support@gmail.com",
-    "phone": "+65 91151228",
-    "address": "124 joo chiat place S427853",
-    "instagram": "https://www.instagram.com",
-    "telegram": "https://t.me"
+  const { data, isLoading, isError } = useGetInformationQuery(undefined);
+  const information = data?.data || {};
+
+
+  if (isLoading) {
+    return <InformationLoading />
   }
 
-  // if (isLoading) {
-  //   return <InformationLoading />
-  // }
+  if (!isLoading && isError) {
+    return <h1>Serever error occured</h1>
+  }
 
-  // if (!isLoading && isError) {
-  //   return <h1>Serever error occured</h1>
-  // }
-
-  // if (!isLoading && information) {
+  if (!isLoading && information) {
     return (
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md border border-gray-200 p-6 relative">
         <UpdateInformationModal information={information}/>
@@ -102,7 +98,7 @@ const InformationPage = () => {
         </div>
       </div>
     )
-  // }
+  }
 }
 
 export default InformationPage;
