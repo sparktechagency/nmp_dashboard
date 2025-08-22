@@ -256,6 +256,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     >
       <div className="w-full overflow-auto px-4 overflow-x-auto sm:overflow-x-visible">
         <Table
+          size="small"
           columns={columns}
           dataSource={dataSource}
           pagination={false}
@@ -302,7 +303,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
         />
       </div>
       {meta?.total > 0 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
+        <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
             current={currentPage}

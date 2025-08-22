@@ -4,9 +4,11 @@
 
 
 .employer-table .ant-table-thead>tr>th {
-    background-color: #fef3c7;
-    color: #000;
-    font-weight: 500;
+    /* background-color: #fef3c7; */
+    background-color: #b8c7e5;
+    /* color: #000; */
+    font-weight: 600;
+    /* color: white; */
 }
 
 @media (max-width: 640px) {
