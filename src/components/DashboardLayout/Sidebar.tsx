@@ -4,8 +4,8 @@ import SidebarLink from './SidebarLink';
 import logo from "../../assets/images/logo.png";
 import { X } from 'lucide-react';
 import { MdLogout } from 'react-icons/md';
-import { logout } from '../../helper/SessionHelper';
-import { adminMenuItems } from '../../data/sidebar.data';
+import { getUserInfo, logout } from '../../helper/SessionHelper';
+import { adminMenuItems, superAdminMenuItems } from '../../data/sidebar.data';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -13,8 +13,8 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, closeSidebar }) => {
-  //const user = getUserInfo();
-  //const menuItems = user?.role ==="admin" ? adminMenuItems : superAdminMenuItems;
+  const user = getUserInfo();
+  const menuItems = user?.role ==="admin" ? adminMenuItems : superAdminMenuItems;
 
 
   // Close sidebar when clicking outside on mobile
@@ -76,8 +76,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, closeSidebar }) => {
         {/* Sidebar Links */}
         <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
           {
-            adminMenuItems?.map((item, index)=> (
-              <SidebarLink menuItem={item} key={index}/>
+            menuItems?.map((item, index)=> (
+              <SidebarLink menuItem={item} key={index} closeSidebar={closeSidebar} />
             ))
           }
         </nav>

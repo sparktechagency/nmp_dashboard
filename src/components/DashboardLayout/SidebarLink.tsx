@@ -11,9 +11,10 @@ type TProps = {
     hasArrow?: boolean;
     children?: any[];
   };
+  closeSidebar: () => void;
 };
 
-const SidebarLink = ({ menuItem }: TProps) => {
+const SidebarLink = ({ menuItem, closeSidebar }: TProps) => {
   const { path, label, hasArrow, children } = menuItem;
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -25,6 +26,7 @@ const SidebarLink = ({ menuItem }: TProps) => {
     if (hasArrow) {
       setOpen(!open);
     } else if (path) {
+      closeSidebar()
       navigate(path);
     }
   };

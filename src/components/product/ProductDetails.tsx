@@ -30,6 +30,7 @@ const ProductDetails = ({ product}: TProps) =>{
         {/* Product Info */}
         <div className="space-y-6">
           {/* Category */}
+          <div className="text-sm text-gray-500 tracking-wide">Product Id: <span className="text-black font-semibold">{product?._id}</span></div>
           <div className="text-sm text-gray-500 uppercase tracking-wide">Category: <span className="text-green-500">{product?.category}</span></div>
           <div className="text-sm text-gray-500 uppercase tracking-wide">Brand: <span className="text-pink-500">{product?.brand}</span></div>
           <div className="text-sm text-gray-500 uppercase tracking-wide">Flavor: <span className="text-yellow-500">{product?.flavor}</span></div>
