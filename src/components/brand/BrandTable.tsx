@@ -84,7 +84,7 @@ const BrandTable = ({
         },
       }}
     >
-      <div className="w-full overflow-auto">
+      <div className="w-full overflow-auto px-4 overflow-x-auto">
         <Table
           columns={columns}
           dataSource={dataSource}
@@ -95,7 +95,7 @@ const BrandTable = ({
           className="employer-table"
         />
       </div>
-      {meta?.totalPages > 1 && (
+      {meta?.total > 0 && (
         <div className="p-8 bg-white shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}

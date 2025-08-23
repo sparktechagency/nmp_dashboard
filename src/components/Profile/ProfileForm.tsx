@@ -11,11 +11,10 @@ import FormButton from "../form/FormButton";
 type TFormValues = z.infer<typeof updateAdminSchema>;
 
 type TProps = {
-  file: File | null;
   user: TProfile | null;
 }
 
-const ProfileForm = ({ user, file }: TProps) => {
+const ProfileForm = ({ user}: TProps) => {
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
   const { handleSubmit, control } = useForm({
     resolver: zodResolver(updateAdminSchema),
@@ -31,10 +30,6 @@ const ProfileForm = ({ user, file }: TProps) => {
     const formData = new FormData();
     formData.append("fullName", data.fullName);
     formData.append("phone", data.phone);
-
-    if (file !== null) {
-      formData.append("file", file);
-    }
     updateProfile(formData)
   };
 

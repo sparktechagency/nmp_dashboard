@@ -89,7 +89,7 @@ const FlavorTable = ({
         },
       }}
     >
-      <div className="w-full overflow-auto overflow-x-auto">
+      <div className="w-full overflow-auto px-4 overflow-x-auto">
         <Table
           columns={columns}
           dataSource={dataSource}

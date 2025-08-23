@@ -2,27 +2,29 @@ import { FaCamera } from "react-icons/fa";
 import profile_placeholder from "../../assets/images/profile_placeholder.png";
 import { useRef, useState } from "react";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import { useUpdateProfileImgMutation } from "../../redux/features/user/userApi";
 
-type TProps = {
-  setFile: React.Dispatch<React.SetStateAction<null | File>>;
-};
 
-const ProfilePic = ({ setFile }: TProps) => {
+const ProfilePic = () => {
   const { user } = useAppSelector((state) => state.user);
   const [imageSrc, setImageSrc] = useState(user?.profile_img ? user?.profile_img : profile_placeholder); // Default image
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [updateProfileImg] = useUpdateProfileImgMutation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
+    const imgFile = e.target.files?.[0];
+    if (imgFile) {
       const reader = new FileReader();
       reader.onload = () => {
         if (typeof reader.result === "string") {
           setImageSrc(reader.result);
         }
       };
-      reader.readAsDataURL(file);
-      setFile(file);
+      reader.readAsDataURL(imgFile);
+      // update img
+      const formData = new FormData();
+      formData.append("file", imgFile);
+      updateProfileImg(formData)
     }
   };
 
