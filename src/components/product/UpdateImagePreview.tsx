@@ -1,6 +1,7 @@
 import type { ISingleProduct } from "../../types/product.type";
 import UpdateProductImageModal from "../modal/product/UpdateProductImageModal";
 import product_placeholder from "../../assets/images/product_placeholder.png";
+import MakeFeatureProduct from "./MakeFeatureProduct";
 
 
 type TProps = {
@@ -32,6 +33,12 @@ const UpdateImagePreview = ({ product }: TProps) => {
                     </div>
                 </div>
             </div>
+
+            {
+                !product?.isFeatured && (
+                    <MakeFeatureProduct productId={product?._id} />
+                )
+            }
         </>
     )
 }

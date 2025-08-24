@@ -92,11 +92,11 @@ const BrandTable = ({
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 265px)" }}
-          className="employer-table"
+          className="employer-table min-h-[calc(100vh-290px)]"
         />
       </div>
       {meta?.total > 0 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
+        <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
             current={currentPage}

@@ -2,6 +2,7 @@
 import product_placeholder from "../../assets/images/product_placeholder.png";
 import { FaStar } from "react-icons/fa";
 import type { ISingleProduct } from "../../types/product.type";
+import MakeFeatureProduct from "./MakeFeatureProduct";
 
 
 type TProps = {
@@ -30,13 +31,12 @@ const ProductDetails = ({ product}: TProps) =>{
         {/* Product Info */}
         <div className="space-y-6">
           {/* Category */}
+          <h1 className="text-3xl font-bold text-gray-900">{product?.name}</h1>
           <div className="text-sm text-gray-500 tracking-wide">Product Id: <span className="text-black font-semibold">{product?._id}</span></div>
           <div className="text-sm text-gray-500 uppercase tracking-wide">Category: <span className="text-green-500">{product?.category}</span></div>
           <div className="text-sm text-gray-500 uppercase tracking-wide">Brand: <span className="text-pink-500">{product?.brand}</span></div>
           <div className="text-sm text-gray-500 uppercase tracking-wide">Flavor: <span className="text-yellow-500">{product?.flavor}</span></div>
 
-          {/* Product Name */}
-          <h1 className="text-3xl font-bold text-gray-900">{product?.name}</h1>
 
           {/* Ratings */}
           <div className="flex items-center space-x-2">
@@ -76,7 +76,12 @@ const ProductDetails = ({ product}: TProps) =>{
             >
               {product.stockStatus === "in_stock" ? "In Stock" : "Out of Stock"}
             </span>
-          </div>   
+          </div>
+          {
+            !product?.isFeatured && (
+              <MakeFeatureProduct productId={product?._id}/>
+            )
+          } 
         </div>
       </div>
 

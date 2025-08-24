@@ -17,7 +17,6 @@ import AdminsPage from "../pages/dashboard/AdminsPage";
 import HelpPage from "../pages/help/HelpPage";
 import FaqsPage from "../pages/help/FaqsPage";
 import UsersPage from "../pages/dashboard/UsersPage";
-import SizesPage from "../pages/dashboard/SizesPage";
 import InformationPage from "../pages/dashboard/InformationPage";
 import ProductsPage from "../pages/product/ProductsPage";
 import CreateProductPage from "../pages/product/CreateProductPage";
@@ -72,10 +71,6 @@ const router = createBrowserRouter([
       {
         path: "flavors",
         element: <FlavorPage />,
-      },
-      {
-        path: "sizes",
-        element: <SizesPage />,
       },
       {
         path: "help",

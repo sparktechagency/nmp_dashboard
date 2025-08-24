@@ -84,7 +84,7 @@ const CategoryTable = ({
         },
       }}
     >
-      <div className="w-full overflow-auto">
+      <div className="w-full overflow-auto px-4 overflow-x-auto">
         <Table
           columns={columns}
           dataSource={dataSource}
@@ -92,11 +92,11 @@ const CategoryTable = ({
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 265px)" }}
-          className="employer-table"
+          className="employer-table min-h-[calc(100vh-290px)]"
         />
       </div>
-      {meta?.totalPages > 1 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
+      {meta?.total > 0 && (
+        <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
             current={currentPage}

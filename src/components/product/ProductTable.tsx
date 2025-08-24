@@ -296,9 +296,9 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
         >
           Add Product
         </Link> */}
-      </div>
-    ),
-  }}
+              </div>
+            ),
+          }}
           className="employer-table min-h-[calc(100vh-324px)]"
         />
       </div>
