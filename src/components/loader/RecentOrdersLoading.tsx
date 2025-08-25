@@ -1,5 +1,5 @@
 
-const RecentEmployersLoading = () => {
+const RecentOrdersLoading = () => {
     const loadingArray = [1,2,3,4,5];
     
     return (
@@ -18,4 +18,4 @@ const RecentEmployersLoading = () => {
     );
 };
 
-export default RecentEmployersLoading;
+export default RecentOrdersLoading;
