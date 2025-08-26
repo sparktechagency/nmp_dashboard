@@ -13,6 +13,7 @@ type TProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  isFetching: boolean;
 }
 
 type TDataSource = {
@@ -28,12 +29,13 @@ const CategoryTable = ({
   currentPage,
   setCurrentPage,
   pageSize,
-  setPageSize
+  setPageSize,
+  isFetching
 }: TProps) => {
 
   const dataSource: TDataSource[] = categories?.map((category, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: category?._id,
     name: category?.name
   }))
@@ -93,6 +95,7 @@ const CategoryTable = ({
           sticky
           scroll={{ y: "calc(100vh - 265px)" }}
           className="employer-table min-h-[calc(100vh-290px)]"
+          loading={isFetching}
         />
       </div>
       {meta?.total > 0 && (

@@ -11,7 +11,7 @@ const AdminList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetAdminsQuery([
+  const { data, isLoading, isFetching, isError } = useGetAdminsQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -48,6 +48,7 @@ const AdminList = () => {
           setCurrentPage={setCurrentPage}
           pageSize={pageSize}
           setPageSize={setPageSize}
+          isFetching={isFetching}
         />
       </div>
     );

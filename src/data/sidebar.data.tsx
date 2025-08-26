@@ -1,9 +1,8 @@
-import { LayoutDashboard, Snowflake, UsersRound } from "lucide-react";
+import { LayoutDashboard, Snowflake, Users } from "lucide-react";
 import {
     SettingOutlined
   } from '@ant-design/icons';
 import { MdCategory, MdContactPhone, MdUnsubscribe } from "react-icons/md";
-import { PiStudentBold } from "react-icons/pi";
 import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
 import { RiProductHuntLine } from "react-icons/ri";
 import { PiInvoiceBold } from "react-icons/pi";
@@ -12,7 +11,7 @@ import { SiBrandfolder } from "react-icons/si";
 export const adminMenuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
-  { path: "/users", label: "Users", icon: UsersRound },
+  { path: "/users", label: "Users", icon: Users  },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},
@@ -20,16 +19,6 @@ export const adminMenuItems = [
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
   { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
-  // {
-  //   path: "",
-  //   label: "Help & FAQ",
-  //   icon: MdSubscriptions,
-  //   hasArrow: true,
-  //   children: [
-  //     { path: "/help", label: "Help & Support" },
-  //     { path: "/faqs", label: "FAQS" },
-  //   ],
-  // },
   {
     icon: SettingOutlined,
     label: "Settings",
@@ -47,7 +36,7 @@ export const superAdminMenuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
-  { path: "/users", label: "Users", icon: PiStudentBold },
+  { path: "/users", label: "Users", icon: Users },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},
@@ -55,16 +44,6 @@ export const superAdminMenuItems = [
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
   { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
-  // {
-  //   path: "",
-  //   label: "Help & FAQ",
-  //   icon: MdSubscriptions,
-  //   hasArrow: true,
-  //   children: [
-  //     { path: "/help", label: "Help & Support" },
-  //     { path: "/faqs", label: "FAQS" },
-  //   ],
-  // },
   {
     icon: SettingOutlined,
     label: "Settings",

@@ -14,14 +14,15 @@ type TProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  isFetching: boolean;
 };
 
 
-const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
+const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPageSize, isFetching }: TProps) => {
 
   const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
-    serial: Number(index + 1) + ((currentPage - 1) * pageSize),
+    serial: Number(index + 1) + ((meta.page - 1) * pageSize),
     _id: order?._id,
     token: order?.token,
     fullName: order?.fullName,
@@ -191,6 +192,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table min-h-[calc(100vh-290px)]"
+          loading={isFetching}
         />
       </div>
       {meta?.total > 0 && (

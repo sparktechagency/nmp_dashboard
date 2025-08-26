@@ -11,7 +11,7 @@ const OrderList = () => {
   const [status, setStatus] = useState("")
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetOrdersQuery([
+  const { data, isLoading, isFetching, isError } = useGetOrdersQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -48,6 +48,7 @@ const OrderList = () => {
         setCurrentPage={setCurrentPage}
         pageSize={pageSize}
         setPageSize={setPageSize}
+        isFetching={isFetching}
       />
     );
   }
@@ -92,7 +93,7 @@ const OrderList = () => {
                placeholder="Search here..."
                value={searchQuery}
                onChange={(e) => setSearchQuery(e.target.value)}
-               className="w-full pl-4 lg:pl-10 pr-4 py-1 lg:py-2 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
+               className="w-full pl-4 lg:pl-10 pr-4 py-1 lg:py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
              />
            </div>
          </div>
