@@ -11,7 +11,7 @@ const FlavorList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isError } = useGetFlavorsQuery([
+  const { data, isLoading, isFetching, isError } = useGetFlavorsQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm }
@@ -46,6 +46,7 @@ const FlavorList = () => {
       setCurrentPage={setCurrentPage}
       pageSize={pageSize}
       setPageSize={setPageSize}
+      loading={isFetching}
     />;
   }
 

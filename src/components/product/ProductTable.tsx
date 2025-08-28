@@ -17,10 +17,11 @@ type TProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 };
 
 
-const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize }: TProps) => {
+const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize, loading }: TProps) => {
 
   const dataSource: TProductDataSource[] = products?.map((product, index) => ({
     key: index,
@@ -262,6 +263,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
           pagination={false}
           rowKey="_id"
           sticky
+          loading={loading}
           scroll={{ y: "calc(100vh - 324px)" }}
           // locale={{
           //   emptyText: (

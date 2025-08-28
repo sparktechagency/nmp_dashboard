@@ -13,6 +13,7 @@ type TProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 }
 
 type TDataSource = {
@@ -28,7 +29,8 @@ const FlavorTable = ({
   currentPage,
   setCurrentPage,
   pageSize,
-  setPageSize
+  setPageSize,
+  loading
 }: TProps) => {
 
   const dataSource: TDataSource[] = flavors?.map((category, index) => ({
@@ -98,6 +100,7 @@ const FlavorTable = ({
           sticky
           scroll={{ y: "calc(100vh - 265px)" }}
           className="employer-table min-h-[calc(100vh-290px)]"
+          loading={loading}
         />
       </div>
       {meta?.total > 0 && (

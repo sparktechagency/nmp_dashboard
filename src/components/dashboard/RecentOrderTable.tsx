@@ -8,10 +8,11 @@ import StatusBadge from "../order/StatusBadge";
 
 type TProps = {
   orders: IOrder[];
+  loading: boolean;
 };
 
 
-const RecentOrderTable = ({ orders }: TProps) => {
+const RecentOrderTable = ({ orders, loading }: TProps) => {
 
   const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
@@ -179,6 +180,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
           rowKey="_id"
           sticky
           className="employer-table"
+          loading={loading}
         />
       </div>
     </ConfigProvider>

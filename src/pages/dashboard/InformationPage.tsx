@@ -1,6 +1,6 @@
 import { Mail, Phone, MapPin } from "lucide-react"
 import UpdateInformationModal from "../../components/modal/information/UpdateInformationModal";
-import { FaInstagram, FaTelegram } from "react-icons/fa";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useGetInformationQuery } from "../../redux/features/information/informationApi";
 import InformationLoading from "../../components/loader/InformationLoading";
 
@@ -78,17 +78,17 @@ const InformationPage = () => {
               </a>
             </div>
           </div>
-          {/* Teligram */}
+          {/* Facebook */}
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0 mt-0.5">
-              <FaTelegram className="w-5 h-5 text-[#0088cc]" />
+              <FaFacebook className="w-5 h-5 text-[#1877F2]" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-700">Teligram Link</p>
-             <a
-
-                href={information?.telegram}
+              <p className="text-sm font-medium text-gray-700">Facebook Link</p>
+              <a
+                href={information?.facebook}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="font-medium text-blue-500 hover:underline"
               >
                 Click Here
