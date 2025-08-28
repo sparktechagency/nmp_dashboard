@@ -26,6 +26,25 @@ export const productApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.products],
     }),
+    getFeatureProducts: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/product/get-fetaure-products",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.products],
+    }),
     createProduct: builder.mutation({
       query: (data) => ({
         url: "/product/create-product",

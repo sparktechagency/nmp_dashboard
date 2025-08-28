@@ -15,6 +15,7 @@ interface ContactTableProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
 }
 
 type TDataSource = TContact & {
@@ -29,11 +30,12 @@ const ContactTable : React.FC<ContactTableProps> = ({
   setCurrentPage,
   pageSize,
   setPageSize,
+  loading
 }) => {
 
   const dataSource: TDataSource[] = contacts?.map((contact, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: contact?._id,
     email: contact?.email,
     message: contact?.message,
@@ -45,31 +47,31 @@ const ContactTable : React.FC<ContactTableProps> = ({
 
   const columns = [
     {
-      title: "Serial",
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "5%",
+      width: 60,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "17%",
+      width: 200,
     },
      {
       title: "Contact Number",
       dataIndex: "phone",
       key: "phone",
-      width: "15%",
+      width: 200,
     },
     {
       title: "Message",
       dataIndex: "message",
       key: "message",
-      width: "20%",
+      width: 250,
       render: (text: string) => (
         <>
-          <p className="truncate">{text}</p>
+          <p className="truncate text-md">{text}</p>
         </>
       ),
     },
@@ -77,7 +79,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
       title: "Date",
       dataIndex: "createdAt",
       key: "createdAt",
-      width: "12%",
+      width: 130,
       render: (val: string) => {
         const { bg, text, border } = getColorClassForDate(val.split('T')[0]);
         return (
@@ -93,7 +95,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
       title: "Reply Date",
       dataIndex: "replyAt",
       key: "replyAt",
-      width: "12%",
+      width: 130,
       render: (val: string) => {
         if (val) {
           const { bg, text, border } = getColorClassForDate(val.split('T')[0]);
@@ -106,7 +108,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
           );
         }
         else{
-          return <span className="text-red-500">Not replied yet.</span>
+          return <span className="text-red-500 text-md">Not replied yet.</span>
         }
       },
     },
@@ -114,7 +116,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
       title: "Action",
       key: "_id",
       dataIndex: "_id",
-      width: "10%",
+      width: 115,
       align: "center" as const,
       render: (contactId: string, contact: TContact) => (
         <div className="flex justify-center gap-2">
@@ -151,6 +153,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
     >
       <div className="w-full overflow-auto px-4">
         <Table
+          size="small"
           columns={columns}
           dataSource={dataSource}
           pagination={false}
@@ -158,6 +161,7 @@ const ContactTable : React.FC<ContactTableProps> = ({
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table min-h-[calc(100vh-290px)]"
+          loading={loading}
         />
       </div>
       {meta?.total > 0 && (

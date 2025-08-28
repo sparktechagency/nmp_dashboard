@@ -41,22 +41,27 @@ const UserTable: React.FC<UserTableProps> = ({
 
   const columns = [
     {
-      title: "Serial",
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "10%",
+      width: 60,
     },
     {
       title: "Name",
       dataIndex: "fullName",
       key: "fullName",
-      width: "22.5%",
+      width: 150,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Image",
       dataIndex: "profile_img",
       key: "profile_img",
-      width: "10%",
+      width: 100,
       render: (val?: string) => (
         <div className="flex items-center gap-2">
           <img
@@ -75,27 +80,35 @@ const UserTable: React.FC<UserTableProps> = ({
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "22.5%",
+      width: 200,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      width: "22.5%",
+      width: 140,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "15%",
+      width: 160,
       render: (status: TBlockStatus, record: IUser) => {
         const statusStyles = {
           blocked: "bg-red-100 text-red-700 border border-red-300",
           unblocked: "bg-green-100 text-green-700 border border-green-300",
         };
-
         const bgColor = status=== "blocked" ? statusStyles.blocked : statusStyles.unblocked;
-
         return (
           <div className="flex items-center gap-2">
             <button

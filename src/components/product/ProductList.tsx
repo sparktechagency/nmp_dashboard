@@ -66,7 +66,7 @@ const ProductList = () => {
            </h1>
          </div>
          <div className="flex flex-col md:flex-row items-center gap-x-12 gap-y-4">
-           <div className="relative w-48 lg:w-72">
+           <div className="relative w-36 lg:w-72">
              <span className="absolute hidden inset-y-0 left-3 lg:flex items-center text-gray-700">
                <FaSearch size={16} />
              </span>
@@ -80,7 +80,7 @@ const ProductList = () => {
            </div>
            <button
              onClick={() => navigate("/add-product")}
-             className="bg-primary w-48 lg:w-auto px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
+             className="bg-primary w-36 lg:w-auto px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
            >
              {" "}
              Add New

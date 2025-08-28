@@ -10,7 +10,8 @@ const DeleteButton = ({isLoading, onClick}: TProps) => {
     <>
           <button
               onClick={onClick}
-              className="px-4 cursor-pointer py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none"
+              disabled={isLoading}
+              className="px-4 cursor-pointer py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none disabled:cursor-not-allowed"
           >
               {isLoading ? (
                   <>

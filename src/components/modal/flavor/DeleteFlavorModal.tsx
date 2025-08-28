@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
@@ -53,11 +52,11 @@ const DeleteFlavorModal = ({ flavorId } : TProps) => {
             <div className="flex justify-end space-x-2 pt-3">
               <button
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2 cursor-pointer border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
+                className="bg-black text-white px-4 py-2 rounded-md"
               >
                 No
               </button>
-               <DeleteButton isLoading={isLoading} onClick={handleDelete}/>
+              <DeleteButton isLoading={isLoading} onClick={handleDelete} />
             </div>
           </div>
         </div>

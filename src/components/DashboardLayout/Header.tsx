@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children }) => {
   const navigate = useNavigate();
-  const { isLoading } = useGetMyProfileQuery(undefined);
+  const { isLoading, isFetching } = useGetMyProfileQuery(undefined);
   const { user } = useAppSelector((state) => state.user);
 
 
@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
         <h1 className="md:hidden text-lg font-semibold text-white">Dashflow</h1>
       </div>
       <div className="flex items-center space-x-3" onClick={() => navigate("/profile")}>
-        {isLoading ? (
+        {isLoading || isFetching ? (
           <UserLoading />
         ) : (
           <div

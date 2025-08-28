@@ -35,7 +35,7 @@ const FlavorTable = ({
 
   const dataSource: TDataSource[] = flavors?.map((category, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: category?._id,
     name: category?.name
   }))

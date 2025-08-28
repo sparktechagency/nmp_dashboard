@@ -14,8 +14,6 @@ import TermsConditionPage from "../pages/settings/TermsConditionPage";
 import ProfilePage from "../pages/settings/ProfilePage";
 import ChangePasswordPage from "../pages/settings/ChangePasswordPage";
 import AdminsPage from "../pages/dashboard/AdminsPage";
-import HelpPage from "../pages/help/HelpPage";
-import FaqsPage from "../pages/help/FaqsPage";
 import UsersPage from "../pages/dashboard/UsersPage";
 import InformationPage from "../pages/dashboard/InformationPage";
 import ProductsPage from "../pages/product/ProductsPage";
@@ -71,14 +69,6 @@ const router = createBrowserRouter([
       {
         path: "flavors",
         element: <FlavorPage />,
-      },
-      {
-        path: "help",
-        element: <HelpPage />,
-      },
-      {
-        path: "faqs",
-        element: <FaqsPage />,
       },
       {
         path: "information",

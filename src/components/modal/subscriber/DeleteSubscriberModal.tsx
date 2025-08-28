@@ -2,8 +2,8 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { useDeleteSubscriberMutation } from "../../../redux/features/newsletter/newsletterApi";
+import DeleteButton from "../../form/DeleteButton";
 
 type TProps = {
   subscriberId: string;
@@ -54,22 +54,11 @@ const DeleteSubscriberModal = ({ subscriberId }: TProps) => {
             <div className="flex justify-end space-x-2 pt-3">
               <button
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2 cursor-pointer border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
+                className="bg-black text-white px-4 py-2 rounded-md"
               >
                 No
               </button>
-              <button
-                onClick={handleDelete}
-                className="px-4 cursor-pointer py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none"
-              >
-                {isLoading? (
-                  <>
-                    <CgSpinnerTwo className="animate-spin" fontSize={16} />
-                  </>
-                ) : (
-                  "Yes"
-                )}
-              </button>
+              <DeleteButton isLoading={isLoading} onClick={handleDelete} />
             </div>
           </div>
         </div>

@@ -35,29 +35,34 @@ const BrandTable = ({
 
   const dataSource: TDataSource[] = brands?.map((brand, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: brand?._id,
     name: brand?.name
   }))
 
   const columns = [
-    {
-      title: "Serial No",
+     {
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "10%",
+      width: 60,
     },
     {
       title: "Title",
       dataIndex: "name",
       key: "name",
-      width: "22.5%",
+      width: 180,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: "15%",
+      width: 115,
       render: (val: string, record: IBrand) => (
         <div className="flex items-center gap-3">
           <EditBrandModal brand={record} />
