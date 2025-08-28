@@ -3,6 +3,8 @@ import product_placeholder from "../../assets/images/product_placeholder.png";
 import { FaStar } from "react-icons/fa";
 import type { ISingleProduct } from "../../types/product.type";
 import MakeFeatureProduct from "./MakeFeatureProduct";
+import getStockStatus from "../../utils/getStockStatus";
+import { getStockStatusBg, getStockStatusColor } from "../../utils/getStockStatusColor";
 
 
 type TProps = {
@@ -10,6 +12,7 @@ type TProps = {
 }
 
 const ProductDetails = ({ product}: TProps) =>{
+
 
 
   return (
@@ -67,14 +70,12 @@ const ProductDetails = ({ product}: TProps) =>{
           {/* Stock Status */}
           <div className="flex items-center space-x-2">
             <div
-              className={`w-3 h-3 rounded-full ${product.stockStatus === "in_stock" ? "bg-green-500" : "bg-red-500"}`}
+              className={`w-3 h-3 rounded-full ${getStockStatusBg(product.stockStatus)}`}
             ></div>
             <span
-              className={`text-sm font-medium ${
-                product.stockStatus === "in_stock" ? "text-green-700" : "text-red-700"
-              }`}
+              className={`text-sm font-medium ${getStockStatusColor(product.stockStatus)}`}
             >
-              {product.stockStatus === "in_stock" ? "In Stock" : "Out of Stock"}
+              {getStockStatus(product.stockStatus)}
             </span>
           </div>
           {

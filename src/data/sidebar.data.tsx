@@ -16,6 +16,7 @@ export const adminMenuItems = [
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},
   { path: "/products", label: "Products", icon: RiProductHuntLine },
+  { path: "/feature-products", label: "Feature Products", icon: RiProductHuntLine },
   { path: "/information", label: "Contact Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
   { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },

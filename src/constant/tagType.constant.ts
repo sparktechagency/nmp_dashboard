@@ -14,6 +14,7 @@ const TagTypes = {
     information: "Information",
     products: "Products",
     featureProducts: "FeatureProducts",
+    bestSellerProducts: "BestSellerProducts",
     product: "Product",
     policy: "Policy",
     orders: "Orders",

@@ -28,6 +28,7 @@ import FlavorPage from "../pages/dashboard/FlavorPage";
 import NotFoundRoute from "./NotFoundRoute";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import FeatureProductsPage from "../pages/product/FeatureProductsPage";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <ProductsPage />,
+      },
+      {
+        path: "feature-products",
+        element: <FeatureProductsPage />,
       },
       {
         path: "add-product",

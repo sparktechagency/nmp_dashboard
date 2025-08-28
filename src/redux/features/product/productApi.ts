@@ -37,13 +37,32 @@ export const productApi = apiSlice.injectEndpoints({
           });
         }
         return {
-          url: "/product/get-fetaure-products",
+          url: "/product/get-feature-products",
           method: "GET",
           params: params,
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.products],
+      providesTags: [TagTypes.featureProducts],
+    }),
+    getBestSellerProducts: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/product/get-best-seller-products",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.bestSellerProducts],
     }),
     createProduct: builder.mutation({
       query: (data) => ({
@@ -91,7 +110,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, _success, arg) => {
         if (result?.success) {
-          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
+          return [TagTypes.products, TagTypes.featureProducts, { type: TagTypes.product, id: arg.id }];
         }
         return [];
       },
@@ -119,7 +138,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, _success, arg) => {
         if (result?.success) {
-          return [TagTypes.products, { type: TagTypes.product, id: arg.id }];
+          return [TagTypes.products, TagTypes.featureProducts, { type: TagTypes.product, id: arg.id }];
         }
         return [];
       },
@@ -169,4 +188,4 @@ export const productApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useUpdateProductMutation } = productApi;
+export const { useGetProductsQuery, useGetFeatureProductsQuery, useGetBestSellerProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useUpdateProductMutation } = productApi;
