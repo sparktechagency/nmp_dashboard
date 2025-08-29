@@ -7,7 +7,7 @@ const initialState = {
     LoginError: "",
     RegisterError: "",
     ChangePasswordError: "",
-    ProfileError: "This is error"
+    ProfileError: ""
 }
 
 const authSlice = createSlice({
