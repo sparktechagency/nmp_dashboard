@@ -24,7 +24,9 @@ const TagTypes = {
     brands: "Brands",
     brandDropDown: "BrandDropDown",
     flavors: "Flavors",
-    flavorDropDown: "FlavorDropDown"
+    flavorDropDown: "FlavorDropDown",
+    types: "Types",
+    typeDropDown: "TypeDropDown"
 }
 
 export default TagTypes;

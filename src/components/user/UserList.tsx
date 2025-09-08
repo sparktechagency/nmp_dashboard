@@ -19,8 +19,8 @@ const UserList = () => {
  //debounced handle
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      setCurrentPage(1);
       setSearchTerm(searchQuery);
-      setCurrentPage(1)
     }, 600);
     return () => clearTimeout(timeoutId); // cleanup for debounce
   }, [searchQuery]);

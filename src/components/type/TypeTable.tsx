@@ -7,7 +7,7 @@ import type { IMeta } from "../../types/global.type";
 
 
 type TProps = {
-  categories: ICategory[];
+  types: ICategory[];
   meta: IMeta;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -24,8 +24,9 @@ type TDataSource = {
 }
 
 
-const CategoryTable = ({
-  categories, meta,
+const TypeTable = ({
+  types,
+  meta,
   currentPage,
   setCurrentPage,
   pageSize,
@@ -33,11 +34,11 @@ const CategoryTable = ({
   isFetching
 }: TProps) => {
 
-  const dataSource: TDataSource[] = categories?.map((category, index) => ({
+  const dataSource: TDataSource[] = types?.map((type, index) => ({
     key: index,
     serial: Number(index + 1) + (meta.page - 1) * pageSize,
-    _id: category?._id,
-    name: category?.name
+    _id: type?._id,
+    name: type?.name
   }))
 
   const columns = [
@@ -117,4 +118,4 @@ const CategoryTable = ({
   );
 };
 
-export default CategoryTable;
+export default TypeTable;

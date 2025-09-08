@@ -60,23 +60,23 @@ const OrderList = () => {
    return (
      <>
        <div className="p-4 flex justify-between">
-          <div className="flex flex-col md:flex-row md:items-center gap-x-16 gap-y-4">
+         <div className="flex flex-col md:flex-row md:items-center gap-x-16 gap-y-4">
            <h1 className="text-lg md:text-xl font-semibold text-gray-800">Order List</h1>
            <h1 className="md:text-lg">
              Total: <span className="font-bold"> {meta?.total} </span>
            </h1>
          </div>
          <div className="flex flex-col md:flex-row items-end md:items-center gap-x-12 gap-y-4">
-          <div className="flex gap-2 flex-col md:flex-row md:gap-3 items-center">
+           <div className="flex gap-2 flex-col md:flex-row md:gap-3 items-center">
              <h1 className="text-md truncate">Filter by Status:</h1>
-             <select 
+             <select
                className="p-1 md:p-2 bg-white border border-gray-300 rounded-md focus:border-blue-300"
                value={status}
-               onChange={(e) =>{
+               onChange={(e) => {
                  setStatus(e.target.value);
                  setCurrentPage(1);
-                }}
-              >
+               }}
+             >
                <option value="">All</option>
                <option value="processing">Processing</option>
                <option value="shipped">Shipped</option>
