@@ -1,13 +1,13 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import EditCategoryModal from "../modal/category/EditCategoryModal";
-import type { ICategory } from "../../types/category.type";
-import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
 import type { IMeta } from "../../types/global.type";
+import DeleteTypeModal from "../modal/type/DeleteTypeModal";
+import EditTypeModal from "../modal/type/EditTypeModal";
+import type { IType, ITypeDataSource } from "../../types/type.type";
 
 
 
 type TProps = {
-  types: ICategory[];
+  types: IType[];
   meta: IMeta;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -15,14 +15,6 @@ type TProps = {
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
   isFetching: boolean;
 }
-
-type TDataSource = {
-  key: number;
-  serial: number;
-  _id: string;
-  name: string;
-}
-
 
 const TypeTable = ({
   types,
@@ -34,7 +26,7 @@ const TypeTable = ({
   isFetching
 }: TProps) => {
 
-  const dataSource: TDataSource[] = types?.map((type, index) => ({
+  const dataSource: ITypeDataSource[] = types?.map((type, index) => ({
     key: index,
     serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: type?._id,
@@ -64,10 +56,10 @@ const TypeTable = ({
       dataIndex: "_id",
       key: "action",
       width: 115,
-      render: (val: string, record: ICategory) => (
+      render: (val: string, record: IType) => (
         <div className="flex items-center gap-3">
-          <EditCategoryModal category={record} />
-          <DeleteCategoryModal categoryId={val} />
+          <EditTypeModal type={record} />
+          <DeleteTypeModal typeId={val} />
         </div>
       ),
     },
@@ -104,7 +96,7 @@ const TypeTable = ({
           loading={isFetching}
         />
       </div>
-      {meta?.total > 0 && (
+      {meta?.totalPages > 1 && (
         <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
