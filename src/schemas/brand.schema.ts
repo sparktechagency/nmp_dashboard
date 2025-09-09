@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-escape */
-
-import z from "zod";
+import { z } from "zod";
 
 
 export const brandSchema = z.object({
@@ -17,5 +16,13 @@ export const brandSchema = z.object({
     .regex(/^[^~!@#$%\^*\+\?><=;:"]*$/, {
       message: 'Title cannot contain special characters: ~ ! @ # $ % ^ * + ? > < = ; : "',
     }),
+  typeId: z
+    .string({
+      invalid_type_error: "typeId must be a string",
+      required_error: "Select a type",
+    })
+    .min(1, "Select a type")
 });
+
+
 

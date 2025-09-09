@@ -12,6 +12,7 @@ import { useUpdateBrandMutation } from "../../../redux/features/brand/brandApi";
 import { SetBrandUpdateError } from "../../../redux/features/brand/brandSlice";
 import type { IBrand } from "../../../types/brand.type";
 import FormButton from "../../form/FormButton";
+import CustomSelect from "../../form/CustomSelect";
 
 
 type TFormValues = z.infer<typeof brandSchema>;
@@ -24,11 +25,13 @@ const EditBrandModal = ({ brand }: TProps) => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const { BrandUpdateError } = useAppSelector((state) => state.brand);
+  const { typeOptions } = useAppSelector((state) => state.type);
   const [updateBrand, { isLoading, isSuccess }] = useUpdateBrandMutation();
   const { handleSubmit, control, setValue } = useForm<TFormValues>({
     resolver: zodResolver(brandSchema),
     defaultValues: {
-      name: brand?.name
+      name: brand?.name,
+      typeId: brand?.typeId
     }
   });
 
@@ -62,8 +65,9 @@ const EditBrandModal = ({ brand }: TProps) => {
       <Modal
         open={modalOpen}
         onCancel={() => {
-          setValue("name", brand?.name);
           setModalOpen(false);
+          setValue("name", brand?.name);
+          setValue("typeId", brand?.typeId);
           dispatch(SetBrandUpdateError(""));
         }}
         maskClosable={false}
@@ -77,6 +81,14 @@ const EditBrandModal = ({ brand }: TProps) => {
               </h2>
                {BrandUpdateError && <Error message={BrandUpdateError} />}
               <form onSubmit={handleSubmit(onSubmit)}>
+                <CustomSelect
+                  label="Type"
+                  name="typeId"
+                  control={control}
+                  disabled={typeOptions.length === 0}
+                  options={typeOptions}
+                  blankOption={false}
+                />
                 <CustomInput
                   label="Title"
                   name="name"

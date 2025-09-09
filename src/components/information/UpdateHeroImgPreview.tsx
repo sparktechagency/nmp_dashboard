@@ -1,27 +1,25 @@
-import type { ISingleProduct } from "../../types/product.type";
-import UpdateProductImageModal from "../modal/product/UpdateProductImageModal";
 import product_placeholder from "../../assets/images/product_placeholder.png";
-import MakeFeatureProduct from "./MakeFeatureProduct";
+import UpdateHeroImgModal from "../modal/information/UpdateHeroImgModal";
 
 
 type TProps = {
-    product: ISingleProduct
+    heroImg: string
 }
 
-const UpdateImagePreview = ({ product }: TProps) => {
+const UpdateHeroImgPreview = ({ heroImg }: TProps) => {
     return (
         <>
 
             <div>
                 <h1 className="flex items-center gap-2 mb-2">
-                    <span className="font-bold">Image</span>
-                    <UpdateProductImageModal productId={product?._id} />
+                    <span className="font-bold">Home Page's Image</span>
+                    <UpdateHeroImgModal />
                 </h1>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     <div className="relative group">
                         <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                             <img
-                                src={product?.image || product_placeholder}
+                                src={heroImg || product_placeholder}
                                 onError={(e) => {
                                     e.currentTarget.onerror = null;
                                     e.currentTarget.src = product_placeholder;
@@ -33,14 +31,8 @@ const UpdateImagePreview = ({ product }: TProps) => {
                     </div>
                 </div>
             </div>
-
-            {
-                !product?.isFeatured && (
-                    <MakeFeatureProduct productId={product?._id} />
-                )
-            }
         </>
     )
 }
 
-export default UpdateImagePreview
+export default UpdateHeroImgPreview

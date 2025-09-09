@@ -29,8 +29,8 @@ export const flavorApi = apiSlice.injectEndpoints({
       providesTags: [TagTypes.flavors],
     }),
     getFlavorDropDown: builder.query({
-      query: () => ({
-        url: "/flavor/get-flavor-drop-down",
+      query: (typeId) => ({
+        url: `/flavor/get-flavor-drop-down/${typeId}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,

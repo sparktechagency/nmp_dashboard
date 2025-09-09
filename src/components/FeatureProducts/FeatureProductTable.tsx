@@ -1,9 +1,8 @@
 import { Table, ConfigProvider, Pagination } from "antd";
 import type { IMeta } from "../../types/global.type";
 import product_placeholder from "../../assets/images/product_placeholder.png";
-import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
+import type { IProduct, TFeatureProductDataSource, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
 import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
-import ChangeStockStatusModal from "../modal/product/ChangeStockStatusModal";
 import RemoveFeatureProductModal from "../modal/product/RemoveFeatureProductModal";
 
 
@@ -20,16 +19,18 @@ type TProps = {
 
 const FeatureProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize, loading }: TProps) => {
 
-  const dataSource: TProductDataSource[] = products?.map((product, index) => ({
+  const dataSource: TFeatureProductDataSource[] = products?.map((product, index) => ({
     key: index,
     serial: Number(index + 1) + ((currentPage - 1) * pageSize),
     _id: product?._id,
     name: product?.name,
+    type: product?.type,
     category: product?.category,
     brand: product?.brand,
     flavor: product?.flavor,
     currentPrice: product?.currentPrice,
     originalPrice: product?.originalPrice,
+    quantity: product?.quantity,
     image: product?.image,
     ratings: product?.ratings,
     status: product?.status,
@@ -73,28 +74,6 @@ const FeatureProductTable = ({ products, meta, currentPage, setCurrentPage, page
               e.currentTarget.src = product_placeholder;
             }}
           />
-        </>
-      ),
-    },
-    {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
-      width: 100,
-      render: (text: string) => (
-        <>
-          <p className="truncate">{text}</p>
-        </>
-      ),
-    },
-    {
-      title: "Brand",
-      dataIndex: "brand",
-      key: "brand",
-      width: 80,
-      render: (text: string) => (
-        <>
-          <p className="truncate">{text}</p>
         </>
       ),
     },
@@ -143,32 +122,6 @@ const FeatureProductTable = ({ products, meta, currentPage, setCurrentPage, page
           </div>
         );
       },
-    },
-    {
-      title: "Stock Status",
-      dataIndex: "stockStatus",
-      key: "stockStatus",
-      width: 150,
-      render: (status: TStockStatus, record: TProductDataSource) => {
-        const statusStyles = {
-          in_stock: "bg-blue-100 text-blue-800 border border-blue-300",
-          stock_out: "bg-gray-200 text-gray-700 border border-gray-400",
-          up_coming: "bg-yellow-100 text-yellow-800 border border-yellow-300",
-        };
-
-        const bgColor = statusStyles[status] || "bg-neutral-100 text-neutral-700 border";
-
-        return (
-          <div className="flex items-center gap-2">
-            <button
-              className={`${bgColor} capitalize w-28 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
-            >
-              {status.replace("_", " ")}
-            </button>
-            <ChangeStockStatusModal productId={record?._id} stockStatus={status} />
-          </div>
-        );
-      }
     },
     {
       title: "Action",

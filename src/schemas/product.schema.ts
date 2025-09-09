@@ -14,6 +14,12 @@ export const createProductValidationSchema = z.object({
   })
     .min(1, "Name is required")
     .trim(),
+  typeId: z
+    .string({
+      invalid_type_error: "typeId must be a string",
+      required_error: "Select a type",
+    })
+    .min(1, "Select a type"),
   categoryId: z
     .string({
       invalid_type_error: "category must be a string",
@@ -65,6 +71,18 @@ export const createProductValidationSchema = z.object({
         })
         .optional() // This makes it truly optional
     ),
+  quantity: z
+    .preprocess(
+      (val) => (val === '' || val === undefined || val === null ? undefined : Number(val)),
+      z
+        .number({
+          required_error: "Quantity is required",
+          invalid_type_error: "Quantity must be a number",
+        })
+        .refine((val) => !isNaN(val), { message: "Quantity must be a valid number" })
+        .refine((val) => val > 0, { message: "Quantity must be greater than 0" })
+    )
+  ,
   discount: z.string({
     invalid_type_error: "discount must be string"
   }).optional(),
@@ -87,12 +105,6 @@ export const createProductValidationSchema = z.object({
   })
     .refine((val) => ['visible', 'hidden'].includes(val), {
       message: "status must be one of: 'visible', 'hidden'",
-    }).optional(),
-  stockStatus: z.string({
-    invalid_type_error: "Stock Status must be a valid string value.",
-  })
-    .refine((val) => ['in_stock', 'stock_out', 'up_coming'].includes(val), {
-      message: "Stock Status must be one of: in_stock', 'stock_out', 'up_coming'",
     }).optional(),
 })
   .superRefine((values, ctx) => {
@@ -119,6 +131,12 @@ export const updateProductValidationSchema = z.object({
   })
     .min(1, "Name is required")
     .trim(),
+  typeId: z
+    .string({
+      invalid_type_error: "typeId must be a string",
+      required_error: "Select a type",
+    })
+    .min(1, "Select a type"),
   categoryId: z
     .string({
       invalid_type_error: "category must be a string",
@@ -130,13 +148,13 @@ export const updateProductValidationSchema = z.object({
       invalid_type_error: "brand must be a string",
       required_error: "Select Brand",
     })
-    .min(1, "Select Brand"),
+    .optional(),
   flavorId: z
     .string({
       invalid_type_error: "brand must be a string",
       required_error: "Select Flavor",
     })
-    .min(1, "Select Flavor"),
+    .optional(),
   currentPrice: z
     .preprocess(
       (val) => (val === '' || val === undefined || val === null ? undefined : Number(val)),
@@ -170,6 +188,18 @@ export const updateProductValidationSchema = z.object({
         })
         .optional() // This makes it truly optional
     ),
+  quantity: z
+    .preprocess(
+      (val) => (val === '' || val === undefined || val === null ? undefined : Number(val)),
+      z
+        .number({
+          required_error: "Quantity is required",
+          invalid_type_error: "Quantity must be a number",
+        })
+        .refine((val) => !isNaN(val), { message: "Quantity must be a valid number" })
+        .refine((val) => val > 0, { message: "Quantity must be greater than 0" })
+    )
+  ,
   discount: z.string({
     invalid_type_error: "discount must be string"
   }).optional(),
@@ -192,12 +222,6 @@ export const updateProductValidationSchema = z.object({
   })
     .refine((val) => ['visible', 'hidden'].includes(val), {
       message: "status must be one of: 'visible', 'hidden'",
-    }),
-  stockStatus: z.string({
-    invalid_type_error: "Stock Status must be a valid string value.",
-  })
-    .refine((val) => ['in_stock', 'stock_out', 'up_coming'].includes(val), {
-      message: "Stock Status must be one of: in_stock', 'stock_out', 'up_coming'",
     })
 }).superRefine((values, ctx) => {
   const { currentPrice, originalPrice } = values

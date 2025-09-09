@@ -4,15 +4,15 @@ import { FaPlus } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { categorySchema } from "../../../schemas/category.schema";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import Error from "../../validation/Error";
 import FormButton from "../../form/FormButton";
 import { useCreateTypeMutation } from "../../../redux/features/type/typeApi";
 import { SetTypeCreateError } from "../../../redux/features/type/typeSlice";
+import { typeSchema } from "../../../schemas/type.schema";
 
-type TFormValues = z.infer<typeof categorySchema>;
+type TFormValues = z.infer<typeof typeSchema>;
 
 const CreateTypeModal = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ const CreateTypeModal = () => {
   const { TypeCreateError } = useAppSelector((state) => state.type);
   const [createType, { isLoading, isSuccess }] = useCreateTypeMutation();
   const { handleSubmit, control, reset } = useForm<TFormValues>({
-    resolver: zodResolver(categorySchema),
+    resolver: zodResolver(typeSchema),
   });
 
   

@@ -29,8 +29,8 @@ export const brandApi = apiSlice.injectEndpoints({
       providesTags: [TagTypes.brands],
     }),
     getBrandDropDown: builder.query({
-      query: () => ({
-        url: "/brand/get-brand-drop-down",
+      query: (typeId) => ({
+        url: `/brand/get-brand-drop-down/${typeId}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,

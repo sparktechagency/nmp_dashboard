@@ -12,6 +12,7 @@ import type { ICategory } from "../../../types/category.type";
 import { useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import { SetCategoryUpdateError } from "../../../redux/features/category/categorySlice";
 import FormButton from "../../form/FormButton";
+import CustomSelect from "../../form/CustomSelect";
 
 
 type TFormValues = z.infer<typeof categorySchema>;
@@ -24,18 +25,19 @@ const EditCategoryModal = ({ category }: TProps) => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const { CategoryUpdateError } = useAppSelector((state) => state.category);
+  const { typeOptions } = useAppSelector((state) => state.type);
   const [ updateCategory, { isLoading, isSuccess }] = useUpdateCategoryMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      name: category?.name
+      name: category?.name,
+      typeId: category?.typeId
     }
   });
 
 
-
-    //if success
-   useEffect(() => {
+  //if success
+  useEffect(() => {
     if (!isLoading && isSuccess) {
       setModalOpen(false);
     }
@@ -63,6 +65,7 @@ const EditCategoryModal = ({ category }: TProps) => {
         open={modalOpen}
         onCancel={() => {
           setValue("name", category?.name);
+          setValue("typeId", category?.typeId);
           setModalOpen(false)
         }}
         maskClosable={false}
@@ -75,7 +78,15 @@ const EditCategoryModal = ({ category }: TProps) => {
                 Update Category
               </h2>
                {CategoryUpdateError && <Error message={CategoryUpdateError} />}
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <CustomSelect
+                  label="Type"
+                  name="typeId"
+                  control={control}
+                  disabled={typeOptions.length === 0}
+                  options={typeOptions}
+                  blankOption={false}
+                />
                 <CustomInput
                   label="Title"
                   name="name"

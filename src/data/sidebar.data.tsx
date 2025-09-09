@@ -2,7 +2,7 @@ import { LayoutDashboard, Snowflake, Users } from "lucide-react";
 import {
     SettingOutlined
   } from '@ant-design/icons';
-import { MdCategory, MdContactPhone, MdUnsubscribe } from "react-icons/md";
+import { MdCategory, MdContactPhone } from "react-icons/md";
 import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
 import { RiProductHuntLine } from "react-icons/ri";
 import { PiInvoiceBold } from "react-icons/pi";
@@ -18,9 +18,8 @@ export const adminMenuItems = [
   { path: "/flavors", label: "Flavor", icon: Snowflake},
   { path: "/products", label: "Products", icon: RiProductHuntLine },
   { path: "/feature-products", label: "Feature Products", icon: RiProductHuntLine },
-  { path: "/information", label: "Contact Information", icon: GrCircleInformation },
+  { path: "/information", label: "Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
-  { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
   {
     icon: SettingOutlined,
     label: "Settings",
@@ -44,9 +43,8 @@ export const superAdminMenuItems = [
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},
   { path: "/products", label: "Products", icon: RiProductHuntLine },
-  { path: "/information", label: "Contact Information", icon: GrCircleInformation },
+  { path: "/information", label: "Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
-  { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
   {
     icon: SettingOutlined,
     label: "Settings",

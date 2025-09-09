@@ -1,13 +1,13 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import { Edit, Eye } from "lucide-react";
+import { Edit } from "lucide-react";
 import type { IMeta } from "../../types/global.type";
 import { Link } from "react-router-dom";
 import product_placeholder from "../../assets/images/product_placeholder.png";
 import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
 import { FaStar } from "react-icons/fa";
 import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
-import ChangeStockStatusModal from "../modal/product/ChangeStockStatusModal";
 import DeleteProductModal from "../modal/product/DeleteProductModal";
+import getTypeColor from "../../utils/getTypeColor";
 
 
 type TProps = {
@@ -28,11 +28,13 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
     serial: Number(index + 1) + ((currentPage - 1) * pageSize),
     _id: product?._id,
     name: product?.name,
+    type: product?.type,
     category: product?.category,
     brand: product?.brand,
     flavor: product?.flavor,
     currentPrice: product?.currentPrice,
     originalPrice: product?.originalPrice,
+    quantity: product?.quantity,
     image: product?.image,
     ratings: product?.ratings,
     status: product?.status,
@@ -80,32 +82,26 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       ),
     },
     {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      width: 100,
+      render: (type: string) => {
+        const styleClass = getTypeColor(type);
+        return (
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium ${styleClass}`}
+          >
+            {type}
+          </span>
+        );
+      },
+    },
+    {
       title: "Category",
       dataIndex: "category",
       key: "category",
       width: 100,
-      render: (text: string) => (
-        <>
-          <p className="truncate">{text}</p>
-        </>
-      ),
-    },
-    {
-      title: "Brand",
-      dataIndex: "brand",
-      key: "brand",
-      width: 80,
-      render: (text: string) => (
-        <>
-          <p className="truncate">{text}</p>
-        </>
-      ),
-    },
-    {
-      title: "Flavor",
-      dataIndex: "flavor",
-      key: "flavor",
-      width: 90,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -173,15 +169,22 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       },
     },
     {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+      width: 80,
+      align: 'center' as const,
+    },
+    {
       title: "Stock Status",
       dataIndex: "stockStatus",
       key: "stockStatus",
-      width: 150,
-      render: (status: TStockStatus, record: TProductDataSource) => {
+      width: 120,
+      render: (status: TStockStatus) => {
         const statusStyles = {
-          in_stock: "bg-blue-100 text-blue-800 border border-blue-300",
-          stock_out: "bg-gray-200 text-gray-700 border border-gray-400",
-          up_coming: "bg-yellow-100 text-yellow-800 border border-yellow-300",
+          "In Stock": "bg-blue-100 text-blue-800 border border-blue-300",
+          "Out of Stock": "bg-gray-200 text-gray-700 border border-gray-400",
+          "Limited Stock": "bg-yellow-100 text-yellow-800 border border-yellow-300",
         };
 
         const bgColor = statusStyles[status] || "bg-neutral-100 text-neutral-700 border";
@@ -193,27 +196,26 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
             >
               {status.replace("_", " ")}
             </button>
-            <ChangeStockStatusModal productId={record?._id} stockStatus={status} />
           </div>
         );
       }
     },
-    {
-      title: "View",
-      dataIndex: "_id",
-      key: "_id",
-      width: 80,
-      render: (productId: string) => (
-        <div className="flex items-center gap-2">
-          <Link
-            to={`/product-details/${productId}`}
-            className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
-          >
-            <Eye size={18} />
-          </Link>
-        </div>
-      ),
-    },
+    // {
+    //   title: "View",
+    //   dataIndex: "_id",
+    //   key: "_id",
+    //   width: 80,
+    //   render: (productId: string) => (
+    //     <div className="flex items-center gap-2">
+    //       <Link
+    //         to={`/product-details/${productId}`}
+    //         className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
+    //       >
+    //         <Eye size={18} />
+    //       </Link>
+    //     </div>
+    //   ),
+    // },
     {
       title: "Action",
       dataIndex: "_id",
@@ -265,39 +267,20 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
           sticky
           loading={loading}
           scroll={{ y: "calc(100vh - 324px)" }}
-          // locale={{
-          //   emptyText: (
-          //     <div
-          //       className="flex items-center justify-center text-gray-500"
-          //       style={{ minHeight: "calc(100vh - 324px)" }}
-          //     >
-          //       No Products Found
-          //     </div>
-          //   ),
-          // }}
           locale={{
             emptyText: (
               <div
                 className="flex flex-col items-center justify-center text-gray-500 space-y-4"
                 style={{ minHeight: "calc(100vh - 324px)" }}
               >
-                {/* Illustration / Placeholder image */}
                 <img
                   src={product_placeholder}
                   alt="No products"
-                  className="w-24 h-24 opacity-70"
+                  className="w-32 h-32 opacity-70"
                 />
 
                 {/* Message */}
                 <p className="text-lg font-medium">No Products Found</p>
-
-                {/* Action Button */}
-                {/* <Link
-          to="/add-product"
-          className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md shadow"
-        >
-          Add Product
-        </Link> */}
               </div>
             ),
           }}

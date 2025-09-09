@@ -1,8 +1,10 @@
 import { Table, ConfigProvider, Pagination } from "antd";
 import EditCategoryModal from "../modal/category/EditCategoryModal";
-import type { ICategory } from "../../types/category.type";
+import type { ICategory, ICategoryDataSource, TCategoryStatus } from "../../types/category.type";
 import DeleteCategoryModal from "../modal/category/DeleteCategoryModal";
 import type { IMeta } from "../../types/global.type";
+import getTypeColor from "../../utils/getTypeColor";
+import ChangeCategoryStatusModal from "../modal/category/ChangeCategoryStatusModal";
 
 
 
@@ -16,13 +18,6 @@ type TProps = {
   isFetching: boolean;
 }
 
-type TDataSource = {
-  key: number;
-  serial: number;
-  _id: string;
-  name: string;
-}
-
 
 const CategoryTable = ({
   categories, meta,
@@ -33,11 +28,14 @@ const CategoryTable = ({
   isFetching
 }: TProps) => {
 
-  const dataSource: TDataSource[] = categories?.map((category, index) => ({
+  const dataSource: ICategoryDataSource[] = categories?.map((category, index) => ({
     key: index,
     serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: category?._id,
-    name: category?.name
+    name: category?.name,
+    typeId: category?.typeId,
+    type: category?.type,
+    status: category?.status
   }))
 
   const columns = [
@@ -57,6 +55,47 @@ const CategoryTable = ({
           <p className="truncate">{text}</p>
         </>
       ),
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      width: 180,
+      render: (type: string) => {
+        const styleClass = getTypeColor(type);
+        return (
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium ${styleClass}`}
+          >
+            {type}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: 145,
+      render: (status: TCategoryStatus, record: ICategoryDataSource) => {
+        const statusStyles = {
+          hidden: "bg-red-100 text-red-700 border border-red-300",
+          visible: "bg-green-100 text-green-700 border border-green-300",
+        };
+
+        const bgColor = status === "visible" ? statusStyles.visible : statusStyles.hidden;
+
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              className={`${bgColor} capitalize w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {status}
+            </button>
+            <ChangeCategoryStatusModal categoryId={record?._id} status={status} />
+          </div>
+        );
+      },
     },
     {
       title: "Action",
@@ -83,10 +122,10 @@ const CategoryTable = ({
       theme={{
         components: {
           Table: {
-            headerBg: "#FEF3C7", 
+            headerBg: "#FEF3C7",
             headerColor: "#000000",
-            rowHoverBg: "#F3F4F6", 
-            borderColor: "#E5E7EB", 
+            rowHoverBg: "#F3F4F6",
+            borderColor: "#E5E7EB",
           },
         },
       }}

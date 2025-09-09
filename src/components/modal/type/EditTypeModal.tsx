@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { categorySchema } from "../../../schemas/category.schema";
 import type { z } from "zod";
 import CustomInput from "../../form/CustomInput";
 import Error from "../../validation/Error";
@@ -12,9 +11,10 @@ import FormButton from "../../form/FormButton";
 import { useUpdateTypeMutation } from "../../../redux/features/type/typeApi";
 import type { IType } from "../../../types/type.type";
 import { SetTypeUpdateError } from "../../../redux/features/type/typeSlice";
+import { typeSchema } from "../../../schemas/type.schema";
 
 
-type TFormValues = z.infer<typeof categorySchema>;
+type TFormValues = z.infer<typeof typeSchema>;
 
 type TProps = {
   type: IType
@@ -26,7 +26,7 @@ const EditTypeModal = ({ type }: TProps) => {
   const { TypeUpdateError } = useAppSelector((state) => state.type);
   const [ updateType, { isLoading, isSuccess }] = useUpdateTypeMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
-    resolver: zodResolver(categorySchema),
+    resolver: zodResolver(typeSchema),
     defaultValues: {
       name: type?.name
     }

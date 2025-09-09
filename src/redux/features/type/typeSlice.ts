@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+type TInitialState = {
+  TypeCreateError: string,
+  TypeUpdateError: string,
+  typeOptions: {label: string; value: string;}[];
+}
+
+const initialState: TInitialState = {
   TypeCreateError: "",
   TypeUpdateError: "",
   typeOptions: []

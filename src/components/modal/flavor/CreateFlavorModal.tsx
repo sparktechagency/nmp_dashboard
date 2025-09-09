@@ -11,6 +11,7 @@ import { useCreateFlavorMutation } from "../../../redux/features/flavor/flavorAp
 import { SetFlavorCreateError } from "../../../redux/features/flavor/flavorSlice";
 import { flavorSchema } from "../../../schemas/flavor.schema";
 import FormButton from "../../form/FormButton";
+import CustomSelect from "../../form/CustomSelect";
 
 type TFormValues = z.infer<typeof flavorSchema>;
 
@@ -18,6 +19,7 @@ const CreateFlavorModal = () => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const { FlavorCreateError } = useAppSelector((state) => state.flavor);
+  const { typeOptions } = useAppSelector((state) => state.type);
   const [createFlavor, { isLoading, isSuccess }] = useCreateFlavorMutation();
   const { handleSubmit, control, reset } = useForm<TFormValues>({
     resolver: zodResolver(flavorSchema),
@@ -62,7 +64,14 @@ const CreateFlavorModal = () => {
                 Add Flavor
               </h2>
               {FlavorCreateError && <Error message={FlavorCreateError} />}
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                 <CustomSelect
+                  label="Type"
+                  name="typeId"
+                  control={control}
+                  disabled={typeOptions.length === 0}
+                  options={typeOptions}
+                />
                 <CustomInput
                   label="Title"
                   name="name"

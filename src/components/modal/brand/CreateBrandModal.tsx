@@ -11,6 +11,7 @@ import { useCreateBrandMutation } from "../../../redux/features/brand/brandApi";
 import { brandSchema } from "../../../schemas/brand.schema";
 import { SetBrandCreateError } from "../../../redux/features/brand/brandSlice";
 import FormButton from "../../form/FormButton";
+import CustomSelect from "../../form/CustomSelect";
 
 type TFormValues = z.infer<typeof brandSchema>;
 
@@ -18,6 +19,7 @@ const CreateBrandModal = () => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const { BrandCreateError } = useAppSelector((state) => state.brand);
+  const { typeOptions } = useAppSelector((state) => state.type);
   const [createBrand, { isLoading, isSuccess }] = useCreateBrandMutation();
   const { handleSubmit, control, setValue } = useForm<TFormValues>({
     resolver: zodResolver(brandSchema),
@@ -63,7 +65,14 @@ const CreateBrandModal = () => {
                 Add Brand
               </h2>
                {BrandCreateError && <Error message={BrandCreateError} />}
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <CustomSelect
+                  label="Type"
+                  name="typeId"
+                  control={control}
+                  disabled={typeOptions.length === 0}
+                  options={typeOptions}
+                />
                 <CustomInput
                   label="Title"
                   name="name"

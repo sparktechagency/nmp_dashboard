@@ -2,10 +2,9 @@
 
 import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
-import type { ICategory } from "../../../types/category.type";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetCategoryCreateError, SetCategoryOptions, SetCategoryUpdateError } from "./categorySlice";
+import { SetCategoryCreateError, SetCategoryUpdateError } from "./categorySlice";
 
 export const categoryApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -29,21 +28,15 @@ export const categoryApi = apiSlice.injectEndpoints({
       providesTags: [TagTypes.categories],
     }),
     getCategoryDropDown: builder.query({
-      query: () => ({
-        url: "/category/get-category-drop-down",
+      query: (typeId) => ({
+        url: `/category/get-category-drop-down/${typeId}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.categoryDropDown],
-      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(_arg, { queryFulfilled }) {
         try {
-          const res = await queryFulfilled;
-          const data = res?.data?.data;
-          const options = data?.map((c: ICategory) => ({
-            value: c._id,
-            label: c.name,
-          }))
-          dispatch(SetCategoryOptions(options))
+          await queryFulfilled; 
         } catch {
           ErrorToast("Something Went Wrong");
         }

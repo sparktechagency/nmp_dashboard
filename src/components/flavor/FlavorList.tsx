@@ -5,16 +5,22 @@ import CreateFlavorModal from "../modal/flavor/CreateFlavorModal";
 import { useGetFlavorsQuery } from "../../redux/features/flavor/flavorApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
+import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const FlavorList = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [typeId, setTypeId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  useGetTypeDropDownQuery(undefined);
+  const { typeOptions } = useAppSelector((state) => state.type);
   const { data, isLoading, isFetching, isError } = useGetFlavorsQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
-    { name: "searchTerm", value: searchTerm }
+    { name: "searchTerm", value: searchTerm },
+    { name: "typeId", value: typeId}
   ]);
 
   
@@ -65,6 +71,25 @@ const FlavorList = () => {
             </h1>
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-x-12 gap-y-4">
+            <div className="flex gap-2 flex-col md:flex-row md:gap-3 items-center">
+              <h1 className="text-md truncate">Filter by Type:</h1>
+              <select
+                className="p-1 md:p-2 bg-white border border-gray-300 rounded-md focus:border-blue-300"
+                value={typeId}
+                disabled={typeOptions?.length === 0}
+                onChange={(e) => {
+                  setTypeId(e.target.value);
+                  setCurrentPage(1);
+                }}
+              >
+                <option value="">All</option>
+                {
+                  typeOptions?.map((type, index) => (
+                    <option key={index} value={type?.value}>{type.label}</option>
+                  ))
+                }
+              </select>
+            </div>
             <div className="relative w-44 lg:w-72">
               <span className="absolute hidden inset-y-0 left-3 lg:flex items-center text-gray-700">
                 <FaSearch size={16} />

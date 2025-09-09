@@ -3,8 +3,6 @@ import { z } from "zod";
 export const letterRegex = /^[A-Za-z]+$/;
 export const nonLetterRegex = /^[\s'.\-&,()]+$/;
 
-export const categoryRegex = /^[A-Za-z\s'.\-&,()]+$/; //only contain letters, spaces, apostrophes, hyphens, and dots, and(&) and comma(,)
-
 
 export const categorySchema = z.object({
   name: z
@@ -20,6 +18,12 @@ export const categorySchema = z.object({
     .regex(/^[^~!@#$%\^*\+\?><=;:"]*$/, {
       message: 'Title cannot contain special characters: ~ ! @ # $ % ^ * + ? > < = ; : "',
     }),
+  typeId: z
+    .string({
+      invalid_type_error: "typeId must be a string",
+      required_error: "Select a type",
+    })
+    .min(1, "Select a type")
 });
 
 

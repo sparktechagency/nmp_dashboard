@@ -2,18 +2,14 @@ import { Modal } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { Edit, Plus, X } from "lucide-react";
 import { ErrorToast } from "../../../helper/ValidationHelper";
-import { useUpdateProductImgMutation } from "../../../redux/features/product/productApi";
 import CustomButton from "../../form/CustomButton";
+import { useUpdateHeroImgMutation } from "../../../redux/features/information/informationApi";
 
 
 
-type TProps = {
-  productId: string
-}
-
-const UpdateProductImageModal = ({ productId }: TProps) => {
+const UpdateHeroImgModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [updateProductImg, { isLoading, isSuccess }] = useUpdateProductImgMutation();
+  const [updateHeoImg, { isLoading, isSuccess }] = useUpdateHeroImgMutation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,18 +43,15 @@ const UpdateProductImageModal = ({ productId }: TProps) => {
   }, [isLoading, isSuccess]);
 
 
-  const handleSubmit = () => {
-    if (!selectedFile) {
-      ErrorToast("Select minimum one image")
-    } else {
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-      updateProductImg({
-        id: productId,
-        data: formData
-      })
-    }
-  };
+    const handleSubmit = () => {
+        if (!selectedFile) {
+            ErrorToast("Select minimum one image")
+        } else {
+            const formData = new FormData();
+            formData.append("image", selectedFile);
+            updateHeoImg(formData)
+        }
+    };
 
   return (
     <>
@@ -139,4 +132,4 @@ const UpdateProductImageModal = ({ productId }: TProps) => {
   );
 };
 
-export default UpdateProductImageModal;
+export default UpdateHeroImgModal;
