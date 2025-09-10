@@ -1,9 +1,12 @@
 import { Table, ConfigProvider, Pagination } from "antd";
 import type { IMeta } from "../../types/global.type";
 import product_placeholder from "../../assets/images/product_placeholder.png";
-import type { IProduct, TFeatureProductDataSource, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
+import type { IProduct, TFeatureProductDataSource, TProductDataSource, TProductStatus } from "../../types/product.type";
 import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
 import RemoveFeatureProductModal from "../modal/product/RemoveFeatureProductModal";
+import getTypeColor from "../../utils/getTypeColor";
+import { Link } from "react-router-dom";
+import { Eye } from "lucide-react";
 
 
 type TProps = {
@@ -78,15 +81,20 @@ const FeatureProductTable = ({ products, meta, currentPage, setCurrentPage, page
       ),
     },
     {
-      title: "Flavor",
-      dataIndex: "flavor",
-      key: "flavor",
-      width: 90,
-      render: (text: string) => (
-        <>
-          <p className="truncate">{text}</p>
-        </>
-      ),
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      width: 100,
+      render: (type: string) => {
+        const styleClass = getTypeColor(type);
+        return (
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium ${styleClass}`}
+          >
+            {type}
+          </span>
+        );
+      },
     },
     {
       title: "Price",
@@ -122,6 +130,22 @@ const FeatureProductTable = ({ products, meta, currentPage, setCurrentPage, page
           </div>
         );
       },
+    },
+    {
+      title: "View",
+      dataIndex: "_id",
+      key: "_id",
+      width: 80,
+      render: (productId: string) => (
+        <div className="flex items-center gap-2">
+          <Link
+            to={`/product-details/${productId}`}
+            className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
+          >
+            <Eye size={18} />
+          </Link>
+        </div>
+      ),
     },
     {
       title: "Action",

@@ -1,5 +1,5 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import { Edit } from "lucide-react";
+import { Edit, Eye } from "lucide-react";
 import type { IMeta } from "../../types/global.type";
 import { Link } from "react-router-dom";
 import product_placeholder from "../../assets/images/product_placeholder.png";
@@ -200,22 +200,22 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
         );
       }
     },
-    // {
-    //   title: "View",
-    //   dataIndex: "_id",
-    //   key: "_id",
-    //   width: 80,
-    //   render: (productId: string) => (
-    //     <div className="flex items-center gap-2">
-    //       <Link
-    //         to={`/product-details/${productId}`}
-    //         className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
-    //       >
-    //         <Eye size={18} />
-    //       </Link>
-    //     </div>
-    //   ),
-    // },
+    {
+      title: "View",
+      dataIndex: "_id",
+      key: "_id",
+      width: 80,
+      render: (productId: string) => (
+        <div className="flex items-center gap-2">
+          <Link
+            to={`/product-details/${productId}`}
+            className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
+          >
+            <Eye size={18} />
+          </Link>
+        </div>
+      ),
+    },
     {
       title: "Action",
       dataIndex: "_id",

@@ -97,7 +97,7 @@ const ProductList = () => {
              </span>
              <input
                type="text"
-               placeholder="Search here..."
+               placeholder="Search by name, type, category..."
                value={searchQuery}
                onChange={(e) => setSearchQuery(e.target.value)}
                className="w-full pl-4 lg:pl-10 pr-4 py-1 lg:py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"

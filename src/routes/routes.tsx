@@ -30,6 +30,7 @@ import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import FeatureProductsPage from "../pages/product/FeatureProductsPage";
 import TypesPage from "../pages/dashboard/TypesPage";
+import ShippingPage from "../pages/dashboard/ShippingPage";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
       {
         path: "terms-condition",
         element: <TermsConditionPage />,
+      },
+      {
+        path: "shipping",
+        element: <ShippingPage />,
       }
     ],
   },

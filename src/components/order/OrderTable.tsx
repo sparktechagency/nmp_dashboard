@@ -30,7 +30,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
     phone: order?.phone,
     status: order?.status,
     paymentStatus: order?.paymentStatus,
-    totalPrice: order?.totalPrice,
+    total: order?.total,
     createdAt: order?.createdAt
   }));
 
@@ -89,8 +89,8 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
     },
     {
       title: "Amount",
-      dataIndex: "totalPrice",
-      key: "totalPrice",
+      dataIndex: "total",
+      key: "total",
       width: 90,
       align: "center" as const,
       render: (val: number) => (

@@ -4,8 +4,8 @@ import TagTypes from "../../../constant/tagType.constant.ts";
 import { getToken } from "../../../helper/SessionHelper.ts";
 import { ErrorToast } from "../../../helper/ValidationHelper.ts";
 
-export const baseUrl = "http://localhost:9090/api/v1";
-// export const baseUrl = "https://nmp-backend.vercel.app/api/v1"
+//export const baseUrl = "http://localhost:9090/api/v1";
+export const baseUrl = "https://nmp-backend.vercel.app/api/v1"
 
 
 
