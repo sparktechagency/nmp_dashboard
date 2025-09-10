@@ -25,7 +25,7 @@ export const shippingApi = apiSlice.injectEndpoints({
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.types],
+      providesTags: [TagTypes.shippingCosts],
     }),
     createShippingCost: builder.mutation({
       query: (data) => ({
@@ -35,14 +35,14 @@ export const shippingApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.types, TagTypes.typeDropDown];
+          return [TagTypes.shippingCosts];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
-          SuccessToast("Type is added successfully");
+          SuccessToast("Shipping Cost is added successfully");
         } catch (err: any) {
           const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
@@ -57,20 +57,20 @@ export const shippingApi = apiSlice.injectEndpoints({
     }),
     updateShippingCost: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/type/update-type/${id}`,
+        url: `/shipping-cost/update-shipping-cost/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.types, TagTypes.typeDropDown];
+          return [TagTypes.shippingCosts];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           await queryFulfilled;
-          SuccessToast("Type is updated successfully");
+          SuccessToast("Shipping Cost is updated successfully");
         } catch (err: any) {
           const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";
@@ -85,19 +85,19 @@ export const shippingApi = apiSlice.injectEndpoints({
     }),
     deleteShippingCost: builder.mutation({
       query: (id) => ({
-        url: `/type/delete-type/${id}`,
+        url: `/shipping-cost/delete-shipping-cost/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-           return [TagTypes.types, TagTypes.typeDropDown];
+            return [TagTypes.shippingCosts];
         }
         return [];
       },
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          SuccessToast("Type is deleted successfully");
+          SuccessToast("Shipping Cost is deleted successfully");
         } catch (err: any) {
           const status = err?.error?.status;
           const message = err?.error?.data?.message || "Something Went Wrong";

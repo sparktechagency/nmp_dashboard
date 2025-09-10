@@ -9,10 +9,10 @@ import CustomInput from "../../form/CustomInput";
 import Error from "../../validation/Error";
 import { Edit } from "lucide-react";
 import FormButton from "../../form/FormButton";
-import { SetTypeUpdateError } from "../../../redux/features/type/typeSlice";
 import { useUpdateShippingCostMutation } from "../../../redux/features/shipping/shippingApi";
 import { shippingCostValidationSchema } from "../../../schemas/shipping.schema";
 import type { TShippingCost } from "../../../types/shipping.type";
+import { SetShippingCostUpdateError } from "../../../redux/features/shipping/shippingSlice";
 
 
 type TFormValues = z.infer<typeof shippingCostValidationSchema>;
@@ -24,7 +24,7 @@ type TProps = {
 const EditShippingCostModal = ({ shippingCost }: TProps) => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
-  const { TypeUpdateError } = useAppSelector((state) => state.type);
+  const { ShippingCostUpdateError } = useAppSelector((state) => state.shipping);
   const [ updateShippingCost, { isLoading, isSuccess }] = useUpdateShippingCostMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(shippingCostValidationSchema),
@@ -47,7 +47,7 @@ const EditShippingCostModal = ({ shippingCost }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    dispatch(SetTypeUpdateError(""));
+    dispatch(SetShippingCostUpdateError(""));
     updateShippingCost({
       id: shippingCost?._id,
       data
@@ -82,7 +82,7 @@ const EditShippingCostModal = ({ shippingCost }: TProps) => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 Update Shipping Cost
               </h2>
-               {TypeUpdateError && <Error message={TypeUpdateError} />}
+               {ShippingCostUpdateError && <Error message={ShippingCostUpdateError} />}
               <form onSubmit={handleSubmit(onSubmit)}>
                 <CustomInput
                   label="Title"

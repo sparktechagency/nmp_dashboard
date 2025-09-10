@@ -10,15 +10,15 @@ import CustomInput from "../../form/CustomInput";
 import Error from "../../validation/Error";
 import FormButton from "../../form/FormButton";
 import { useCreateShippingCostMutation } from "../../../redux/features/shipping/shippingApi";
-import { SetShippingCostCreateError } from "../../../redux/features/shipping/shippingSlice";
 import { shippingCostValidationSchema } from "../../../schemas/shipping.schema";
+import { SetShippingCostCreateError } from "../../../redux/features/shipping/shippingSlice";
 
 type TFormValues = z.infer<typeof shippingCostValidationSchema>;
 
 const CreateShippingCostModal = () => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
-  const { TypeCreateError } = useAppSelector((state) => state.type);
+  const { ShippingCostCreateError } = useAppSelector((state) => state.shipping);
   const [createShippingCost, { isLoading, isSuccess }] = useCreateShippingCostMutation();
   const { handleSubmit, control, reset } = useForm<TFormValues>({
     resolver: zodResolver(shippingCostValidationSchema),
@@ -64,7 +64,7 @@ const CreateShippingCostModal = () => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 Add Shipping Cost
               </h2>
-               {TypeCreateError && <Error message={TypeCreateError} />}
+               {ShippingCostCreateError && <Error message={ShippingCostCreateError} />}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomInput
                   label="Name"
