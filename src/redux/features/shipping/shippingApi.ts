@@ -29,7 +29,7 @@ export const shippingApi = apiSlice.injectEndpoints({
     }),
     createShippingCost: builder.mutation({
       query: (data) => ({
-        url: "/type/create-type",
+        url: "/shipping-cost/create-shipping-cost",
         method: "POST",
         body: data,
       }),

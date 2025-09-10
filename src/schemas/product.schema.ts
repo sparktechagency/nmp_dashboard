@@ -31,13 +31,13 @@ export const createProductValidationSchema = z.object({
       invalid_type_error: "brand must be a string",
       required_error: "Select Brand",
     })
-    .min(1, "Select Brand"),
+    .optional(),
   flavorId: z
     .string({
       invalid_type_error: "brand must be a string",
       required_error: "Select Flavor",
     })
-    .min(1, "Select Flavor"),
+    .optional(),
   currentPrice: z
     .preprocess(
       (val) => (val === '' || val === undefined || val === null ? undefined : Number(val)),

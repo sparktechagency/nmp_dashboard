@@ -148,14 +148,14 @@ const CreateProductForm = () => {
             disabled={categoryOptions.length === 0}
           />
           <CustomSelect
-            label="Brand(Optional)"
+            label="Brand (Optional)"
             name="brandId"
             control={control}
             options={brandOptions}
             disabled={brandOptions.length === 0}
           />
           <CustomSelect
-            label="Flavor(Flavor)"
+            label="Flavor (Optional)"
             name="flavorId"
             control={control}
             options={flavorOptions}

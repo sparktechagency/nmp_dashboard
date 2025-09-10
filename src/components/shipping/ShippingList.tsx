@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
-import CreateTypeModal from "../modal/type/CreateTypeModal";
 import { useGetShippingCostsQuery } from "../../redux/features/shipping/shippingApi";
 import ShippingTable from "./ShippingTable";
+import CreateShippingCostModal from "../modal/shipping/CreateShippingCostModal";
 
 const ShippingList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -79,7 +79,7 @@ const ShippingList = () => {
               className="w-full pl-4 lg:pl-10 pr-4 py-1 lg:py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
             />
           </div>
-          <CreateTypeModal />
+          <CreateShippingCostModal />
         </div>
       </div>
       {content}

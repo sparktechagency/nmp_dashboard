@@ -1,9 +1,8 @@
 import { Table, ConfigProvider, Pagination } from "antd";
 import type { IMeta } from "../../types/global.type";
-import DeleteTypeModal from "../modal/type/DeleteTypeModal";
-import EditTypeModal from "../modal/type/EditTypeModal";
 import type { TShippingCost, TShippingCostDataSource } from "../../types/shipping.type";
-import type { IType } from "../../types/type.type";
+import EditShippingCostModal from "../modal/shipping/EditShippingCostModal";
+import DeleteShippingCostModal from "../modal/shipping/DeleteShippingCostModal";
 
 
 
@@ -59,12 +58,42 @@ const ShippingTable = ({
     },
     {
       title: "Minimum Value",
-      dataIndex: "total",
-      key: "total",
+      dataIndex: "minSubTotal",
+      key: "minSubTotal",
       width: 90,
       align: "center" as const,
       render: (val: number) => (
-        <span>${val}</span>
+        <span>{val}</span>
+      )
+    },
+    {
+      title: "Maximum Value",
+      dataIndex: "maxSubTotal",
+      key: "maxSubTotal",
+      width: 90,
+      align: "center" as const,
+      render: (val: number) => (
+        <span>{val}</span>
+      )
+    },
+    {
+      title: "Cost",
+      dataIndex: "cost",
+      key: "cost",
+      width: 90,
+      align: "center" as const,
+      render: (val: number) => (
+        <span>{val}</span>
+      )
+    },
+    {
+      title: "Priority",
+      dataIndex: "priority",
+      key: "priority",
+      width: 90,
+      align: "center" as const,
+      render: (val: number) => (
+        <span className="font-bold">{val}</span>
       )
     },
     {
@@ -72,10 +101,10 @@ const ShippingTable = ({
       dataIndex: "_id",
       key: "action",
       width: 115,
-      render: (val: string, record: IType) => (
+      render: (val: string, record: TShippingCost) => (
         <div className="flex items-center gap-3">
-          <EditTypeModal type={record} />
-          <DeleteTypeModal typeId={val} />
+          <EditShippingCostModal shippingCost={record} />
+          <DeleteShippingCostModal shippingCostId={val} />
         </div>
       ),
     },
