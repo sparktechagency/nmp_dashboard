@@ -42,6 +42,34 @@ export const informationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateCountDownImg: builder.mutation({
+      query: (data) => ({
+        url: `/information/update-count-down-img`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result) => {
+        if (result?.success) {
+          return [TagTypes.information];
+        }
+        return [];
+      },
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          SuccessToast("Image is updated successfully");
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
+        }
+      },
+    }),
     updateInformation: builder.mutation({
       query: (data) => ({
         url: `/information/create-update-information`,
@@ -73,4 +101,4 @@ export const informationApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetInformationQuery, useUpdateInformationMutation, useUpdateHeroImgMutation } = informationApi;
+export const { useGetInformationQuery, useUpdateInformationMutation, useUpdateHeroImgMutation, useUpdateCountDownImgMutation } = informationApi;

@@ -35,21 +35,21 @@ const CreateProductForm = () => {
   const { categoryOptions } = useAppSelector((state) => state.category);
   const { brandOptions } = useAppSelector((state) => state.brand);
   const { flavorOptions } = useAppSelector((state) => state.flavor);
-  const [selectedFile, setSelectedFile] = useState<File|null>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
-  const { handleSubmit, control, watch, trigger,setValue } = useForm({
+  const { handleSubmit, control, watch, trigger, setValue } = useForm({
     resolver: zodResolver(createProductValidationSchema),
   });
 
   const typeId = watch("typeId")
 
-  const { data:brandData } = useGetBrandDropDownQuery(typeId, { skip: !typeId});
-  const { data: flavorData } = useGetFlavorDropDownQuery(typeId, { skip: !typeId});
-  const { data:categoryData } = useGetCategoryDropDownQuery(typeId, { skip: !typeId});
+  const { data: brandData } = useGetBrandDropDownQuery(typeId, { skip: !typeId });
+  const { data: flavorData } = useGetFlavorDropDownQuery(typeId, { skip: !typeId });
+  const { data: categoryData } = useGetCategoryDropDownQuery(typeId, { skip: !typeId });
 
   //set categoryOptions, brandOptions, flavorOptions
   useEffect(() => {
-    if(!typeId){
+    if (!typeId) {
       dispatch(SetBrandOptions([]))
       dispatch(SetCategoryOptions([]))
       dispatch(SetFlavorOptions([]))
@@ -89,11 +89,11 @@ const CreateProductForm = () => {
     if (currentPrice) {
       trigger("originalPrice");
     }
-    if(currentPrice && !originalPrice){
+    if (currentPrice && !originalPrice) {
       trigger("currentPrice");
     }
   }, [currentPrice, originalPrice, watch, trigger]);
-  
+
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -124,8 +124,9 @@ const CreateProductForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Product Basic Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CustomInput
             label="Name"
             name="name"
@@ -171,8 +172,10 @@ const CreateProductForm = () => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <CustomInput
-            label="Original Price(optional)"
+            label="Original Price (Optional)"
             name="originalPrice"
             type="text"
             control={control}
@@ -193,40 +196,51 @@ const CreateProductForm = () => {
           />
         </div>
 
-        <ProductImageField selectedFile={selectedFile} setSelectedFile={setSelectedFile}/>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Product Image */}
+        <div>
+          <ProductImageField
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+          />
+        </div>
+
+        {/* Status & Discount */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <CustomSelect
             label="Status (Optional)"
             name="status"
             control={control}
             options={[
-              {
-                label: "Visible",
-                value: "visible"
-              },
-              {
-                label: "Hidden",
-                value: "hidden"
-              }
+              { label: "Visible", value: "visible" },
+              { label: "Hidden", value: "hidden" },
             ]}
           />
           <CustomInput
             label="Discount (Optional)"
-            name="discoun"
+            name="discount"
             type="text"
             control={control}
             placeholder="Enter discount"
           />
         </div>
-        <CustomQuilEditor
-          label="Description"
-          name="description"
-          control={control}
-          height={250}
-          placeholder="Write a description..."
-        />
-        <FormButton isLoading={isLoading}>Add Product</FormButton>
+
+        {/* Description */}
+        <div>
+          <CustomQuilEditor
+            label="Description"
+            name="description"
+            control={control}
+            height={250}
+            placeholder="Write a description..."
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div className="flex justify-end">
+          <FormButton isLoading={isLoading}>Add Product</FormButton>
+        </div>
       </form>
+
     </>
   );
 };

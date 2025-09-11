@@ -56,5 +56,25 @@ export const informationSchema = z.object({
     .trim()
     .refine((val) => val === "" || z.string().url().safeParse(val).success, {
       message: "Facebook link must be a valid URL",
+    }),
+  age: z
+    .string({
+      required_error: "Age is required",
+      invalid_type_error: "Age must be a string",
     })
+    .trim()
+    .min(1, "Age is required")
+    .refine((val) => Number(val) > 0, {
+      message: "Maximum must be positive value",
+    }),
 });
+
+export const countDownDateSchema = z.object({
+  countDownDate: z
+    .string({
+      invalid_type_error: "title must be string",
+      required_error: "Select Date & Time",
+    })
+    .trim()
+    .min(1, "Select Date & Time"),
+})

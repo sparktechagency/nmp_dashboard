@@ -44,7 +44,6 @@ const EditAdminModal = ({ admin }: TProps) => {
 
     const onSubmit: SubmitHandler<TFormValues> = (data) => {
         dispatch(SetAdminUpdateError(""));
-        console.log(data)
         updateAdmin({
             id: admin?._id,
             data

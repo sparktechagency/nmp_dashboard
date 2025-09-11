@@ -22,7 +22,9 @@ const CreateShippingCostModal = () => {
   const [createShippingCost, { isLoading, isSuccess }] = useCreateShippingCostMutation();
   const { handleSubmit, control, reset } = useForm<TFormValues>({
     resolver: zodResolver(shippingCostValidationSchema),
+    mode: "onChange", 
   });
+
 
   
   //if success
@@ -73,7 +75,7 @@ const CreateShippingCostModal = () => {
                   control={control}
                   placeholder="Enter title"
                 />
-                <CustomInput
+                 <CustomInput
                   label="Minimum Value"
                   name="minSubTotal"
                   type="text"
@@ -82,7 +84,7 @@ const CreateShippingCostModal = () => {
                   onInput={(e: any) => {
                     e.target.value = e.target.value.replace(/[^0-9]/g, "");
                   }}
-                />
+                />     
                 <CustomInput
                   label="Maximum Value"
                   name="maxSubTotal"
@@ -112,7 +114,7 @@ const CreateShippingCostModal = () => {
                   onInput={(e: any) => {
                     e.target.value = e.target.value.replace(/[^0-9]/g, "");
                   }}
-                />
+                /> 
                 <div className="mt-4">
                   <FormButton isLoading={isLoading}>
                     Add

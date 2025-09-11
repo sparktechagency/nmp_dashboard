@@ -3,6 +3,7 @@ import type { IMeta } from "../../types/global.type";
 import type { TShippingCost, TShippingCostDataSource } from "../../types/shipping.type";
 import EditShippingCostModal from "../modal/shipping/EditShippingCostModal";
 import DeleteShippingCostModal from "../modal/shipping/DeleteShippingCostModal";
+import ShippingStatusModal from "../modal/shipping/ShippingStatusModal";
 
 
 
@@ -95,6 +96,31 @@ const ShippingTable = ({
       render: (val: number) => (
         <span className="font-bold">{val}</span>
       )
+    },
+    {
+      title: "Status",
+      dataIndex: "isActive",
+      key: "isActive",
+      width: 145,
+      render: (isActive: boolean, record: TShippingCostDataSource) => {
+        const statusStyles = {
+          disabled: "bg-red-100 text-red-700 border border-red-300",
+          enabled: "bg-green-100 text-green-700 border border-green-300",
+        };
+
+        const bgColor = isActive ? statusStyles.enabled : statusStyles.disabled;
+
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              className={`${bgColor} capitalize w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {isActive ? "Enabled" : "Disabled"}
+            </button>
+            <ShippingStatusModal shippingCostId={record?._id} isActive={isActive} />
+          </div>
+        );
+      },
     },
     {
       title: "Action",

@@ -1,18 +1,17 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
-import { useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import DeleteButton from "../../form/DeleteButton";
-import type { TCategoryStatus } from "../../../types/category.type";
+import { useUpdateShippingCostMutation } from "../../../redux/features/shipping/shippingApi";
 
 type TProps ={
-  categoryId:string;
-  status: TCategoryStatus;
+  shippingCostId:string;
+  isActive: boolean;
 }
 
-const ChangeCategoryStatusModal = ({ categoryId, status }: TProps) => {
+const ShippingStatusModal = ({ shippingCostId, isActive }: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [ changeStatus, { isLoading, isSuccess }] = useUpdateCategoryMutation();
+  const [ changeStatus, { isLoading, isSuccess }] = useUpdateShippingCostMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -23,9 +22,9 @@ const ChangeCategoryStatusModal = ({ categoryId, status }: TProps) => {
 
  const handleDelete = () => {
    changeStatus({
-     id: categoryId,
+     id: shippingCostId,
      data : {
-      status: status==="visible" ? "hidden" : "visible"
+      isActive: isActive ? false : true
      }
    });
  };
@@ -41,7 +40,7 @@ const ChangeCategoryStatusModal = ({ categoryId, status }: TProps) => {
         <FiEdit size={14} />
       </button>
       <Modal
-        title={`Are you sure, you want to ${status==="visible" ? "hide" : "visible"}?`}
+        title={`Are you sure, you want to ${isActive ? "disable" : "enable"}?`}
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         maskClosable={false}
@@ -64,4 +63,4 @@ const ChangeCategoryStatusModal = ({ categoryId, status }: TProps) => {
   );
 };
 
-export default ChangeCategoryStatusModal;
+export default ShippingStatusModal;

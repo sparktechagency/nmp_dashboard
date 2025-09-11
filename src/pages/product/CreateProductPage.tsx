@@ -11,7 +11,7 @@ const CreateProductPage = () => {
                 Add New Product
               </h1>
             </div>
-            <div className="flex-1 overflow-hidden p-4">
+            <div className="w-full overflow-hidden p-4">
               <CreateProductForm/>
             </div>
           </div>

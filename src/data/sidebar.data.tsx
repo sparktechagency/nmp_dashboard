@@ -7,13 +7,15 @@ import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
 import { RiProductHuntLine } from "react-icons/ri";
 import { PiInvoiceBold } from "react-icons/pi";
 import { SiBrandfolder } from "react-icons/si";
+import { FaShippingFast } from "react-icons/fa";
+import { LuFileType } from "react-icons/lu";
 
 export const adminMenuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/users", label: "Users", icon: Users  },
-  { path: "/shipping", label: "Shipping", icon: MdCategory },
-  { path: "/types", label: "Type", icon: MdCategory },
+  { path: "/shipping", label: "Shipping Cost", icon: FaShippingFast },
+  { path: "/types", label: "Type", icon: LuFileType },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},
@@ -39,8 +41,8 @@ export const superAdminMenuItems = [
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/users", label: "Users", icon: Users },
-  { path: "/shipping", label: "Shipping", icon: MdCategory },
-  { path: "/types", label: "Type", icon: MdCategory },
+  { path: "/shipping", label: "Shipping Cost", icon: FaShippingFast },
+  { path: "/types", label: "Type", icon: LuFileType },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},

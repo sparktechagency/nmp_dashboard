@@ -38,7 +38,7 @@ const UpdateProductForm = ({ product }: TProps) => {
   const { brandOptions } = useAppSelector((state) => state.brand);
   const { flavorOptions } = useAppSelector((state) => state.flavor);
   const [ updateProduct, { isLoading, isSuccess }] = useUpdateProductMutation();
-  const { handleSubmit, control, watch, trigger, setValue, formState:{errors} } = useForm({
+  const { handleSubmit, control, watch, trigger, setValue } = useForm({
     resolver: zodResolver(updateProductValidationSchema),
       defaultValues: {
           name: product?.name,
@@ -54,9 +54,6 @@ const UpdateProductForm = ({ product }: TProps) => {
           description: product?.description
       }
   });
-
-
-  console.log(errors)
 
    const typeId = watch("typeId");
   
@@ -209,6 +206,8 @@ const UpdateProductForm = ({ product }: TProps) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <CustomInput
             label="Original Price(optional)"
             name="originalPrice"
@@ -229,8 +228,6 @@ const UpdateProductForm = ({ product }: TProps) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CustomSelect
             label="Status (Optional)"
             name="status"

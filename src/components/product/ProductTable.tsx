@@ -85,7 +85,7 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       title: "Type",
       dataIndex: "type",
       key: "type",
-      width: 100,
+      width: 150,
       render: (type: string) => {
         const styleClass = getTypeColor(type);
         return (

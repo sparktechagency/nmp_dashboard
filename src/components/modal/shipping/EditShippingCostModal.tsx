@@ -37,7 +37,6 @@ const EditShippingCostModal = ({ shippingCost }: TProps) => {
     }
   });
 
-
     //if success
    useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -83,7 +82,7 @@ const EditShippingCostModal = ({ shippingCost }: TProps) => {
                 Update Shipping Cost
               </h2>
                {ShippingCostUpdateError && <Error message={ShippingCostUpdateError} />}
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomInput
                   label="Title"
                   name="name"
