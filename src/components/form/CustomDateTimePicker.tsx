@@ -39,6 +39,7 @@ const CustomDateTimePicker = ({
                                 {...rest}
                                 value={value ? dayjs(value) : null}
                                 placeholder={placeholder}
+                                defaultValue={value ? dayjs(value) : null}
                                 style={{ width: "100%",}} 
                                 className="custom-select-padding"
                                 disabled={disabled}

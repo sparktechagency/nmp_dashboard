@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DatePicker, Modal } from "antd";
+import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -7,7 +7,7 @@ import type { z } from "zod";
 import { Edit } from "lucide-react";
 import { countDownDateSchema } from "../../../schemas/information.schema";
 import type { IInformation } from "../../../types/information.type";
-import { useUpdateInformationMutation } from "../../../redux/features/information/informationApi";
+import { useUpdateCountDownTimeMutation } from "../../../redux/features/information/informationApi";
 import FormButton from "../../form/FormButton";
 import CustomDateTimePicker from "../../form/CustomDateTimePicker";
 
@@ -19,12 +19,16 @@ type TProps = {
 }
 
 const UpdateCountDownModal = ({ information }: TProps) => {
-  const [modalOpen, setModalOpen] = useState(true);
-  const [ updateInformation, { isLoading, isSuccess }] = useUpdateInformationMutation();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [ updateCountDown, { isLoading, isSuccess }] = useUpdateCountDownTimeMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
-    resolver: zodResolver(countDownDateSchema)
+    resolver: zodResolver(countDownDateSchema),
+    defaultValues: {
+        countDownDate: information.countDownDate
+    }
   });
 
+  
 
 
   //if success
@@ -36,11 +40,10 @@ const UpdateCountDownModal = ({ information }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    console.log(data)
-    // updateInformation({
-    //   ...data,
-    //   age: Number(data?.age)
-    // });
+    updateCountDown({
+       date: data.countDownDate.split("T")[0],
+        time: data.countDownDate.split("T")[1]
+    });
   };
 
 
@@ -54,6 +57,7 @@ const UpdateCountDownModal = ({ information }: TProps) => {
         open={modalOpen}
         onCancel={() => {
           setModalOpen(false)
+          setValue("countDownDate", information.countDownDate)
         }}
         maskClosable={false}
         footer={false}
@@ -67,7 +71,7 @@ const UpdateCountDownModal = ({ information }: TProps) => {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <CustomDateTimePicker label="Date & Time" name="countDownDate" control={control}/>
                 <div className="mt-4">
-                  <FormButton isLoading={isLoading}> Save Changes</FormButton>
+                  <FormButton isLoading={isLoading}> Save Change</FormButton>
                 </div>
               </form>
             </div>
