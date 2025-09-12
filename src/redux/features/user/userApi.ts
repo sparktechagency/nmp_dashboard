@@ -27,6 +27,25 @@ export const userApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.users],
     }),
+    getExportUsers: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/user/get-export-users",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.users],
+    }),
     getMyProfile: builder.query({
       query: () => ({
         url: "/user/get-my-profile",
@@ -110,4 +129,4 @@ export const userApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation, useUpdateProfileImgMutation } = userApi;
+export const { useGetUsersQuery, useGetExportUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation, useUpdateProfileImgMutation } = userApi;

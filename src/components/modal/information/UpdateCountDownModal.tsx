@@ -24,17 +24,18 @@ const UpdateCountDownModal = ({ information }: TProps) => {
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(countDownDateSchema),
     defaultValues: {
-        countDownDate: information.countDownDate
+        countDownDate: information?.countDownDate?.split("T")[0]
     }
   });
 
-  
+
 
 
   //if success
   useEffect(() => {
     if (!isLoading && isSuccess) {
       setModalOpen(false);
+      window.location.href="/information"
     }
   }, [isLoading, isSuccess]);
 

@@ -1,6 +1,7 @@
 
 const TagTypes = {
     users: "Users",
+    exportedUsers: "ExportedUsers",
     categories: "Categories",
     categoryDropDown: "CategoryDropDown",
     profile: "Profile",
