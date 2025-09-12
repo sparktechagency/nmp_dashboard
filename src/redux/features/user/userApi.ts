@@ -44,7 +44,7 @@ export const userApi = apiSlice.injectEndpoints({
         };
       },
       keepUnusedDataFor: 600,
-      providesTags: [TagTypes.users],
+      providesTags: [TagTypes.exportedUsers],
     }),
     getMyProfile: builder.query({
       query: () => ({

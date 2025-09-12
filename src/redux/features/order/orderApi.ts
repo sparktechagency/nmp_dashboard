@@ -26,6 +26,25 @@ export const orderApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 120,
       providesTags: [TagTypes.orders],
     }),
+    getExportOrders: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/order/get-export-orders",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 120,
+      providesTags: [TagTypes.exportOrders],
+    }),
     getSingleOrder: builder.query({
       query: (id) => ({
         url: `/order/get-single-order/${id}`,
@@ -44,7 +63,7 @@ export const orderApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, _success, arg) => {
         if (result?.success) {
-          return [TagTypes.orders, { type: TagTypes.order, id: arg.id }];
+          return [TagTypes.orders, TagTypes.exportOrders, { type: TagTypes.order, id: arg.id }];
         }
         return [];
       },
@@ -67,4 +86,4 @@ export const orderApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetOrdersQuery, useGetSingleOrderQuery, useUpdateOrderMutation } = orderApi;
+export const { useGetOrdersQuery, useGetExportOrdersQuery, useGetSingleOrderQuery, useUpdateOrderMutation } = orderApi;

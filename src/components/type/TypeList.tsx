@@ -5,6 +5,7 @@ import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetTypesQuery } from "../../redux/features/type/typeApi";
 import TypeTable from "./TypeTable";
 import CreateTypeModal from "../modal/type/CreateTypeModal";
+import ExportTypeData from "./ExportTypeData";
 
 const TypeList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -80,6 +81,7 @@ const TypeList = () => {
             />
           </div>
           <CreateTypeModal />
+          <ExportTypeData/>
         </div>
       </div>
       {content}

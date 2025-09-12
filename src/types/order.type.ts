@@ -14,6 +14,21 @@ export type IOrder = {
   createdAt: string; 
 };
 
+export type IExportOrder = {
+  _id: string;
+  token: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  status: string; 
+  paymentStatus: string; 
+  subTotal: number;
+  shippingCost: number;
+  total: number;
+  createdAt: string; 
+  deliveryAt: string;
+};
+
 
 
 export type TOrderDataSource = {

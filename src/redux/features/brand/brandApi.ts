@@ -28,6 +28,25 @@ export const brandApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.brands],
     }),
+    getExportBrands: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/brand/get-export-brands",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.exportBrands],
+    }),
     getBrandDropDown: builder.query({
       query: (typeId) => ({
         url: `/brand/get-brand-drop-down/${typeId}`,
@@ -57,7 +76,7 @@ export const brandApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.brands, TagTypes.brandDropDown];
+          return [TagTypes.brands, TagTypes.exportBrands, TagTypes.brandDropDown];
         }
         return [];
       },
@@ -85,7 +104,7 @@ export const brandApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.brands, TagTypes.brandDropDown];
+          return [TagTypes.brands, TagTypes.exportBrands, TagTypes.brandDropDown];
         }
         return [];
       },
@@ -112,7 +131,7 @@ export const brandApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.brands, TagTypes.brandDropDown];
+          return [TagTypes.brands, TagTypes.exportBrands, TagTypes.brandDropDown];
         }
         return [];
       },
@@ -135,4 +154,4 @@ export const brandApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetBrandsQuery, useGetBrandDropDownQuery, useCreateBrandMutation, useDeleteBrandMutation, useUpdateBrandMutation } = brandApi;
+export const { useGetBrandsQuery, useGetExportBrandsQuery, useGetBrandDropDownQuery, useCreateBrandMutation, useDeleteBrandMutation, useUpdateBrandMutation } = brandApi;

@@ -7,6 +7,7 @@ import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import ExportCategoryData from "./ExportCategoryData";
 
 const CategoryList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -103,6 +104,7 @@ const CategoryList = () => {
             />
           </div>
           <CreateCategoryModal />
+          <ExportCategoryData/>
         </div>
       </div>
       {content}

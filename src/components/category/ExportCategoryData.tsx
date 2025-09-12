@@ -1,28 +1,19 @@
 import { Dropdown, type MenuProps } from "antd"
 import { Download } from "lucide-react";
 import exportFromJSON from "export-from-json";
-import { useGetExportOrdersQuery } from "../../redux/features/order/orderApi";
-import type { IExportOrder } from "../../types/order.type";
+import { useGetExportCategoriesQuery } from "../../redux/features/category/categoryApi";
+import type { ICategory } from "../../types/category.type";
 
-const ExportOrderData = () => {
-    const { data, isLoading } = useGetExportOrdersQuery(undefined);
-    const orders = data?.data || [];
-
+const ExportCategoryData = () => {
+     const { data, isLoading } = useGetExportCategoriesQuery(undefined);
+     const categories = data?.data || [];
 
     const DownloadExport = () => {
-        const fileName = 'orders'
-        if (orders?.length > 0) {
-            const csvData = orders?.map((item:IExportOrder) => ({
-                Token: item?.token,
-                Customer: item?.fullName,
-                Email: item?.email,
-                "Phone Number": item?.phone || "N/A",
-                "Sub Total": item?.subTotal,
-                "Shipping Cost": item?.shippingCost,
-                "Total": item?.total,
-                "status": item?.status,
-                "Delivery Date": item?.deliveryAt ? item?.deliveryAt?.split("T")[0] : "Not Yet",
-                "Order Date": item?.createdAt?.split("T")[0]
+        const fileName = 'categories'
+        if (categories?.length > 0) {
+            const csvData = categories?.map((item: ICategory) => ({
+                Category: item?.name,
+                Type: item?.type,
             }))
             exportFromJSON({ data: csvData, fileName: fileName, exportType: "csv" })
         }
@@ -40,28 +31,23 @@ const ExportOrderData = () => {
 
       // Add title
       doc.setFontSize(20)
-      doc.text("Order Data Export", 14, 22)
+      doc.text("Category Data Export", 14, 22)
 
       // Add export info
       doc.setFontSize(12)
       doc.text(`Export Date: ${new Date().toLocaleDateString()}`, 14, 32)
-      doc.text(`Total Records: ${orders?.length}`, 14, 40)
+      doc.text(`Total Records: ${categories?.length}`, 14, 40)
 
       // Prepare table data
-      const tableData = orders?.map((order: IExportOrder, index: number) => [
+      const tableData = categories?.map((category:ICategory, index:number) => [
         Number(index+1),
-        order.token,
-        order.fullName,
-        order.email,
-        order?.total,
-        order?.status,
-        order?.deliveryAt ? order?.deliveryAt?.split("T")[0] : "Not Yet",
-        order?.createdAt?.split("T")[0]
+        category?.name,
+        category?.type
       ])
 
       // Add table
       autoTable(doc, {
-        head: [["S.N.", "Token", "Customer", "Email", "Total", "Status", "Delivery Date", "Order Date"]],
+        head: [["S.N.", "Category", "Type"]],
         body: tableData,
         startY: 50,
         styles: {
@@ -80,7 +66,7 @@ const ExportOrderData = () => {
       })
 
       // Save the PDF
-      doc.save(`${"orders"}-${new Date().toISOString().split("T")[0]}.pdf`)
+      doc.save(`${"categories"}-${new Date().toISOString().split("T")[0]}.pdf`)
     } catch (error) {
       console.error("Error exporting PDF:", error)
     }
@@ -113,11 +99,11 @@ const ExportOrderData = () => {
     return (
         <>
             <Dropdown menu={{ items }} placement="bottomRight">
-                <button disabled={isLoading} className="px-3 flex gap-2 py-1 lg:py-2 text-white bg-blue-500 hover:bg-blue-600 duration-200 rounded-md disabled:cursor-not-allowed">
+                <button disabled={isLoading} className="px-3 flex gap-2 py-1 lg:py-2 text-white bg-blue-500 hover:bg-blue-600 duration-200 rounded-md">
                     <Download />Export Data</button>
             </Dropdown>
         </>
     )
 }
 
-export default ExportOrderData
+export default ExportCategoryData

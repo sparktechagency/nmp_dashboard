@@ -26,6 +26,25 @@ export const productApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.products],
     }),
+    getExportProducts: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/product/get-export-products",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.exportProducts],
+    }),
     getFeatureProducts: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
@@ -72,7 +91,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.products];
+          return [TagTypes.products, TagTypes.exportProducts];
         }
         return [];
       },
@@ -110,7 +129,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, _success, arg) => {
         if (result?.success) {
-          return [TagTypes.products, TagTypes.featureProducts, { type: TagTypes.product, id: arg.id }];
+          return [TagTypes.products, TagTypes.exportProducts, TagTypes.featureProducts, { type: TagTypes.product, id: arg.id }];
         }
         return [];
       },
@@ -138,7 +157,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, _success, arg) => {
         if (result?.success) {
-          return [TagTypes.products, TagTypes.featureProducts, { type: TagTypes.product, id: arg.id }];
+          return [TagTypes.products, TagTypes.exportProducts, TagTypes.featureProducts, { type: TagTypes.product, id: arg.id }];
         }
         return [];
       },
@@ -165,7 +184,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.products];
+          return [TagTypes.products, TagTypes.exportProducts];
         }
         return [];
       },
@@ -188,4 +207,4 @@ export const productApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery, useGetFeatureProductsQuery, useGetBestSellerProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useUpdateProductMutation } = productApi;
+export const { useGetProductsQuery, useGetExportProductsQuery, useGetFeatureProductsQuery, useGetBestSellerProductsQuery, useGetSingleProductQuery, useCreateProductMutation, useUpdateProductImgMutation, useDeleteProductMutation, useUpdateProductMutation } = productApi;

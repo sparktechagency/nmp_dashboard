@@ -28,6 +28,25 @@ export const typeApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.types],
     }),
+    getExportTypes: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/type/get-export-types",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.exportTypes],
+    }),
     getTypeDropDown: builder.query({
       query: () => ({
         url: "/type/get-type-drop-down",
@@ -57,7 +76,7 @@ export const typeApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.types, TagTypes.typeDropDown];
+          return [TagTypes.types, TagTypes.exportTypes, TagTypes.typeDropDown];
         }
         return [];
       },
@@ -85,7 +104,7 @@ export const typeApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.types, TagTypes.typeDropDown];
+          return [TagTypes.types, TagTypes.exportTypes, TagTypes.typeDropDown];
         }
         return [];
       },
@@ -112,7 +131,7 @@ export const typeApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-           return [TagTypes.types, TagTypes.typeDropDown];
+           return [TagTypes.types, TagTypes.exportTypes, TagTypes.typeDropDown];
         }
         return [];
       },
@@ -135,4 +154,4 @@ export const typeApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetTypesQuery, useGetTypeDropDownQuery, useCreateTypeMutation, useDeleteTypeMutation, useUpdateTypeMutation } = typeApi;
+export const { useGetTypesQuery, useGetExportTypesQuery, useGetTypeDropDownQuery, useCreateTypeMutation, useDeleteTypeMutation, useUpdateTypeMutation } = typeApi;

@@ -7,6 +7,7 @@ import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import ExportProductData from "./ExportProductData";
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -111,6 +112,7 @@ const ProductList = () => {
              Add New
            </button>
          </div>
+         <ExportProductData/>
        </div>
        {content}
      </>

@@ -27,6 +27,25 @@ export const categoryApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.categories],
     }),
+    getExportCategories: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/category/get-export-categories",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.exportCategories],
+    }),
     getCategoryDropDown: builder.query({
       query: (typeId) => ({
         url: `/category/get-category-drop-down/${typeId}`,
@@ -50,7 +69,7 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories, TagTypes.categoryDropDown];
+          return [TagTypes.categories, TagTypes.exportCategories, TagTypes.categoryDropDown];
         }
         return [];
       },
@@ -78,7 +97,7 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories, TagTypes.categoryDropDown];
+          return [TagTypes.categories, TagTypes.exportCategories, TagTypes.categoryDropDown];
         }
         return [];
       },
@@ -105,7 +124,7 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories, TagTypes.categoryDropDown];
+          return [TagTypes.categories, TagTypes.exportCategories, TagTypes.categoryDropDown];
         }
         return [];
       },
@@ -128,4 +147,4 @@ export const categoryApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetCategoriesQuery, useGetCategoryDropDownQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = categoryApi;
+export const { useGetCategoriesQuery, useGetExportCategoriesQuery, useGetCategoryDropDownQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = categoryApi;
