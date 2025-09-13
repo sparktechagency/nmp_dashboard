@@ -22,16 +22,12 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
   })
   const [isExpired, setIsExpired] = useState(false)
 
+
   useEffect(() => {
     const calculateTimeLeft = (): TimeLeft => {
-        const timestamp = new Date(targetDate).getTime();
-        // Subtract 6 hours (6 * 60 * 60 * 1000 milliseconds)
-        const newTimestamp = timestamp - 6 * 60 * 60 * 1000;
-        // Convert back to Date if needed
-        const newDate = new Date(newTimestamp); //utc date
-        const difference = newDate.getTime() - new Date().getTime();
-        //convert utc datetime
-     
+    const localDate = new Date("2025-09-13T11:00:00");
+    const difference = localDate.getTime() - Date.now();
+
       if (difference <= 0) {
         setIsExpired(true)
         return { days: 0, hours: 0, minutes: 0, seconds: 0 }

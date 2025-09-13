@@ -1,6 +1,6 @@
 
 const convertUTCDate = (dateStr: string) => {
-    const date = new Date(dateStr.split("T")[0]);
+    const dateParts = dateStr.split("T")[0];
     const time = dateStr.split("T")[1].split(".")[0];
     const hours = time.split(":")[0]
     const minutes = time.split(":")[1]
@@ -8,9 +8,9 @@ const convertUTCDate = (dateStr: string) => {
 
     const utcDate = new Date(
         Date.UTC(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate(),
+            Number(dateParts.split("-")[0]),
+            Number(dateParts.split("-")[1]) - 1,
+            Number(dateParts.split("-")[2]),
             Number(hours),
             Number(minutes),
             Number(seconds),
