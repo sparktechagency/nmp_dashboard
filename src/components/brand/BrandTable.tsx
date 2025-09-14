@@ -1,8 +1,10 @@
-import type { IBrand } from "../../types/brand.type";
+import type { IBrand, IBrandDataSource, TBrandStatus } from "../../types/brand.type";
 import EditBrandModal from "../modal/brand/EditBrandModal";
 import DeleteBrandModal from "../modal/brand/DeleteBrandModal";
 import type { IMeta } from "../../types/global.type";
 import { ConfigProvider, Pagination, Table } from "antd";
+import getTypeColor from "../../utils/getTypeColor";
+import ChangeBrandStatusModal from "../modal/brand/ChangeBrandStatusModal";
 
 
 
@@ -16,14 +18,6 @@ type TProps = {
   loading: boolean
 }
 
-type TDataSource = {
-  key: number;
-  serial: number;
-  _id: string;
-  name: string;
-}
-
-
 const BrandTable = ({
   brands, meta,
   currentPage,
@@ -33,11 +27,14 @@ const BrandTable = ({
   loading
 }: TProps) => {
 
-  const dataSource: TDataSource[] = brands?.map((brand, index) => ({
+  const dataSource: IBrandDataSource[] = brands?.map((brand, index) => ({
     key: index,
     serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: brand?._id,
-    name: brand?.name
+    name: brand?.name,
+    typeId: brand?.typeId,
+    type: brand?.type,
+    status: brand?.status
   }))
 
   const columns = [
@@ -57,6 +54,47 @@ const BrandTable = ({
           <p className="truncate">{text}</p>
         </>
       ),
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      width: 180,
+      render: (type: string) => {
+        const styleClass = getTypeColor(type);
+        return (
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium ${styleClass}`}
+          >
+            {type}
+          </span>
+        );
+      },
+    },
+     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: 145,
+      render: (status: TBrandStatus, record: IBrandDataSource) => {
+        const statusStyles = {
+          hidden: "bg-red-100 text-red-700 border border-red-300",
+          visible: "bg-green-100 text-green-700 border border-green-300",
+        };
+
+        const bgColor = status === "visible" ? statusStyles.visible : statusStyles.hidden;
+
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              className={`${bgColor} capitalize w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {status}
+            </button>
+            <ChangeBrandStatusModal brandId={record?._id} status={status} />
+          </div>
+        );
+      },
     },
     {
       title: "Action",

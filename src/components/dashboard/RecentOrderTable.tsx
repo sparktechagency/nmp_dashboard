@@ -24,7 +24,7 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
     phone: order?.phone,
     status: order?.status,
     paymentStatus: order?.paymentStatus,
-    totalPrice: order?.totalPrice,
+    total: order?.total,
     createdAt: order?.createdAt
   }));
 
@@ -83,8 +83,8 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
     },
     {
       title: "Amount",
-      dataIndex: "totalPrice",
-      key: "totalPrice",
+      dataIndex: "total",
+      key: "total",
       width: 90,
       align: "center" as const,
       render: (val: number) => (

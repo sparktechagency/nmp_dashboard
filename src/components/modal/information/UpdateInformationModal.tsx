@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +24,16 @@ const UpdateInformationModal = ({ information }: TProps) => {
   const [ updateInformation, { isLoading, isSuccess }] = useUpdateInformationMutation();
   const { handleSubmit, control, setValue} = useForm<TFormValues>({
     resolver: zodResolver(informationSchema),
-    defaultValues: information
+    defaultValues: {
+      title: information?.title,
+      subTitle: information?.subTitle,
+      email: information?.email,
+      phone: information?.phone,
+      address: information?.address,
+      instagram: information?.instagram,
+      facebook: information?.facebook,
+      age: String(information?.age)
+    }
   });
 
 
@@ -37,7 +47,10 @@ const UpdateInformationModal = ({ information }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    updateInformation(data);
+    updateInformation({
+      ...data,
+      age: Number(data?.age)
+    });
   };
 
   return (
@@ -49,11 +62,14 @@ const UpdateInformationModal = ({ information }: TProps) => {
       <Modal
         open={modalOpen}
         onCancel={() => {
+          setValue("title", information.title);
+          setValue("subTitle", information.subTitle);
           setValue("email", information.email);
           setValue("phone", information.phone);
           setValue("address", information.address);
           setValue("instagram", information.instagram);
           setValue("facebook", information.facebook);
+          setValue("age", String(information.age));
           setModalOpen(false)
         }}
         maskClosable={false}
@@ -66,11 +82,23 @@ const UpdateInformationModal = ({ information }: TProps) => {
                 Update Information
               </h2>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <CustomInput label="Title" name="title" type="text" control={control} placeholder="Enter email address"/>
+                <CustomInput label="Sub Title" name="subTitle" type="text" control={control} placeholder="Enter email address"/>
                 <CustomInput label="Email" name="email" type="text" control={control} placeholder="Enter email address"/>
                 <CustomInput label="Contact Number" name="phone" type="text" control={control} placeholder="Enter contact number"/>
                 <CustomInput label="Address" name="address" type="text" control={control} placeholder="Enter Address"/>
                 <CustomTextArea label="Instagram Link" name="instagram" control={control} placeholder="Enter instagram link"/>
                 <CustomTextArea label="Facebook Link" name="facebook" control={control} placeholder="Enter teligram link"/>
+                <CustomInput
+                  label="Age"
+                  name="age"
+                  type="text"
+                  control={control}
+                  placeholder="Enter age"
+                  onInput={(e: any) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                  }}
+                />
                 <div className="mt-4">
                   <FormButton isLoading={isLoading}> Save Changes</FormButton>
                 </div>

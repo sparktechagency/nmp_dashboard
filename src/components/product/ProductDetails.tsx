@@ -5,6 +5,7 @@ import type { ISingleProduct } from "../../types/product.type";
 import MakeFeatureProduct from "./MakeFeatureProduct";
 import getStockStatus from "../../utils/getStockStatus";
 import { getStockStatusBg, getStockStatusColor } from "../../utils/getStockStatusColor";
+import RemoveFeatureProductModal from "../modal/product/RemoveFeatureProductModal";
 
 
 type TProps = {
@@ -36,11 +37,15 @@ const ProductDetails = ({ product}: TProps) =>{
           {/* Category */}
           <h1 className="text-3xl font-bold text-gray-900">{product?.name}</h1>
           <div className="text-sm text-gray-500 tracking-wide">Product Id: <span className="text-black font-semibold">{product?._id}</span></div>
+          <div className="text-md text-gray-500 uppercase tracking-wide">Type: <span className="text-blue-500 font-semibold">{product?.type}</span></div>
           <div className="text-sm text-gray-500 uppercase tracking-wide">Category: <span className="text-green-500">{product?.category}</span></div>
-          <div className="text-sm text-gray-500 uppercase tracking-wide">Brand: <span className="text-pink-500">{product?.brand}</span></div>
-          <div className="text-sm text-gray-500 uppercase tracking-wide">Flavor: <span className="text-yellow-500">{product?.flavor}</span></div>
+          {product?.brand && (
+            <div className="text-sm text-gray-500 uppercase tracking-wide">Brand: <span className="text-pink-500">{product?.brand}</span></div>
+          )}
 
-
+          {product?.flavor && (
+            <div className="text-sm text-gray-500 uppercase tracking-wide">Flavor: <span className="text-yellow-500">{product?.flavor}</span></div>
+          )}
           {/* Ratings */}
           <div className="flex items-center space-x-2">
             <div className="flex items-center">Ratings: </div>
@@ -79,7 +84,9 @@ const ProductDetails = ({ product}: TProps) =>{
             </span>
           </div>
           {
-            !product?.isFeatured && (
+            !product?.isFeatured ? (
+              <RemoveFeatureProductModal productId={product?._id}/>
+            ) : (
               <MakeFeatureProduct productId={product?._id}/>
             )
           } 

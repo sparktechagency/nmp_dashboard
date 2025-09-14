@@ -2,10 +2,9 @@
 
 import TagTypes from "../../../constant/tagType.constant";
 import { ErrorToast, SuccessToast } from "../../../helper/ValidationHelper";
-import type { ICategory } from "../../../types/category.type";
 import type { IParam } from "../../../types/global.type";
 import { apiSlice } from "../api/apiSlice";
-import { SetCategoryCreateError, SetCategoryOptions, SetCategoryUpdateError } from "./categorySlice";
+import { SetCategoryCreateError, SetCategoryUpdateError } from "./categorySlice";
 
 export const categoryApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,22 +27,35 @@ export const categoryApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.categories],
     }),
+    getExportCategories: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/category/get-export-categories",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.exportCategories],
+    }),
     getCategoryDropDown: builder.query({
-      query: () => ({
-        url: "/category/get-category-drop-down",
+      query: (typeId) => ({
+        url: `/category/get-category-drop-down/${typeId}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.categoryDropDown],
-      async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(_arg, { queryFulfilled }) {
         try {
-          const res = await queryFulfilled;
-          const data = res?.data?.data;
-          const options = data?.map((c: ICategory) => ({
-            value: c._id,
-            label: c.name,
-          }))
-          dispatch(SetCategoryOptions(options))
+          await queryFulfilled; 
         } catch {
           ErrorToast("Something Went Wrong");
         }
@@ -57,7 +69,7 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories, TagTypes.categoryDropDown];
+          return [TagTypes.categories, TagTypes.exportCategories, TagTypes.categoryDropDown];
         }
         return [];
       },
@@ -85,7 +97,7 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories, TagTypes.categoryDropDown];
+          return [TagTypes.categories, TagTypes.exportCategories, TagTypes.categoryDropDown];
         }
         return [];
       },
@@ -112,7 +124,7 @@ export const categoryApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.categories, TagTypes.categoryDropDown];
+          return [TagTypes.categories, TagTypes.exportCategories, TagTypes.categoryDropDown];
         }
         return [];
       },
@@ -135,4 +147,4 @@ export const categoryApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetCategoriesQuery, useGetCategoryDropDownQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = categoryApi;
+export const { useGetCategoriesQuery, useGetExportCategoriesQuery, useGetCategoryDropDownQuery, useCreateCategoryMutation, useDeleteCategoryMutation, useUpdateCategoryMutation } = categoryApi;

@@ -148,7 +148,7 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.users, TagTypes.admins];
+          return [TagTypes.users, TagTypes.admins, TagTypes.exportedUsers];
         }
         return [];
       },

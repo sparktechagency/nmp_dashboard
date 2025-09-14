@@ -1,7 +1,9 @@
 
 const TagTypes = {
     users: "Users",
+    exportedUsers: "ExportedUsers",
     categories: "Categories",
+    exportCategories: "ExportCategories",
     categoryDropDown: "CategoryDropDown",
     profile: "Profile",
     total: "Total",
@@ -13,18 +15,26 @@ const TagTypes = {
     admins: "Admins",
     information: "Information",
     products: "Products",
+    exportProducts: "ExportProducts",
     featureProducts: "FeatureProducts",
     bestSellerProducts: "BestSellerProducts",
     product: "Product",
     policy: "Policy",
     orders: "Orders",
+    exportOrders: "ExportOrders",
     order: "Order",
     incomeGrowth: "incomeGrowth",
     subsbscribers: "Subscribers",
     brands: "Brands",
+    exportBrands: "ExportBrands",
     brandDropDown: "BrandDropDown",
     flavors: "Flavors",
-    flavorDropDown: "FlavorDropDown"
+    exportFlavors: "ExportFlavors",
+    flavorDropDown: "FlavorDropDown",
+    types: "Types",
+    exportTypes: "ExportTypes",
+    typeDropDown: "TypeDropDown",
+    shippingCosts: "ShippingCosts"
 }
 
 export default TagTypes;

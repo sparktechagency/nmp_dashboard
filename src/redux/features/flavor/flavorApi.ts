@@ -28,9 +28,28 @@ export const flavorApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 600,
       providesTags: [TagTypes.flavors],
     }),
+    getExportFlavors: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args !== undefined && args.length > 0) {
+          args.forEach((item: IParam) => {
+            if (item.value) {
+              params.append(item.name, item.value);
+            }
+          });
+        }
+        return {
+          url: "/flavor/get-export-flavors",
+          method: "GET",
+          params: params,
+        };
+      },
+      keepUnusedDataFor: 600,
+      providesTags: [TagTypes.exportFlavors],
+    }),
     getFlavorDropDown: builder.query({
-      query: () => ({
-        url: "/flavor/get-flavor-drop-down",
+      query: (typeId) => ({
+        url: `/flavor/get-flavor-drop-down/${typeId}`,
         method: "GET",
       }),
       keepUnusedDataFor: 600,
@@ -57,7 +76,7 @@ export const flavorApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.flavors, TagTypes.flavorDropDown];
+          return [TagTypes.flavors, TagTypes.exportFlavors, TagTypes.flavorDropDown];
         }
         return [];
       },
@@ -85,7 +104,7 @@ export const flavorApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.flavors, TagTypes.flavorDropDown];
+          return [TagTypes.flavors, TagTypes.exportFlavors, TagTypes.flavorDropDown];
         }
         return [];
       },
@@ -112,7 +131,7 @@ export const flavorApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result) => {
         if (result?.success) {
-          return [TagTypes.flavors, TagTypes.flavorDropDown];
+          return [TagTypes.flavors, TagTypes.exportFlavors, TagTypes.flavorDropDown];
         }
         return [];
       },
@@ -135,4 +154,4 @@ export const flavorApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetFlavorsQuery, useGetFlavorDropDownQuery, useCreateFlavorMutation, useDeleteFlavorMutation, useUpdateFlavorMutation } = flavorApi;
+export const { useGetFlavorsQuery, useGetExportFlavorsQuery, useGetFlavorDropDownQuery, useCreateFlavorMutation, useDeleteFlavorMutation, useUpdateFlavorMutation } = flavorApi;

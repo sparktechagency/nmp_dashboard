@@ -2,7 +2,9 @@ import { Table, ConfigProvider, Pagination } from "antd";
 import type { IMeta } from "../../types/global.type";
 import DeleteFlavorModal from "../modal/flavor/DeleteFlavorModal";
 import EditFlavorModal from "../modal/flavor/EditFlavorModal";
-import type { IFlavor } from "../../types/flavor.type";
+import type { IFlavor, IFlavorDataSource, TFlavorStatus } from "../../types/flavor.type";
+import getTypeColor from "../../utils/getTypeColor";
+import ChangeFlavorStatusModal from "../modal/flavor/ChangeFlavorStatusModal";
 
 
 
@@ -16,13 +18,6 @@ type TProps = {
   loading: boolean;
 }
 
-type TDataSource = {
-  key: number;
-  serial: number;
-  _id: string;
-  name: string;
-}
-
 
 const FlavorTable = ({
   flavors, meta,
@@ -33,11 +28,14 @@ const FlavorTable = ({
   loading
 }: TProps) => {
 
-  const dataSource: TDataSource[] = flavors?.map((category, index) => ({
+  const dataSource: IFlavorDataSource[] = flavors?.map((flavor, index) => ({
     key: index,
     serial: Number(index + 1) + (meta.page - 1) * pageSize,
-    _id: category?._id,
-    name: category?.name
+    _id: flavor?._id,
+    name: flavor?.name,
+    typeId: flavor?.typeId,
+    type: flavor?.type,
+    status: flavor?.status
   }))
 
   const columns = [
@@ -57,6 +55,47 @@ const FlavorTable = ({
           <p className="truncate">{text}</p>
         </>
       ),
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      width: 180,
+      render: (type: string) => {
+        const styleClass = getTypeColor(type);
+        return (
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-medium ${styleClass}`}
+          >
+            {type}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: 145,
+      render: (status: TFlavorStatus, record: IFlavorDataSource) => {
+        const statusStyles = {
+          hidden: "bg-red-100 text-red-700 border border-red-300",
+          visible: "bg-green-100 text-green-700 border border-green-300",
+        };
+
+        const bgColor = status === "visible" ? statusStyles.visible : statusStyles.hidden;
+
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              className={`${bgColor} capitalize w-20 cursor-default px-3 py-0.5 text-sm font-medium rounded-full`}
+            >
+              {status}
+            </button>
+            <ChangeFlavorStatusModal flavorId={record?._id} status={status} />
+          </div>
+        );
+      },
     },
     {
       title: "Action",

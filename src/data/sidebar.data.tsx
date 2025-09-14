@@ -2,24 +2,27 @@ import { LayoutDashboard, Snowflake, Users } from "lucide-react";
 import {
     SettingOutlined
   } from '@ant-design/icons';
-import { MdCategory, MdContactPhone, MdUnsubscribe } from "react-icons/md";
+import { MdCategory, MdContactPhone, MdFeaturedPlayList } from "react-icons/md";
 import { GrUserAdmin, GrCircleInformation } from "react-icons/gr";
 import { RiProductHuntLine } from "react-icons/ri";
 import { PiInvoiceBold } from "react-icons/pi";
 import { SiBrandfolder } from "react-icons/si";
+import { FaShippingFast } from "react-icons/fa";
+import { LuFileType } from "react-icons/lu";
 
 export const adminMenuItems = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/users", label: "Users", icon: Users  },
+  { path: "/shipping", label: "Shipping Cost", icon: FaShippingFast },
+  { path: "/types", label: "Type", icon: LuFileType },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},
   { path: "/products", label: "Products", icon: RiProductHuntLine },
-  { path: "/feature-products", label: "Feature Products", icon: RiProductHuntLine },
-  { path: "/information", label: "Contact Information", icon: GrCircleInformation },
+  { path: "/feature-products", label: "Feature Products", icon: MdFeaturedPlayList },
+  { path: "/information", label: "Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
-  { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
   {
     icon: SettingOutlined,
     label: "Settings",
@@ -38,13 +41,15 @@ export const superAdminMenuItems = [
   { path: "/orders", label: "Orders", icon: PiInvoiceBold },
   { path: "/admins", label: "Admins", icon: GrUserAdmin },
   { path: "/users", label: "Users", icon: Users },
+  { path: "/shipping", label: "Shipping Cost", icon: FaShippingFast },
+  { path: "/types", label: "Type", icon: LuFileType },
   { path: "/category", label: "Category", icon: MdCategory },
   { path: "/brands", label: "Brand", icon: SiBrandfolder },
   { path: "/flavors", label: "Flavor", icon: Snowflake},
   { path: "/products", label: "Products", icon: RiProductHuntLine },
-  { path: "/information", label: "Contact Information", icon: GrCircleInformation },
+  { path: "/feature-products", label: "Feature Products", icon: MdFeaturedPlayList },
+  { path: "/information", label: "Information", icon: GrCircleInformation },
   { path: "/contacts", label: "Contact List", icon: MdContactPhone },
-  { path: "/subscribers", label: "Subscribers", icon: MdUnsubscribe },
   {
     icon: SettingOutlined,
     label: "Settings",

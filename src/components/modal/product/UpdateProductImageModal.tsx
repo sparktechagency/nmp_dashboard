@@ -76,7 +76,7 @@ const UpdateProductImageModal = ({ productId }: TProps) => {
           <div className="bg-white rounded-xl overflow-hidden transition-all duration-300">
             <div className="p-2">
               <div className="max-w-xl">
-                <h2 className="text-xl font-bold mb-6">Upload Images</h2>
+                <h2 className="text-xl font-bold mb-6">Upload Image</h2>
 
                 {/* Hidden file input */}
                 <input ref={fileInputRef} type="file" multiple accept="image/*" onChange={handleFileSelect} className="hidden" />

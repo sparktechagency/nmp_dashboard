@@ -11,6 +11,7 @@ import { SetCategoryCreateError } from "../../../redux/features/category/categor
 import Error from "../../validation/Error";
 import { useCreateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import FormButton from "../../form/FormButton";
+import CustomSelect from "../../form/CustomSelect";
 
 type TFormValues = z.infer<typeof categorySchema>;
 
@@ -18,14 +19,15 @@ const CreateCategoryModal = () => {
   const dispatch = useAppDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const { CategoryCreateError } = useAppSelector((state) => state.category);
+  const { typeOptions } = useAppSelector((state) => state.type);
   const [createCategory, { isLoading, isSuccess }] = useCreateCategoryMutation();
   const { handleSubmit, control, reset } = useForm<TFormValues>({
     resolver: zodResolver(categorySchema),
   });
 
-  
+
   //if success
-   useEffect(() => {
+  useEffect(() => {
     if (!isLoading && isSuccess) {
       setModalOpen(false);
       reset();
@@ -62,8 +64,15 @@ const CreateCategoryModal = () => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                 Add Category
               </h2>
-               {CategoryCreateError && <Error message={CategoryCreateError} />}
-              <form onSubmit={handleSubmit(onSubmit)}>
+              {CategoryCreateError && <Error message={CategoryCreateError} />}
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <CustomSelect
+                  label="Type"
+                  name="typeId"
+                  control={control}
+                  disabled={typeOptions.length === 0}
+                  options={typeOptions}
+                />
                 <CustomInput
                   label="Title"
                   name="name"

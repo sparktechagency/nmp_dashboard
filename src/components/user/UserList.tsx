@@ -4,6 +4,7 @@ import UserTable from "./UserTable";
 import { useGetUsersQuery } from "../../redux/features/user/userApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
+import ExportUserData from "./ExportUserData";
 
 const UserList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,8 +20,8 @@ const UserList = () => {
  //debounced handle
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      setCurrentPage(1);
       setSearchTerm(searchQuery);
-      setCurrentPage(1)
     }, 600);
     return () => clearTimeout(timeoutId); // cleanup for debounce
   }, [searchQuery]);
@@ -77,6 +78,7 @@ const UserList = () => {
                className="w-full pl-4 lg:pl-10 pr-4 py-1 lg:py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
              />
            </div>
+           <ExportUserData/>
          </div>
       </div>
       {content}

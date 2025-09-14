@@ -32,7 +32,7 @@ const CustomMultiSelect = ({ label, name, control, options, disabled=false }: TP
                   {...field}
                   mode="multiple"
                   placeholder="Please select"
-                   style={{ width: "100%",}} 
+                  style={{ width: "100%",}} 
                   className="custom-select-padding"
                   // style={{ width: "100%"}}
                   options={options}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../form/CustomInput";
 import type { z } from "zod";
@@ -11,12 +11,17 @@ import { useNavigate } from "react-router-dom";
 import { updateProductValidationSchema } from "../../schemas/product.schema";
 import { useUpdateProductMutation } from "../../redux/features/product/productApi";
 import { useGetCategoryDropDownQuery } from "../../redux/features/category/categoryApi";
-
-import { stockStatusOptions } from "../../data/product.data";
 import type { ISingleProduct } from "../../types/product.type";
 import { useGetBrandDropDownQuery } from "../../redux/features/brand/brandApi";
 import { useGetFlavorDropDownQuery } from "../../redux/features/flavor/flavorApi";
 import FormButton from "../form/FormButton";
+import { SetBrandOptions } from "../../redux/features/brand/brandSlice";
+import { SetCategoryOptions } from "../../redux/features/category/categorySlice";
+import { SetFlavorOptions } from "../../redux/features/flavor/flavorSlice";
+import type { IBrand } from "../../types/brand.type";
+import type { ICategory } from "../../types/category.type";
+import type { IFlavor } from "../../types/flavor.type";
+import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
 
 type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
@@ -25,29 +30,71 @@ type TProps = {
 }
 
 const UpdateProductForm = ({ product }: TProps) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  useGetBrandDropDownQuery(undefined);
-  useGetFlavorDropDownQuery(undefined);
-  useGetCategoryDropDownQuery(undefined);
+  useGetTypeDropDownQuery(undefined);
+  const { typeOptions } = useAppSelector((state) => state.type);
   const { categoryOptions } = useAppSelector((state) => state.category);
   const { brandOptions } = useAppSelector((state) => state.brand);
   const { flavorOptions } = useAppSelector((state) => state.flavor);
   const [ updateProduct, { isLoading, isSuccess }] = useUpdateProductMutation();
-  const { handleSubmit, control, watch, trigger } = useForm({
+  const { handleSubmit, control, watch, trigger, setValue } = useForm({
     resolver: zodResolver(updateProductValidationSchema),
       defaultValues: {
           name: product?.name,
+          typeId: product?.typeId,
           categoryId: product?.categoryId,
           brandId: product?.brandId,
           flavorId: product?.flavorId,
           currentPrice: String(product.currentPrice),
           originalPrice: String(product.originalPrice),
+          quantity: String(product.quantity),
           discount: product?.discount,
           status: product?.status,
-          stockStatus: product?.stockStatus,
           description: product?.description
       }
   });
+
+   const typeId = watch("typeId");
+  
+    const { data:brandData } = useGetBrandDropDownQuery(typeId, { skip: !typeId});
+    const { data: flavorData } = useGetFlavorDropDownQuery(typeId, { skip: !typeId});
+    const { data:categoryData } = useGetCategoryDropDownQuery(typeId, { skip: !typeId});
+  
+    //set categoryOptions, brandOptions, flavorOptions
+    useEffect(() => {
+      if(!typeId){
+        dispatch(SetBrandOptions([]))
+        dispatch(SetCategoryOptions([]))
+        dispatch(SetFlavorOptions([]))
+        setValue("categoryId", "");
+        setValue("brandId", "");
+        setValue("flavorId", "");
+        return
+      }
+      if (brandData?.data && flavorData?.data && categoryData?.data) {
+        //brandOptions
+        const bOptions = brandData?.data?.map((b: IBrand) => ({
+          value: b._id,
+          label: b.name,
+        }))
+        dispatch(SetBrandOptions(bOptions))
+  
+        //categoryOptions
+        const cOptions = categoryData?.data?.map((c: ICategory) => ({
+          value: c._id,
+          label: c.name,
+        }))
+        dispatch(SetCategoryOptions(cOptions));
+  
+        //flavorOptions
+        const fOptions = flavorData?.data?.map((f: IFlavor) => ({
+          value: f._id,
+          label: f.name,
+        }))
+        dispatch(SetFlavorOptions(fOptions))
+      }
+    }, [brandData, flavorData, categoryData, dispatch, typeId, setValue]);
 
   const currentPrice = watch("currentPrice");
   const originalPrice = watch("originalPrice");
@@ -72,13 +119,23 @@ const UpdateProductForm = ({ product }: TProps) => {
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     const finalValues: Record<string, unknown> = {
       name: data.name,
+      typeId: data.typeId,
       categoryId: data.categoryId,
       brandId: data.brandId,
       flavorId: data.flavorId,
       currentPrice: data.currentPrice,
+      quantity: data.quantity,
       status: data?.status,
-      stockStatus: data?.stockStatus,
       description: data?.description
+    }
+
+    //check optional fields
+    if(!data.brandId){
+      finalValues.brandId=null
+    }
+
+    if(!data.flavorId){
+      finalValues.flavorId=null
     }
 
     if(!data.discount){
@@ -112,28 +169,32 @@ const UpdateProductForm = ({ product }: TProps) => {
             placeholder="Enter name"
           />
           <CustomSelect
+            label="Type"
+            name="typeId"
+            control={control}
+            options={typeOptions}
+            disabled={typeOptions.length === 0}
+          />
+          <CustomSelect
             label="Category"
             name="categoryId"
             control={control}
             options={categoryOptions}
             disabled={categoryOptions.length === 0}
-            blankOption={false}
           />
           <CustomSelect
-            label="Brand"
+            label="Brand (Optional)"
             name="brandId"
             control={control}
             options={brandOptions}
             disabled={brandOptions.length === 0}
-            blankOption={false}
           />
           <CustomSelect
-            label="Flavor"
+            label="Flavor (Optional)"
             name="flavorId"
             control={control}
             options={flavorOptions}
             disabled={flavorOptions.length === 0}
-            blankOption={false}
           />
           <CustomInput
             label="Current Price"
@@ -145,6 +206,8 @@ const UpdateProductForm = ({ product }: TProps) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <CustomInput
             label="Original Price(optional)"
             name="originalPrice"
@@ -155,8 +218,16 @@ const UpdateProductForm = ({ product }: TProps) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <CustomInput
+            label="Quantity"
+            name="quantity"
+            type="text"
+            control={control}
+            placeholder="Enter quantity"
+            onInput={(e: any) => {
+              e.target.value = e.target.value.replace(/[^0-9]/g, "");
+            }}
+          />
           <CustomSelect
             label="Status (Optional)"
             name="status"
@@ -173,13 +244,6 @@ const UpdateProductForm = ({ product }: TProps) => {
             ]}           
             blankOption={false}
           />
-          <CustomSelect
-            label="Stock Status (Optional)"
-            name="stockStatus"
-            control={control}
-            options={stockStatusOptions}
-            blankOption={false}
-            />
           <CustomInput
             label="Discount (Optional)"
             name="discount"

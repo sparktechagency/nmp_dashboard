@@ -2,6 +2,7 @@ import type { ISingleProduct } from "../../types/product.type";
 import UpdateProductImageModal from "../modal/product/UpdateProductImageModal";
 import product_placeholder from "../../assets/images/product_placeholder.png";
 import MakeFeatureProduct from "./MakeFeatureProduct";
+import RemoveFeatureProductModal from "../modal/product/RemoveFeatureProductModal";
 
 
 type TProps = {
@@ -14,7 +15,7 @@ const UpdateImagePreview = ({ product }: TProps) => {
 
             <div>
                 <h1 className="flex items-center gap-2 mb-2">
-                    <span className="font-bold">Images</span>
+                    <span className="font-bold">Image</span>
                     <UpdateProductImageModal productId={product?._id} />
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -33,9 +34,10 @@ const UpdateImagePreview = ({ product }: TProps) => {
                     </div>
                 </div>
             </div>
-
             {
-                !product?.isFeatured && (
+                !product?.isFeatured ? (
+                    <RemoveFeatureProductModal productId={product?._id} />
+                ) : (
                     <MakeFeatureProduct productId={product?._id} />
                 )
             }
