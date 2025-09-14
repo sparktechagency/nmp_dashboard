@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import dayjs from "dayjs";
 
 interface TimeLeft {
   days: number
@@ -25,12 +26,19 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
 
   useEffect(() => {
     const calculateTimeLeft = (): TimeLeft => {
-    const localDate = new Date("2025-09-13T11:00:00");
-    const difference = localDate.getTime() - Date.now();
+      const localDate = new Date(targetDate);
+      // get timezone offset in hours
+      const offset = dayjs().utcOffset() / 60;
+      // convert hours to milliseconds
+      const offsetMs = offset * 60 * 60 * 1000;
+      // subtract offset
+      const newDate = new Date(localDate.getTime() - offsetMs);
+      // difference between newDate and now
+      const difference = newDate.getTime() - Date.now();
 
       if (difference <= 0) {
-        setIsExpired(true)
-        return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+        setIsExpired(true);
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 };
       }
 
       return {
@@ -38,19 +46,19 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60),
-      }
-    }
+      };
+    };
 
     // Calculate initial time
-    setTimeLeft(calculateTimeLeft())
+    setTimeLeft(calculateTimeLeft());
 
     // Update every second
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft())
-    }, 1000)
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
 
-    return () => clearInterval(timer)
-  }, [targetDate])
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
   if (isExpired) {
     return (
