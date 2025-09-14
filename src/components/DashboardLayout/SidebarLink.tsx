@@ -26,7 +26,7 @@ const SidebarLink = ({ menuItem, closeSidebar }: TProps) => {
     if (hasArrow) {
       setOpen(!open);
     } else if (path) {
-      closeSidebar()
+      closeSidebar();
       navigate(path);
     }
   };
@@ -65,7 +65,10 @@ const SidebarLink = ({ menuItem, closeSidebar }: TProps) => {
             {children.map((child, index) => (
             <div
               key={index}
-              onClick={() => navigate(child.path)}
+              onClick={() => {
+                navigate(child.path)
+                closeSidebar();
+              }}
               className={`text-md px-2 py-1 rounded cursor-pointer ${
                 pathname === child.path
                   ? 'bg-slate-700 text-white'

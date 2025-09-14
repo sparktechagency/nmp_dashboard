@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import RecentOrderTable from "./RecentOrderTable";
 import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
-import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
+import RecentOrdersLoading from "../loader/RecentOrdersLoading";
 
 const RecentOrderList = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetOrdersQuery([
+  const { data, isLoading, isFetching, isError } = useGetOrdersQuery([
     { name: "page", value: 1 },
     { name: "limit", value: 5 },
   ]);
@@ -18,13 +18,14 @@ const RecentOrderList = () => {
 
 
   if (isLoading) {
-    content = <ListLoading />;
+    content = <RecentOrdersLoading />;
   }
 
   if (!isLoading && !isError) {
     content = (
       <RecentOrderTable
         orders={orders}
+        loading={isFetching}
       />
     );
   }

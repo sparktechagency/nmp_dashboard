@@ -1,17 +1,16 @@
 "use client";
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
 import DeleteButton from "../../form/DeleteButton";
-import { useDeleteFlavorMutation } from "../../../redux/features/flavor/flavorApi";
+import { useUpdateProductMutation } from "../../../redux/features/product/productApi";
 
 type TProps = {
-  flavorId: string;
+  productId: string;
 };
 
-const DeleteFlavorModal = ({ flavorId } : TProps) => {
+const RemoveFeatureProductModal = ({ productId}: TProps) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [deleteFlavor, { isLoading, isSuccess }] = useDeleteFlavorMutation();
+  const [updateProduct, { isLoading, isSuccess }] = useUpdateProductMutation();
 
   useEffect(() => {
     if (!isLoading) {
@@ -20,18 +19,20 @@ const DeleteFlavorModal = ({ flavorId } : TProps) => {
   }, [isLoading, isSuccess]);
 
 
-  const handleDelete = () => {
-    deleteFlavor(flavorId);
-  };
+    const handleDelete = () => {
+        updateProduct({
+            id: productId,
+            data: {
+                isFeatured: false
+            }
+        })
+    };
 
   return (
     <>
-      <button
-        onClick={() => setModalOpen(true)}
-        className="bg-red-600 hover:bg-red-700 p-2 text-white rounded-full"
-      >
-        <Trash2 size={18} />
-      </button>
+       <button onClick={() => setModalOpen(true)} className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 px-2 py-1.5 rounded-md text-white duration-200 disabled:cursor-not-allowed">
+            Remove From Feature
+       </button>
 
       <Modal
         open={modalOpen}
@@ -44,19 +45,19 @@ const DeleteFlavorModal = ({ flavorId } : TProps) => {
           <div className="">
             <div className="flex justify-between items-center">
               <h3 className="text-lg sm:text-xl font-semibold">
-                Are you sure, you want to delete?
+                Are you sure, you want to remove?
               </h3>
             </div>
           </div>
           <div>
             <div className="flex justify-end space-x-2 pt-3">
-              <button
+             <button
                 onClick={() => setModalOpen(false)}
                 className="bg-black text-white px-4 py-2 rounded-md"
               >
                 No
               </button>
-              <DeleteButton isLoading={isLoading} onClick={handleDelete} />
+              <DeleteButton isLoading={isLoading} onClick={handleDelete}/>
             </div>
           </div>
         </div>
@@ -65,4 +66,4 @@ const DeleteFlavorModal = ({ flavorId } : TProps) => {
   );
 };
 
-export default DeleteFlavorModal;
+export default RemoveFeatureProductModal;

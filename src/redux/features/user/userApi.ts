@@ -53,7 +53,7 @@ export const userApi = apiSlice.injectEndpoints({
     }),
     updateProfile: builder.mutation({
       query: (data) => ({
-        url: `/user/edit-my-profile`,
+        url: `/user/update-my-profile`,
         method: "PATCH",
         body: data,
       }),
@@ -79,7 +79,35 @@ export const userApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateProfileImg: builder.mutation({
+      query: (data) => ({
+        url: `/user/update-profile-img`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result) => {
+        if (result?.success) {
+          return [TagTypes.profile];
+        }
+        return [];
+      },
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          SuccessToast("Profile Image is updated success");
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation } = userApi;
+export const { useGetUsersQuery, useGetMyProfileQuery, useUpdateProfileMutation, useUpdateProfileImgMutation } = userApi;

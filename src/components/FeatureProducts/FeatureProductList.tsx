@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import ProductTable from "./ProductTable";
-import { useGetProductsQuery } from "../../redux/features/product/productApi";
+import ProductTable from "./FeatureProductTable";
+import { useGetFeatureProductsQuery } from "../../redux/features/product/productApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 
-const ProductList = () => {
+const FeatureProductList = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { data, isLoading, isFetching, isError } = useGetProductsQuery([
+  const { data, isLoading, isFetching, isError } = useGetFeatureProductsQuery([
     { name: "page", value: currentPage },
     { name: "limit", value: pageSize },
     { name: "searchTerm", value: searchTerm },
@@ -60,7 +60,7 @@ const ProductList = () => {
      <>
        <div className="p-4 flex justify-between">
          <div className="flex flex-col md:flex-row md:items-center gap-x-16 gap-y-4">
-           <h1 className="text-lg md:text-xl font-semibold text-gray-800">Product List</h1>
+           <h1 className="text-lg md:text-xl font-semibold text-gray-800">Feature Products</h1>
            <h1 className="md:text-lg">
              Total: <span className="font-bold"> {meta?.total} </span>
            </h1>
@@ -92,4 +92,4 @@ const ProductList = () => {
    );
 };
 
-export default ProductList;
+export default FeatureProductList;

@@ -14,6 +14,7 @@ interface UserTableProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  isFetching: boolean;
 }
 
 
@@ -24,11 +25,12 @@ const AdminTable: React.FC<UserTableProps> = ({
   setCurrentPage,
   pageSize,
   setPageSize,
+  isFetching
 }) => {
 
   const dataSource: IUserDataSource[] = users?.map((user, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta.page - 1) * pageSize,
     _id: user?._id,
     fullName: user?.fullName,
     email: user?.email,
@@ -120,7 +122,7 @@ const AdminTable: React.FC<UserTableProps> = ({
         },
       }}
     >
-      <div className="w-full overflow-auto px-4">
+      <div className="w-full overflow-auto px-4 overflow-x-auto">
         <Table
           columns={columns}
           dataSource={dataSource}
@@ -128,11 +130,12 @@ const AdminTable: React.FC<UserTableProps> = ({
           rowKey="_id"
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
-          className="employer-table"
+          className="employer-table min-h-[calc(100vh-290px)]"
+          loading={isFetching}
         />
       </div>
-      {meta?.totalPages > 1 && (
-        <div className="p-8 bg-white shadow-md flex justify-center">
+      {meta?.total > 0 && (
+        <div className="p-8 bg-white border-t shadow-md flex justify-center">
           <Pagination
             onChange={handlePagination}
             current={currentPage}

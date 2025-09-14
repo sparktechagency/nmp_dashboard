@@ -34,7 +34,8 @@ const IncomeOverviewChart = () => {
 
 
   return (
-    <div className="p-3 md:p-6 bg-white rounded-lg shadow-sm">
+  
+    <div className="p-2 md:p-6 bg-white rounded-lg shadow-sm">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Income Overview</h2>
         <select

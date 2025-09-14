@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import ProfileForm from "../../components/Profile/ProfileForm"
 import ProfilePic from "../../components/Profile/ProfilePic";
 import { useAppSelector } from "../../redux/hooks/hooks";
@@ -8,7 +7,6 @@ import ProfileLoading from "../../components/loader/ProfileLoading";
 import { useGetMyProfileQuery } from "../../redux/features/user/userApi";
 
 const ProfilePage = () => {
-  const [file, setFile] = useState<File | null>(null)
   const { isLoading, isError } = useGetMyProfileQuery(undefined);
   const { user } = useAppSelector((state) => state.user);
 
@@ -29,10 +27,10 @@ const ProfilePage = () => {
 
             <div className="flex justify-center mb-8">
               <div className="relative">
-                <ProfilePic setFile={setFile}/>
+                <ProfilePic/>
               </div>
             </div>
-            <ProfileForm user={user} file={file}/>
+            <ProfileForm user={user}/>
           </div>
         </div>
       </div>

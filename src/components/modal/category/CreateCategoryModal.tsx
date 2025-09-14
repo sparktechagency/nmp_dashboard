@@ -42,7 +42,7 @@ const CreateCategoryModal = () => {
     <>
       <button
         onClick={() => setModalOpen(true)}
-        className="flex items-center gap-2 bg-primary px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
+        className="w-36 lg:w-auto flex items-center justify-center gap-2 bg-primary px-3 py-1.5 text-white cursor-pointer rounded-md hover:bg-[#2b4773] duration-200"
       >
         <FaPlus />
         Add New

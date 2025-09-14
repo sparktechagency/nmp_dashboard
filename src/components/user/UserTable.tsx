@@ -13,6 +13,7 @@ interface UserTableProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageSize: number;
   setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  isFetching: boolean
 }
 
 
@@ -23,11 +24,12 @@ const UserTable: React.FC<UserTableProps> = ({
   setCurrentPage,
   pageSize,
   setPageSize,
+  isFetching
 }) => {
 
   const dataSource: IUserDataSource[] = users?.map((user, index) => ({
     key: index,
-    serial: Number(index + 1) + (currentPage - 1) * pageSize,
+    serial: Number(index + 1) + (meta?.page - 1) * pageSize,
     _id: user?._id,
     fullName: user?.fullName,
     email: user?.email,
@@ -39,22 +41,27 @@ const UserTable: React.FC<UserTableProps> = ({
 
   const columns = [
     {
-      title: "Serial",
+      title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "10%",
+      width: 60,
     },
     {
       title: "Name",
       dataIndex: "fullName",
       key: "fullName",
-      width: "22.5%",
+      width: 150,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Image",
       dataIndex: "profile_img",
       key: "profile_img",
-      width: "10%",
+      width: 100,
       render: (val?: string) => (
         <div className="flex items-center gap-2">
           <img
@@ -73,27 +80,35 @@ const UserTable: React.FC<UserTableProps> = ({
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "22.5%",
+      width: 200,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      width: "22.5%",
+      width: 140,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "15%",
+      width: 160,
       render: (status: TBlockStatus, record: IUser) => {
         const statusStyles = {
           blocked: "bg-red-100 text-red-700 border border-red-300",
           unblocked: "bg-green-100 text-green-700 border border-green-300",
         };
-
         const bgColor = status=== "blocked" ? statusStyles.blocked : statusStyles.unblocked;
-
         return (
           <div className="flex items-center gap-2">
             <button
@@ -136,6 +151,7 @@ const UserTable: React.FC<UserTableProps> = ({
           sticky
           scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table min-h-[calc(100vh-290px)]"
+          loading={isFetching}
         />
       </div>
       {meta?.total > 0 && (

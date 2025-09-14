@@ -1,13 +1,10 @@
 import { Table, ConfigProvider, Pagination } from "antd";
-import { Edit, Eye } from "lucide-react";
 import type { IMeta } from "../../types/global.type";
-import { Link } from "react-router-dom";
 import product_placeholder from "../../assets/images/product_placeholder.png";
 import type { IProduct, TProductDataSource, TProductStatus, TStockStatus } from "../../types/product.type";
-import { FaStar } from "react-icons/fa";
 import ChangeProductStatusModal from "../modal/product/ChangeProductStatusModal";
 import ChangeStockStatusModal from "../modal/product/ChangeStockStatusModal";
-import DeleteProductModal from "../modal/product/DeleteProductModal";
+import RemoveFeatureProductModal from "../modal/product/RemoveFeatureProductModal";
 
 
 type TProps = {
@@ -21,7 +18,7 @@ type TProps = {
 };
 
 
-const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize, loading }: TProps) => {
+const FeatureProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, setPageSize, loading }: TProps) => {
 
   const dataSource: TProductDataSource[] = products?.map((product, index) => ({
     key: index,
@@ -123,31 +120,6 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       )
     },
     {
-      title: "Original Price",
-      dataIndex: "originalPrice",
-      key: "originalPrice",
-      width: 120,
-      align: 'center' as const,
-       render: (val: number) => (
-        <span>${val}</span>
-      )
-    },
-    {
-      title: "Ratings",
-      dataIndex: "ratings",
-      key: "ratings",
-      width: 80,
-      align: 'center' as const,
-      render: (value: number) => (
-        <>
-          <div className="flex items-center gap-1 justify-center">
-            <FaStar className="text-yellow-500" size={18} />
-            <span>{value}</span>
-          </div>
-        </>
-      )
-    },
-    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -199,36 +171,14 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
       }
     },
     {
-      title: "View",
-      dataIndex: "_id",
-      key: "_id",
-      width: 80,
-      render: (productId: string) => (
-        <div className="flex items-center gap-2">
-          <Link
-            to={`/product-details/${productId}`}
-            className="bg-gray-600 hover:bg-gray-700 p-2 text-white rounded-full"
-          >
-            <Eye size={18} />
-          </Link>
-        </div>
-      ),
-    },
-    {
       title: "Action",
       dataIndex: "_id",
       key: "action",
-      width: 115,
+      width: 200,
       render: (productId: string) => (
-        <div className="flex items-center gap-2">
-          <Link
-            to={`/update-product/${productId}`}
-            className="bg-green-600 hover:bg-green-700 p-2 text-white rounded-full"
-          >
-            <Edit size={18} />
-          </Link>
-          <DeleteProductModal productId={productId} />
-        </div>
+        <>
+         <RemoveFeatureProductModal productId={productId}/>
+        </>
       ),
     },
   ];
@@ -318,4 +268,4 @@ const ProductTable = ({ products, meta, currentPage, setCurrentPage, pageSize, s
   );
 };
 
-export default ProductTable;
+export default FeatureProductTable;

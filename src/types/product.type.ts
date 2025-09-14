@@ -47,6 +47,7 @@ export type ISingleProduct = {
   flavor: string;
   currentPrice: number;
   originalPrice: number;
+  isFeatured: boolean;
   discount: string;
   ratings: number;
   totalReview: number;

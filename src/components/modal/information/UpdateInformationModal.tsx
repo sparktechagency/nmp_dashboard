@@ -53,7 +53,7 @@ const UpdateInformationModal = ({ information }: TProps) => {
           setValue("phone", information.phone);
           setValue("address", information.address);
           setValue("instagram", information.instagram);
-          setValue("telegram", information.telegram);
+          setValue("facebook", information.facebook);
           setModalOpen(false)
         }}
         maskClosable={false}
@@ -70,7 +70,7 @@ const UpdateInformationModal = ({ information }: TProps) => {
                 <CustomInput label="Contact Number" name="phone" type="text" control={control} placeholder="Enter contact number"/>
                 <CustomInput label="Address" name="address" type="text" control={control} placeholder="Enter Address"/>
                 <CustomTextArea label="Instagram Link" name="instagram" control={control} placeholder="Enter instagram link"/>
-                <CustomTextArea label="Telegram Link" name="telegram" control={control} placeholder="Enter teligram link"/>
+                <CustomTextArea label="Facebook Link" name="facebook" control={control} placeholder="Enter teligram link"/>
                 <div className="mt-4">
                   <FormButton isLoading={isLoading}> Save Changes</FormButton>
                 </div>

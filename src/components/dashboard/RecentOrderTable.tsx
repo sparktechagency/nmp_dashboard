@@ -8,10 +8,11 @@ import StatusBadge from "../order/StatusBadge";
 
 type TProps = {
   orders: IOrder[];
+  loading: boolean;
 };
 
 
-const RecentOrderTable = ({ orders }: TProps) => {
+const RecentOrderTable = ({ orders, loading }: TProps) => {
 
   const dataSource: TOrderDataSource[] = orders?.map((order, index) => ({
     key: index,
@@ -34,13 +35,13 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "S.N.",
       dataIndex: "serial",
       key: "serial",
-      width: "4%",
+      width: 60,
     },
     {
       title: "Token",
       dataIndex: "token",
       key: "token",
-      width: "8%",
+      width: 90,
       render: (text: string) => (
         <>
           <p className="font-bold">{text}</p>
@@ -51,7 +52,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "Customer",
       dataIndex: "fullName",
       key: "fullName",
-      width: "12.5%",
+      width: 150,
       render: (text: string) => (
         <>
           <p className="truncate">{text}</p>
@@ -62,19 +63,29 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: "15.5%",
+      width: 200,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-      width: "12.5%",
+      width: 140,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
     },
     {
       title: "Amount",
       dataIndex: "totalPrice",
       key: "totalPrice",
-      width: "8.5%",
+      width: 90,
       align: "center" as const,
       render: (val: number) => (
         <span>${val}</span>
@@ -84,7 +95,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: "12%",
+      width: 160,
       render: (status: TDeliveryStatus, record: IOrder) => {
         return (
           <div className="flex items-center gap-2">
@@ -98,7 +109,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "Payment Status",
       dataIndex: "paymentStatus",
       key: "paymentStatus",
-      width: "12%",
+      width: 120,
       render: (paymentStatus: TPaymentStatus) => {
         const statusStyles = {
           pending: "bg-yellow-100 text-yellow-700 border border-yellow-300",
@@ -130,7 +141,7 @@ const RecentOrderTable = ({ orders }: TProps) => {
       title: "View",
       dataIndex: "_id",
       key: "_id",
-      width: "5%",
+      width: 80,
       render: (orderId: string) => (
         <div className="flex items-center gap-2">
           <Link
@@ -142,17 +153,6 @@ const RecentOrderTable = ({ orders }: TProps) => {
         </div>
       ),
     },
-    // {
-    //   title: "Action",
-    //   dataIndex: "_id",
-    //   key: "action",
-    //   width: "7%",
-    //   render: (productId: string) => (
-    //     <div className="flex items-center gap-2">
-    //       <DeleteBlogModal blogId={productId} />
-    //     </div>
-    //   ),
-    // },
   ];
 
 
@@ -172,15 +172,15 @@ const RecentOrderTable = ({ orders }: TProps) => {
         },
       }}
     >
-      <div className="w-full overflow-auto px-4">
+      <div className="w-full overflow-auto">
         <Table
           columns={columns}
           dataSource={dataSource}
           pagination={false}
           rowKey="_id"
           sticky
-          scroll={{ y: "calc(100vh - 324px)" }}
           className="employer-table"
+          loading={loading}
         />
       </div>
     </ConfigProvider>

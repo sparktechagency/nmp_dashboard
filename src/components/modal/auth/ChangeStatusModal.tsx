@@ -1,9 +1,9 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import { useChangeStatusMutation } from "../../../redux/features/auth/authApi";
 import type { TBlockStatus } from "../../../types/user.type";
+import DeleteButton from "../../form/DeleteButton";
 
 type TProps ={
   userId:string;
@@ -51,16 +51,8 @@ const ChangeStatusModal = ({ userId, status }: TProps) => {
        
       
         <div className="flex justify-end px-4 gap-x-3">
-           <button onClick={()=>setModalOpen(false)} className="bg-black text-white px-4 py-1 rounded-md">No</button>
-           <button onClick={handleClick} disabled={isLoading} className="bg-red-500 hover:bg-red-600 duration-500 text-white px-4 py-1 rounded-md disabled:cursor-not-allowed">
-           {isLoading ? (
-              <>
-                <CgSpinnerTwo className="animate-spin" fontSize={16} />
-              </>
-            ) : (
-              "Yes"
-            )}
-           </button>
+          <button onClick={() => setModalOpen(false)} className="bg-black text-white px-4 py-2 rounded-md">No</button>
+          <DeleteButton isLoading={isLoading} onClick={handleClick} />
         </div>
       </Modal>
     </>

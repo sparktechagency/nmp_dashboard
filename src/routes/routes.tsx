@@ -14,10 +14,7 @@ import TermsConditionPage from "../pages/settings/TermsConditionPage";
 import ProfilePage from "../pages/settings/ProfilePage";
 import ChangePasswordPage from "../pages/settings/ChangePasswordPage";
 import AdminsPage from "../pages/dashboard/AdminsPage";
-import HelpPage from "../pages/help/HelpPage";
-import FaqsPage from "../pages/help/FaqsPage";
 import UsersPage from "../pages/dashboard/UsersPage";
-import SizesPage from "../pages/dashboard/SizesPage";
 import InformationPage from "../pages/dashboard/InformationPage";
 import ProductsPage from "../pages/product/ProductsPage";
 import CreateProductPage from "../pages/product/CreateProductPage";
@@ -31,6 +28,7 @@ import FlavorPage from "../pages/dashboard/FlavorPage";
 import NotFoundRoute from "./NotFoundRoute";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import FeatureProductsPage from "../pages/product/FeatureProductsPage";
 
 const router = createBrowserRouter([
   {
@@ -74,18 +72,6 @@ const router = createBrowserRouter([
         element: <FlavorPage />,
       },
       {
-        path: "sizes",
-        element: <SizesPage />,
-      },
-      {
-        path: "help",
-        element: <HelpPage />,
-      },
-      {
-        path: "faqs",
-        element: <FaqsPage />,
-      },
-      {
         path: "information",
         element: <InformationPage />,
       },
@@ -100,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <ProductsPage />,
+      },
+      {
+        path: "feature-products",
+        element: <FeatureProductsPage />,
       },
       {
         path: "add-product",

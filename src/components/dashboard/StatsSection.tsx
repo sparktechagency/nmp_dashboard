@@ -56,7 +56,7 @@ const StatsSection = () => {
                 <img src={product} alt="job" className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-800">${stats?.totalProducts}</p>
+                <p className="text-2xl font-bold text-gray-800">{stats?.totalProducts}</p>
                 <p className="text-sm text-gray-500">Total Products</p>
               </div>
             </div>
