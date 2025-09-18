@@ -64,8 +64,8 @@ export const informationSchema = z.object({
     })
     .trim()
     .min(1, "Age is required")
-    .refine((val) => Number(val) > 0, {
-      message: "Maximum must be positive value",
+    .refine((val) => Number(val) >= 0, {
+      message: "Age can't be negative value",
     }),
 });
 
