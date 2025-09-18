@@ -111,8 +111,8 @@ const ProductList = () => {
              {" "}
              Add New
            </button>
-         </div>
          <ExportProductData/>
+         </div>
        </div>
        {content}
      </>
