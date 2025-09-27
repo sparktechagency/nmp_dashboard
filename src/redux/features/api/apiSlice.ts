@@ -5,7 +5,7 @@ import { getToken } from "../../../helper/SessionHelper.ts";
 import { ErrorToast } from "../../../helper/ValidationHelper.ts";
 
 // export const baseUrl = "http://localhost:9090/api/v1";
-export const baseUrl = "http://16.171.171.18:9090/api/v1";
+export const baseUrl = "https://backend.onlinecornerstore.com/api/v1";
 
 
 const baseQuery = fetchBaseQuery({
