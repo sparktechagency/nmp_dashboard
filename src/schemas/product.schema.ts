@@ -86,20 +86,11 @@ export const createProductValidationSchema = z.object({
   discount: z.string({
     invalid_type_error: "discount must be string"
   }).optional(),
-  description: z.preprocess(
-    (val) => {
-      if (typeof val === "string" && isEditorContentEmpty(val)) {
-        return ""; // force fail if visually empty
-      }
-      return val;
-    },
-    z
-      .string({
-        invalid_type_error: "Description must be string",
-        required_error: "Description is required",
-      })
-      .min(1, "Description is required")
-  ),
+  description: z.string({
+    invalid_type_error: "Description must be string",
+    required_error: "Description is required",
+  })
+    .min(1, "Description is required"),
   status: z.string({
     invalid_type_error: "status must be a valid string value.",
   })
@@ -203,20 +194,11 @@ export const updateProductValidationSchema = z.object({
   discount: z.string({
     invalid_type_error: "discount must be string"
   }).optional(),
-  description: z.preprocess(
-    (val) => {
-      if (typeof val === "string" && isEditorContentEmpty(val)) {
-        return ""; // force fail if visually empty
-      }
-      return val;
-    },
-    z
-      .string({
-        invalid_type_error: "Description must be string",
-        required_error: "Description is required",
-      })
-      .min(1, "Description is required")
-  ),
+  description: z.string({
+    invalid_type_error: "Description must be string",
+    required_error: "Description is required",
+  })
+    .min(1, "Description is required"),
   status: z.string({
     invalid_type_error: "status must be a valid string value.",
   })
