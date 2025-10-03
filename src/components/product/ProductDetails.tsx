@@ -84,7 +84,7 @@ const ProductDetails = ({ product}: TProps) =>{
             </span>
           </div>
           {
-            !product?.isFeatured ? (
+            product?.isFeatured ? (
               <RemoveFeatureProductModal productId={product?._id}/>
             ) : (
               <MakeFeatureProduct productId={product?._id}/>

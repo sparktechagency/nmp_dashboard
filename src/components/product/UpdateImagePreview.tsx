@@ -35,7 +35,7 @@ const UpdateImagePreview = ({ product }: TProps) => {
                 </div>
             </div>
             {
-                !product?.isFeatured ? (
+                product?.isFeatured ? (
                     <RemoveFeatureProductModal productId={product?._id} />
                 ) : (
                     <MakeFeatureProduct productId={product?._id} />
