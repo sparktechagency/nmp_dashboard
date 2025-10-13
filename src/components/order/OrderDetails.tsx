@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeft, Building2, Calendar, CreditCard, FolderArchive, MailOpen, MapPinHouse, MapPinned, Package, PhoneCall, Truck } from "lucide-react";
+import { ArrowLeft, Building2, Calendar, CreditCard, FolderArchive, MailOpen, MapPinHouse, MapPinned, Package, Truck } from "lucide-react";
 import type { ISingleOrder } from "../../types/order.type";
 import OrderProductItem from "./OrderProductItem";
 import { useNavigate } from "react-router-dom";
@@ -133,13 +133,13 @@ const OrderDetails = ({order}: TProps) =>{
                     <p className="text-sm text-gray-600">{order?.customerEmail}</p>
                   </div>
                 </div>
-                <div className="flex items-start">
+                {/* <div className="flex items-start">
                   <PhoneCall  className="w-5 h-5 text-gray-400 mt-0.5 mr-3" />
                   <div className="flex gap-2 items-center">
                     <p className="text-sm font-medium text-gray-900">Phone Number:</p>
                     <p className="text-sm text-gray-600 capitalize">{order?.customerPhone}</p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-sm border p-6">
