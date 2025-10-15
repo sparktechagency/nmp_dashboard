@@ -13,6 +13,7 @@ import { useUpdateShippingCostMutation } from "../../../redux/features/shipping/
 import { shippingCostValidationSchema } from "../../../schemas/shipping.schema";
 import type { TShippingCost } from "../../../types/shipping.type";
 import { SetShippingCostUpdateError } from "../../../redux/features/shipping/shippingSlice";
+import { WarningToast } from "../../../helper/ValidationHelper";
 
 
 type TFormValues = z.infer<typeof shippingCostValidationSchema>;
@@ -47,10 +48,33 @@ const EditShippingCostModal = ({ shippingCost }: TProps) => {
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     dispatch(SetShippingCostUpdateError(""));
-    updateShippingCost({
-      id: shippingCost?._id,
-      data
-    });
+
+    const finalValues: Record<string, unknown> = {}
+    
+    if(shippingCost.name != data?.name){
+      finalValues.name=data?.name
+    }
+    if(shippingCost.minSubTotal != Number(data?.minSubTotal)){
+      finalValues.minSubTotal=Number(data?.minSubTotal)
+    }
+    if(shippingCost.maxSubTotal != Number(data?.maxSubTotal)){
+      finalValues.maxSubTotal=Number(data?.maxSubTotal)
+    }
+    if(shippingCost.cost != Number(data?.cost)){
+      finalValues.cost=Number(data?.cost)
+    }
+    if(shippingCost.priority != Number(data?.priority)){
+      finalValues.priority=Number(data?.priority)
+    }
+        
+    if (Object.keys(finalValues).length === 0) {
+      WarningToast("No changes detected. Please update at least one field before saving.");
+    } else {
+      updateShippingCost({
+        id: shippingCost?._id,
+        data
+      });
+    }
   };
 
   return (

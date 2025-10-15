@@ -119,12 +119,9 @@ const UpdateProductForm = ({ product }: TProps) => {
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
     const finalValues: Record<string, unknown> = {}
 
-
-    
     if(product.name != data?.name){
       finalValues.name=data?.name
     }
-
     if(product.typeId != data?.typeId){
       finalValues.typeId=data?.typeId
     }
@@ -145,7 +142,6 @@ const UpdateProductForm = ({ product }: TProps) => {
     }
 
    
-
     //check optional fields
     if (product.brandId != data.brandId) {
       if (!data.brandId) {
