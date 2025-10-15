@@ -22,6 +22,7 @@ import type { IBrand } from "../../types/brand.type";
 import type { ICategory } from "../../types/category.type";
 import type { IFlavor } from "../../types/flavor.type";
 import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
+import { WarningToast } from "../../helper/ValidationHelper";
 
 type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
@@ -50,7 +51,6 @@ const UpdateProductForm = ({ product }: TProps) => {
           originalPrice: String(product.originalPrice),
           quantity: String(product.quantity),
           discount: product?.discount,
-          status: product?.status,
           description: product?.description
       }
   });
@@ -117,44 +117,84 @@ const UpdateProductForm = ({ product }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-    const finalValues: Record<string, unknown> = {
-      name: data.name,
-      typeId: data.typeId,
-      categoryId: data.categoryId,
-      brandId: data.brandId,
-      flavorId: data.flavorId,
-      currentPrice: data.currentPrice,
-      quantity: data.quantity,
-      status: data?.status,
-      description: data?.description
+    const finalValues: Record<string, unknown> = {}
+
+
+    
+    if(product.name != data?.name){
+      finalValues.name=data?.name
     }
+
+    if(product.typeId != data?.typeId){
+      finalValues.typeId=data?.typeId
+    }
+    if(product.categoryId != data?.categoryId){
+      finalValues.categoryId=data?.categoryId
+    }
+
+    if(product.currentPrice != data?.currentPrice){
+      finalValues.currentPrice=data?.currentPrice
+    }
+
+     if(product.quantity != data?.quantity){
+      finalValues.quantity=data?.quantity
+    }
+
+    if(product.description != data?.description){
+      finalValues.description=data?.description
+    }
+
+   
 
     //check optional fields
-    if(!data.brandId){
-      finalValues.brandId=null
+    if (product.brandId != data.brandId) {
+      if (!data.brandId) {
+        finalValues.brandId = null
+      }
+      if (data.brandId) {
+        finalValues.brandId = data.brandId
+      }
+    }
+   
+
+    if (product.flavorId != data.flavorId) {
+      if (!data.flavorId) {
+        finalValues.flavorId = null
+      }
+      if (data.flavorId) {
+        finalValues.flavorId = data.flavorId
+      }
+    }
+    
+
+   if (product?.discount != data.discount) {
+      if (!data.discount) {
+        finalValues.discount = "";
+      }
+      if (data.discount) {
+        finalValues.discount = data.discount;
+      }
     }
 
-    if(!data.flavorId){
-      finalValues.flavorId=null
+    if (product.originalPrice != data.originalPrice) {
+      if (!data.originalPrice) {
+        finalValues.originalPrice = 0;
+      }
+      if (data.originalPrice) {
+        finalValues.originalPrice = data.originalPrice;
+      }
     }
 
-    if(!data.discount){
-      finalValues.discount="";
-    }
-    if(data.discount){
-      finalValues.discount=data.discount;
-    }
-    if(!data.originalPrice){
-      finalValues.originalPrice=0;
-    }
-    if(data.originalPrice){
-      finalValues.originalPrice=data.originalPrice;
-    }
 
-    updateProduct({
+    if (Object.keys(finalValues).length === 0) {
+      WarningToast("No changes detected. Please update at least one field before saving.");
+    } else {
+      //update the product
+      updateProduct({
         id: product?._id,
         data: finalValues
-    })
+      })
+    }
   };
 
   return (
@@ -202,21 +242,15 @@ const UpdateProductForm = ({ product }: TProps) => {
             type="text"
             control={control}
             placeholder="Enter price"
-            onInput={(e: any) => {
-              e.target.value = e.target.value.replace(/[^0-9]/g, "");
-            }}
           />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CustomInput
             label="Original Price(optional)"
             name="originalPrice"
             type="text"
             control={control}
             placeholder="Enter price"
-            onInput={(e: any) => {
-              e.target.value = e.target.value.replace(/[^0-9]/g, "");
-            }}
           />
           <CustomInput
             label="Quantity"
@@ -227,22 +261,6 @@ const UpdateProductForm = ({ product }: TProps) => {
             onInput={(e: any) => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
-          />
-          <CustomSelect
-            label="Status (Optional)"
-            name="status"
-            control={control}
-            options={[
-              {
-                label: "Visible",
-                value: "visible"
-              },
-              {
-                label: "Hidden",
-                value: "hidden"
-              }
-            ]}           
-            blankOption={false}
           />
           <CustomInput
             label="Discount (Optional)"

@@ -15,7 +15,6 @@ const ExportOrderData = () => {
                 Token: item?.token,
                 Customer: item?.fullName,
                 Email: item?.email,
-                "Phone Number": item?.phone || "N/A",
                 "Sub Total": item?.subTotal,
                 "Shipping Cost": item?.shippingCost,
                 "Total": item?.total,

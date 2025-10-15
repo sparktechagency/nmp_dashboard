@@ -198,13 +198,8 @@ export const updateProductValidationSchema = z.object({
     invalid_type_error: "Description must be string",
     required_error: "Description is required",
   })
-    .min(1, "Description is required"),
-  status: z.string({
-    invalid_type_error: "status must be a valid string value.",
-  })
-    .refine((val) => ['visible', 'hidden'].includes(val), {
-      message: "status must be one of: 'visible', 'hidden'",
-    })
+  .min(1, "Description is required")
+
 }).superRefine((values, ctx) => {
   const { currentPrice, originalPrice } = values
   if (currentPrice && originalPrice && (currentPrice > originalPrice)) {
@@ -221,13 +216,3 @@ export const updateProductValidationSchema = z.object({
   }
 });
 
-export const stockStatusSchema = z.object({
-  stockStatus: z.string({
-    invalid_type_error: "Stock Status must be a valid string value.",
-    required_error: "stockStaus is required"
-  })
-    .min(1, "stockStaus is required")
-    .refine((val) => ['in_stock', 'stock_out', 'up_coming'].includes(val), {
-      message: "Stock Status must be one of: in_stock', 'stock_out', 'up_coming'",
-    })
-})
