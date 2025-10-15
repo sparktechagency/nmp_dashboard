@@ -156,7 +156,7 @@ const EditShippingCostModal = ({ shippingCost }: TProps) => {
                 />
                 <div className="mt-4">
                   <FormButton isLoading={isLoading}>
-                    Save Change
+                    Save Changes
                   </FormButton>
                 </div>
               </form>
