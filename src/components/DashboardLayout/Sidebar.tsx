@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, closeSidebar }) => {
         <div className="flex items-center justify-center h-24 px-4 border-slate-700 relative">
           <div className="flex items-center justify-center space-x-2 bg-white">
             {/* <img src={logo} alt="logo" className="h-20 w-18"/> */}
-            <h1 className="font-semibold text-lg italic">How are you, hello there</h1>
+            <h1 className="font-semibold text-lg italic">How are you?</h1>
             </div>
           <button 
             onClick={closeSidebar}
