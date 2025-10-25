@@ -70,17 +70,6 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
         </>
       ),
     },
-    // {
-    //   title: "Phone",
-    //   dataIndex: "phone",
-    //   key: "phone",
-    //   width: 140,
-    //   render: (text: string) => (
-    //     <>
-    //       <p className="truncate">{text}</p>
-    //     </>
-    //   ),
-    // },
     {
       title: "Amount",
       dataIndex: "total",
@@ -115,12 +104,14 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
           pending: "bg-yellow-100 text-yellow-700 border border-yellow-300",
           paid: "bg-green-100 text-green-700 border border-green-300",
           failled: "bg-red-100 text-red-700 border border-red-300",
+          cash: "bg-cyan-100 text-cyan-700 border border-cyan-300",
         };
 
         const labelMap = {
           pending: "Pending",
           paid: "Paid",
           failled: "Failed",
+          cash: "Cash"
         };
 
         const style = statusStyles[paymentStatus] || "bg-gray-100 text-gray-700 border";
@@ -135,8 +126,7 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
           </div>
         );
       }
-    }
-    ,
+    },
     {
       title: "View",
       dataIndex: "_id",
