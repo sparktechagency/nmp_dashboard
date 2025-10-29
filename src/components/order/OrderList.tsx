@@ -99,7 +99,6 @@ const OrderList = () => {
                className="w-full pl-4 lg:pl-10 pr-4 py-1 lg:py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
              />
            </div>
-           {/* Export as CSV & PDF */}
            <ExportOrderData/>
          </div>
        </div>
