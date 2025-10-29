@@ -71,6 +71,17 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
       ),
     },
     {
+      title: "Mobile Number",
+      dataIndex: "phone",
+      key: "phone",
+      width: 140,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
+    },
+    {
       title: "Amount",
       dataIndex: "total",
       key: "total",

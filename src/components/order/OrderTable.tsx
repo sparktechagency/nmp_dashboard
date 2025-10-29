@@ -76,17 +76,17 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
         </>
       ),
     },
-    // {
-    //   title: "Phone",
-    //   dataIndex: "phone",
-    //   key: "phone",
-    //   width: 140,
-    //   render: (text: string) => (
-    //     <>
-    //       <p className="truncate">{text}</p>
-    //     </>
-    //   ),
-    // },
+    {
+      title: "Mobile Number",
+      dataIndex: "phone",
+      key: "phone",
+      width: 140,
+      render: (text: string) => (
+        <>
+          <p className="truncate">{text}</p>
+        </>
+      ),
+    },
     {
       title: "Amount",
       dataIndex: "total",
