@@ -11,6 +11,7 @@ export type IOrder = {
   status: string; 
   paymentStatus: string; 
   total: number;
+  tips: number;
   createdAt: string; 
 };
 
@@ -42,6 +43,7 @@ export type TOrderDataSource = {
   status: string; 
   paymentStatus: string; 
   total: number;
+  tips: number;
   createdAt: string; 
 }
 
@@ -72,6 +74,7 @@ export type ISingleOrder = {
   subTotal: number;
   shippingCost: number;
   total: number;
+  tips: number;
   paymentStatus: string;
   status: string;
   deliveryAt: string | null;

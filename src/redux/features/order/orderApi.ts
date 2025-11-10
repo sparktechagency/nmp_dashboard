@@ -83,7 +83,35 @@ export const orderApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateTips: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/order/update-tips/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result, _success, arg) => {
+        if (result?.success) {
+          return [TagTypes.orders, TagTypes.exportOrders, { type: TagTypes.order, id: arg.id }];
+        }
+        return [];
+      },
+      async onQueryStarted(_arg, { queryFulfilled }) {
+       try {
+          await queryFulfilled;
+          SuccessToast("Update Success");
+        } catch (err:any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetOrdersQuery, useGetExportOrdersQuery, useGetSingleOrderQuery, useUpdateOrderMutation } = orderApi;
+export const { useGetOrdersQuery, useGetExportOrdersQuery, useGetSingleOrderQuery, useUpdateOrderMutation, useUpdateTipsMutation } = orderApi;

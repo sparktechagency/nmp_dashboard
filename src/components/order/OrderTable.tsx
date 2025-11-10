@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import type { IOrder, TDeliveryStatus, TOrderDataSource, TPaymentStatus } from "../../types/order.type";
 import StatusBadge from "./StatusBadge";
 import ChangeOrderStatusModal from "../modal/order/ChangeOrderStatusModal";
+import UpdateTipsModal from "../modal/order/UpdateTipsModal";
 
 
 type TProps = {
@@ -29,10 +30,12 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
     email: order?.email,
     phone: order?.phone,
     status: order?.status,
+    tips: order?.tips,
     paymentStatus: order?.paymentStatus,
     total: order?.total,
     createdAt: order?.createdAt
   }));
+
 
 
 
@@ -110,6 +113,26 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
           </div>
         );
       },
+    },
+    {
+      title: "Tips",
+      dataIndex: "tips",
+      key: "tips",
+      width: 110,
+      render: (tips: number, order: IOrder) => (
+        <>
+          <div className="flex gap-2 items-center">
+            {tips ? (
+              <p>${tips}</p>
+            ) : (
+              <p className="text-gray-400 italic">N/A</p>
+            )}
+            {order.status==="delivered" && (
+              <UpdateTipsModal order={order} />
+            )}
+          </div>
+        </>
+      ),
     },
     {
       title: "Payment Status",
