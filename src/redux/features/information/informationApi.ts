@@ -126,7 +126,35 @@ export const informationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateMapLocation: builder.mutation({
+      query: (data) => ({
+        url: `/information/update-map-location`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result) => {
+        if (result?.success) {
+          return [TagTypes.information];
+        }
+        return [];
+      },
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          SuccessToast("Update Success");
+        } catch (err: any) {
+          const status = err?.error?.status;
+          const message = err?.error?.data?.message || "Something Went Wrong";
+          if (status === 500) {
+            ErrorToast("Something Went Wrong");
+          }
+          else {
+            ErrorToast(message);
+          }
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetInformationQuery, useUpdateInformationMutation, useUpdateHeroImgMutation, useUpdateCountDownImgMutation, useUpdateCountDownTimeMutation } = informationApi;
+export const { useGetInformationQuery, useUpdateInformationMutation, useUpdateHeroImgMutation, useUpdateCountDownImgMutation, useUpdateCountDownTimeMutation, useUpdateMapLocationMutation } = informationApi;

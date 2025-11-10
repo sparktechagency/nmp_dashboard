@@ -11,4 +11,7 @@ export type IInformation = {
     age: number;
     countDownDate: string;
     countDownImg: string;
+    distance: number;
+    latitude: number;
+    longitude: number;
 }

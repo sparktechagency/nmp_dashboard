@@ -10,14 +10,14 @@ const UpdateHeroImgPreview = ({ heroImg }: TProps) => {
     return (
         <>
 
-            <div>
+            <div className="h-[50%]">
                 <h1 className="flex items-center gap-2 mb-2">
                     <span className="font-bold">Home Page's Image</span>
                     <UpdateHeroImgModal />
                 </h1>
-                <div className="grid grid-cols-1 gap-4">
-                    <div className="relative group">
-                        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                <div className="grid h-full gap-4">
+                    <div className="">
+                        <div className="aspect-square h-[50%] w-full bg-gray-100 rounded-lg overflow-hidden">
                             <img
                                 src={heroImg || product_placeholder}
                                 onError={(e) => {

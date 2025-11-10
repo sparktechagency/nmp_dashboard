@@ -78,3 +78,47 @@ export const countDownDateSchema = z.object({
     .trim()
     .min(1, "Select Date & Time"),
 })
+
+
+
+export const updateLocationSchema = z.object({
+  distance: z
+    .string({
+      required_error: "Distance value is required",
+      invalid_type_error: "Distance value must be a string",
+    })
+    .trim()
+    .min(1, "Distance value is required")
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Distance must be a valid number",
+    })
+    .refine((val) => Number(val) > 0, { message: "Distance must be positive value" }),
+  latitude: z
+    .string({
+      required_error: "Latitude value is required",
+      invalid_type_error: "Latitude value must be a string",
+    })
+    .trim()
+    .min(1, "Latitude value is required")
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Latitude must be a valid number",
+    })
+    .refine(
+      (val) => Number(val) >= -90 && Number(val) <= 90,
+      { message: "Latitude must be between -90 and 90" }
+    ),
+  longitude: z
+    .string({
+      required_error: "Longitude value is required",
+      invalid_type_error: "Longitude value must be a string",
+    })
+    .trim()
+    .min(1, "Longitude value is required")
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Longitude must be a valid number",
+    })
+    .refine(
+      (val) => Number(val) >= -180 && Number(val) <= 180,
+      { message: "Longitude must be between -180 and 180" }
+    )
+});
