@@ -17,15 +17,16 @@ const MapLocation = ({ information }: TProps) => {
                 <div>
                     <p>
                         <span>Distance: </span>
-                        {information?.distance} miles
+                        <span className="font-semibold">{information?.distance+ " "}</span>
+                        miles
                     </p>
                     <p>
                         <span>Latitude: </span>
-                        {information?.latitude}
+                        <span className="font-semibold">{information?.latitude}</span>
                     </p>
                     <p>
                         <span>Longitude: </span>
-                        {information?.longitude}
+                        <span className="font-semibold">{information?.longitude}</span>
                     </p>
                 </div>
             </div>
