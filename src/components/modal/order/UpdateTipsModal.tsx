@@ -49,7 +49,6 @@ const UpdateTipsModal = ({ order }: TProps) => {
     <>
        <button
         onClick={() => setModalOpen(true)}
-        disabled={!order.tips}
         className={`p-1 rounded-full transition-colors ${
           order.status==="delivered" ? "bg-gray-100 hover:bg-gray-200 text-gray-700" : "bg-gray-50 text-gray-300 cursor-not-allowed"
         }`}
