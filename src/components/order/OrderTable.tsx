@@ -97,7 +97,7 @@ const OrderTable = ({ orders, meta, currentPage, setCurrentPage, pageSize, setPa
       width: 90,
       align: "center" as const,
       render: (val: number) => (
-        <span>${val}</span>
+        <span>${val?.toFixed(2)}</span>
       )
     },
     {
