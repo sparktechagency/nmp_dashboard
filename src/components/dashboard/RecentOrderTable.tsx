@@ -90,7 +90,7 @@ const RecentOrderTable = ({ orders, loading }: TProps) => {
       width: 90,
       align: "center" as const,
       render: (val: number) => (
-        <span>${val?.toFixed()}</span>
+        <span>${val?.toFixed(2)}</span>
       )
     },
     {
