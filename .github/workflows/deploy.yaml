@@ -71,7 +71,7 @@ jobs:
           ssh $EC2_USER@$EC2_HOST "cd ~/nmp_dashboard && export PATH=$PATH:/run/user/1000/fnm_multishells/1687_1763385253303/bin && pm2 delete nmp_dashboard || true"
 
           # Start the nmp_dashboardlication with PM2
-          ssh $EC2_USER@$EC2_HOST "cd ~/nmp_dashboard && export PATH=$PATH:/run/user/1000/fnm_multishells/1687_1763385253303/bin && pm2 start dist/server.js --name nmp_dashboard"
+          ssh $EC2_USER@$EC2_HOST "cd ~/nmp_dashboard && export PATH=$PATH:/run/user/1000/fnm_multishells/1687_1763385253303/bin && pm2 serve dist 5173 --name nmp_dashboard --spa"
   
   
 
