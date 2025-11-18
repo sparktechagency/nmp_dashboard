@@ -1,5 +1,3 @@
-"use client"
-
 import { FileText } from "lucide-react"
 import type { ReactNode } from "react";
 import UpdateAboutForm from "../../components/AboutUs/UpdateAboutForm";

@@ -4,8 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../form/CustomInput";
 import type { z } from "zod";
 import CustomSelect from "../form/CustomSelect";
-import CustomQuilEditor from "../form/CustomQuilEditor";
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { createProductValidationSchema } from "../../schemas/product.schema";
 import ProductImageField from "./ProductImageField";
 import { ErrorToast } from "../../helper/ValidationHelper";
@@ -23,8 +22,11 @@ import { SetCategoryOptions } from "../../redux/features/category/categorySlice"
 import type { IBrand } from "../../types/brand.type";
 import type { ICategory } from "../../types/category.type";
 import type { IFlavor } from "../../types/flavor.type";
+import JoditEditorLoading from "../loader/JoditEditorLoading";
 
+const CustomQuilEditor = React.lazy(() => import("../form/CustomQuilEditor"));
 type TFormValues = z.infer<typeof createProductValidationSchema>;
+
 
 
 const CreateProductForm = () => {
@@ -188,7 +190,7 @@ const CreateProductForm = () => {
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />
-        </div>
+        </div> 
 
         {/* Product Image */}
         <div>
@@ -220,13 +222,15 @@ const CreateProductForm = () => {
 
         {/* Description */}
         <div>
-          <CustomQuilEditor
-            label="Description"
-            name="description"
-            control={control}
-            height={250}
-            placeholder="Write a description..."
-          />
+          <Suspense fallback={<JoditEditorLoading/>}>
+            <CustomQuilEditor
+              label="Description"
+              name="description"
+              control={control}
+              height={250}
+              placeholder="Write a description..."
+            />
+          </Suspense>
         </div>
 
         {/* Submit Button */}

@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useForgotPasswordResetMutation } from "../../redux/features/auth/authApi";

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+
 import { DatePicker } from "antd";
 import { Controller } from "react-hook-form";
 import dayjs, { Dayjs } from "dayjs";

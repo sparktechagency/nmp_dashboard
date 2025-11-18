@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import UserTable from "./UserTable";
 import { useGetUsersQuery } from "../../redux/features/user/userApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
-import ExportUserData from "./ExportUserData";
+const UserTable = React.lazy(() => import("./UserTable"));
+const ExportUserData = React.lazy(() => import("./ExportUserData"));
+
 
 const UserList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,15 +40,17 @@ const UserList = () => {
   if (!isLoading && !isError) {
     content = (
       <div className="flex-1 overflow-hidden">
-        <UserTable
-          users={users}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          isFetching={isFetching}
-        />
+        <Suspense fallback={<ListLoading />}>
+          <UserTable
+            users={users}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isFetching={isFetching}
+          />
+        </Suspense>
       </div>
     );
   }
@@ -78,7 +81,9 @@ const UserList = () => {
                className="w-full pl-4 lg:pl-10 pr-4 py-1 lg:py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
              />
            </div>
-           <ExportUserData/>
+          <Suspense fallback={<button>...</button>}>
+             <ExportUserData/>
+          </Suspense>
          </div>
       </div>
       {content}

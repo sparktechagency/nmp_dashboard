@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import OrderTable from "./OrderTable";
 import { useGetOrdersQuery } from "../../redux/features/order/orderApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 import ExportOrderData from "./ExportOrderData";
+const OrderTable = React.lazy(() => import("./OrderTable"));
+
 
 const OrderList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,15 +43,17 @@ const OrderList = () => {
 
   if (!isLoading && !isError) {
     content = (
-      <OrderTable
-        orders={orders}
-        meta={meta}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        isFetching={isFetching}
-      />
+      <Suspense fallback={<ListLoading/>}>
+        <OrderTable
+          orders={orders}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          isFetching={isFetching}
+        />
+      </Suspense>
     );
   }
 

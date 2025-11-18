@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import AdminTable from "./AdminTable";
 import CreateAdminModal from "../modal/admin/CreateAdminModal";
 import { useGetAdminsQuery } from "../../redux/features/admin/adminApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
+const AdminTable = React.lazy(() => import("./AdminTable"));
+
 
 const AdminList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,15 +42,17 @@ const AdminList = () => {
   if (!isLoading && !isError) {
     content = (
       <div className="flex-1 overflow-hidden">
-        <AdminTable
-          users={users}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          isFetching={isFetching}
-        />
+        <Suspense fallback={<ListLoading />}>
+          <AdminTable
+            users={users}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isFetching={isFetching}
+          />
+        </Suspense>
       </div>
     );
   }

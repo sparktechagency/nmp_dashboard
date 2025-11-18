@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetTypesQuery } from "../../redux/features/type/typeApi";
-import TypeTable from "./TypeTable";
 import CreateTypeModal from "../modal/type/CreateTypeModal";
-import ExportTypeData from "./ExportTypeData";
+const TypeTable = React.lazy(() => import("./TypeTable"));
+
 
 const TypeList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,15 +42,19 @@ const TypeList = () => {
   }
 
   if (!isLoading && !isError) {
-    content = <TypeTable
-      types={types}
-      meta={meta}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      pageSize={pageSize}
-      setPageSize={setPageSize}
-      isFetching={isFetching}
-    />;
+    content = (
+      <Suspense fallback={<ListLoading />}>
+        <TypeTable
+          types={types}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          isFetching={isFetching}
+        />
+      </Suspense>
+    );
   }
 
   if (!isLoading && isError) {
@@ -81,7 +85,7 @@ const TypeList = () => {
             />
           </div>
           <CreateTypeModal />
-          <ExportTypeData/>
+          {/* <ExportTypeData/> */}
         </div>
       </div>
       {content}

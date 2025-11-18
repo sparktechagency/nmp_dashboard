@@ -1,4 +1,4 @@
-"use client";
+
 
 import ProfileForm from "../../components/Profile/ProfileForm"
 import ProfilePic from "../../components/Profile/ProfilePic";

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import CategoryTable from "./CategoryTable";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import CreateCategoryModal from "../modal/category/CreateCategoryModal";
 import { useGetCategoriesQuery } from "../../redux/features/category/categoryApi";
@@ -8,6 +7,8 @@ import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import ExportCategoryData from "./ExportCategoryData";
+const CategoryTable = React.lazy(() => import("./CategoryTable"));
+
 
 const CategoryList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,15 +47,19 @@ const CategoryList = () => {
   }
 
   if (!isLoading && !isError) {
-    content = <CategoryTable
-      categories={categories}
-      meta={meta}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      pageSize={pageSize}
-      setPageSize={setPageSize}
-      isFetching={isFetching}
-    />;
+    content = (
+      <Suspense fallback={<ListLoading/>}>
+        <CategoryTable
+          categories={categories}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          isFetching={isFetching}
+        />
+      </Suspense>
+    );
   }
 
   if (!isLoading && isError) {

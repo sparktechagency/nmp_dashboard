@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import BrandTable from "./BrandTable";
 import CreateBrandModal from "../modal/brand/CreateBrandModal";
 import { useGetBrandsQuery } from "../../redux/features/brand/brandApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
 import { useAppSelector } from "../../redux/hooks/hooks";
-import ExportBrandData from "./ExportBrandData";
+const BrandTable = React.lazy(() => import("./BrandTable"));
+
 
 const BrandList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,15 +47,19 @@ const BrandList = () => {
   }
 
   if (!isLoading && !isError) {
-    content = <BrandTable
-      brands={brands}
-      meta={meta}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      pageSize={pageSize}
-      setPageSize={setPageSize}
-      loading={isFetching}
-    />;
+    content = (
+      <Suspense fallback={<ListLoading/>}>
+        <BrandTable
+          brands={brands}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          loading={isFetching}
+        />
+      </Suspense>
+    );
   }
 
   if (!isLoading && isError) {
@@ -105,7 +109,7 @@ const BrandList = () => {
               />
             </div>
             <CreateBrandModal />
-            <ExportBrandData/>
+            {/* <ExportBrandData/> */}
           </div>
         </div>
         {content}

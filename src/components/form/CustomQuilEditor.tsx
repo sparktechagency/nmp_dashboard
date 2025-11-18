@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import JoditEditor from "jodit-react";
+import { lazy, Suspense } from "react";
 import { Controller } from "react-hook-form";
+const JoditEditor = lazy(() => import("jodit-react"));
 
 type TProps = {
   label: string;
@@ -55,15 +56,17 @@ const CustomQuilEditor = ({ label, name, control, height = 200, placeholder= "Wr
           name={name}
           render={({ field: { onChange, value }, fieldState: { error } }) => (
             <>
-              <JoditEditor
-                value={value || ""}
-                config={config}
-                onBlur={() => {}}
-                onChange={(newContent) => onChange(newContent)}
-              />
-              {error && (
-                <p className="text-red-600 text-sm mt-1">{error.message}</p>
-              )}
+              <Suspense fallback={<p>Loading editor...</p>}>
+                <JoditEditor
+                  value={value || ""}
+                  config={config}
+                  onBlur={() => { }}
+                  onChange={(newContent) => onChange(newContent)}
+                />
+                {error && (
+                  <p className="text-red-600 text-sm mt-1">{error.message}</p>
+                )}
+              </Suspense>
             </>
           )}
         />

@@ -5,8 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../form/CustomInput";
 import type { z } from "zod";
 import CustomSelect from "../form/CustomSelect";
-import CustomQuilEditor from "../form/CustomQuilEditor";
-import { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProductValidationSchema } from "../../schemas/product.schema";
 import { useUpdateProductMutation } from "../../redux/features/product/productApi";
@@ -23,6 +22,10 @@ import type { ICategory } from "../../types/category.type";
 import type { IFlavor } from "../../types/flavor.type";
 import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
 import { WarningToast } from "../../helper/ValidationHelper";
+import JoditEditorLoading from "../loader/JoditEditorLoading";
+
+const CustomQuilEditor = React.lazy(() => import("../form/CustomQuilEditor"));
+
 
 type TFormValues = z.infer<typeof updateProductValidationSchema>;
 
@@ -266,13 +269,15 @@ const UpdateProductForm = ({ product }: TProps) => {
             placeholder="Enter discount"
           />
         </div>
-        <CustomQuilEditor
-          label="Description"
-          name="description"
-          control={control}
-          height={250}
-          placeholder="Write a description..."
-        />
+        <Suspense fallback={<JoditEditorLoading />}>
+          <CustomQuilEditor
+            label="Description"
+            name="description"
+            control={control}
+            height={250}
+            placeholder="Write a description..."
+          />
+        </Suspense>
         <FormButton isLoading={isLoading}>Save Changes</FormButton>
       </form>
     </>

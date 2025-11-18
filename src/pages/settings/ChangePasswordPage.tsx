@@ -1,4 +1,4 @@
-"use client";
+
 
 import ChangePasswordForm from "../../components/auth/ChangePasswordForm";
 

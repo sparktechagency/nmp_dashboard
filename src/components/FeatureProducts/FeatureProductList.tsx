@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import ProductTable from "./FeatureProductTable";
 import { useGetFeatureProductsQuery } from "../../redux/features/product/productApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetTypeDropDownQuery } from "../../redux/features/type/typeApi";
 import { useAppSelector } from "../../redux/hooks/hooks";
+const ProductTable = React.lazy(() => import("./FeatureProductTable"));
+
 
 const FeatureProductList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -44,15 +45,17 @@ const FeatureProductList = () => {
 
   if (!isLoading && !isError) {
     content = (
-      <ProductTable
-        products={products}
-        meta={meta}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        loading={isFetching}
-      />
+      <Suspense fallback={<ListLoading/>}>
+        <ProductTable
+          products={products}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          loading={isFetching}
+        />
+      </Suspense>
     );
   }
 

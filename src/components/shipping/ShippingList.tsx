@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
 import { useGetShippingCostsQuery } from "../../redux/features/shipping/shippingApi";
-import ShippingTable from "./ShippingTable";
 import CreateShippingCostModal from "../modal/shipping/CreateShippingCostModal";
+const ShippingTable = React.lazy(() => import("./ShippingTable"));
+
 
 const ShippingList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,15 +42,19 @@ const ShippingList = () => {
   }
 
   if (!isLoading && !isError) {
-    content = <ShippingTable
-      shippingCosts={shippingCosts}
-      meta={meta}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      pageSize={pageSize}
-      setPageSize={setPageSize}
-      isFetching={isFetching}
-    />;
+    content = (
+      <Suspense fallback={<ListLoading/>}>
+        <ShippingTable
+          shippingCosts={shippingCosts}
+          meta={meta}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          isFetching={isFetching}
+        />
+      </Suspense>
+    );
   }
 
   if (!isLoading && isError) {

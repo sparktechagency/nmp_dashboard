@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import ContactTable from "./ContactTable";
 import { useGetContactListQuery } from "../../redux/features/contact/contactApi";
 import ListLoading from "../loader/ListLoading";
 import ServerErrorCard from "../card/ServerErrorCard";
+const ContactTable = React.lazy(() => import("./ContactTable"));
+
 
 const ContactList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,15 +42,17 @@ const ContactList = () => {
   if (!isLoading && !isError) {
     content = (
       <div className="flex-1 overflow-hidden">
-        <ContactTable
-          contacts={contacts}
-          meta={meta}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          loading={isFetching}
-        />
+        <Suspense fallback={<ListLoading/>}>
+          <ContactTable
+            contacts={contacts}
+            meta={meta}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            loading={isFetching}
+          />
+        </Suspense>
       </div>
     );
   }

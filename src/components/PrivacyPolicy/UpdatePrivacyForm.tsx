@@ -2,14 +2,17 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CgSpinnerTwo } from "react-icons/cg";
 import type { z } from "zod";
-import CustomQuilEditor from "../form/CustomQuilEditor";
 import { policySchema } from "../../schemas/policy.schema";
 import { useCreateUpdatePolicyMutation } from "../../redux/features/policy/policyApi";
+import React, { Suspense } from "react";
+import PolicyJoditLoading from "../loader/PolicyJoditLoading";
+const CustomQuilEditor = React.lazy(() => import("../form/CustomQuilEditor"));
+
 
 type TFormValues = z.infer<typeof policySchema>;
 
 type TProps = {
-    description: string;
+  description: string;
 }
 
 const UpdatePrivacyForm = ({ description }: TProps) => {
@@ -23,7 +26,7 @@ const UpdatePrivacyForm = ({ description }: TProps) => {
 
 
   const onSubmit: SubmitHandler<TFormValues> = (data) => {
-   createUpdatePolicy({
+    createUpdatePolicy({
       type: "privacy-policy",
       content: data.description
     });
@@ -32,14 +35,15 @@ const UpdatePrivacyForm = ({ description }: TProps) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <CustomQuilEditor
-          label="Description"
-          name="description"
-          control={control}
-          height={500}
-          placeholder="Write here..."
-        />
-
+        <Suspense fallback={<PolicyJoditLoading />}>
+          <CustomQuilEditor
+            label="Description"
+            name="description"
+            control={control}
+            height={550}
+            placeholder="Write a description..."
+          />
+        </Suspense>
         <button
           type="submit"
           className="w-full flex justify-center items-center gap-x-2 bg-primary hover:bg-[#2b4773] cursor-pointer text-white py-2 rounded-md font-semibold transition-colors duration-100"

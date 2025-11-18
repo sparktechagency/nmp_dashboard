@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
