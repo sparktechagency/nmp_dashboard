@@ -46,7 +46,7 @@ const ProfilePage = lazy(() => import("../pages/settings/ProfilePage"));
 const ChangePasswordPage = lazy(() => import("../pages/settings/ChangePasswordPage"));
 
 // Fallback Loader
-const Loader = () => <div className="p-10 text-center">Loading...</div>;
+const Loader = () => <div className="p-10 text-center">...</div>;
 
 const withSuspense = (element:ReactNode) => (
   <Suspense fallback={<Loader />}>{element}</Suspense>
