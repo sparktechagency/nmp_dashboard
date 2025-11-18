@@ -6,7 +6,7 @@ import { ErrorToast } from "../../../helper/ValidationHelper.ts";
 
 //export const baseUrl = "http://13.61.205.202:9090/api/v1";
 //export const baseUrl = "http://10.10.20.24:9090/api/v1";
-export const baseUrl = "https://nmp-backend.vercel.app/ap1/v1";
+export const baseUrl = "https://nmp-backend.vercel.app/api/v1";
 //export const baseUrl = "https://backend.onlinecornerstore.com/api/v1";
 
 
